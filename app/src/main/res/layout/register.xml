@@ -35,15 +35,15 @@
     <EditText
         android:id="@+id/email_txt"
         android:layout_width="365dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintHorizontal_bias="0.608"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.486" />
+        app:layout_constraintVertical_bias="0.481" />
 
     <TextView
         android:id="@+id/email_view"
@@ -53,7 +53,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/email_txt"
-        tools:layout_editor_absoluteY="398dp" />
+        tools:layout_editor_absoluteY="390dp" />
 
     <TextView
         android:id="@+id/pass_view"
@@ -73,7 +73,7 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintHorizontal_bias="0.608"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.597" />
@@ -87,7 +87,8 @@
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="814dp" />
+        tools:layout_editor_absoluteY="814dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/name_view"
@@ -106,9 +107,32 @@
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintHorizontal_bias="0.608"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="329dp" />
+
+    <TextView
+        android:id="@+id/passconf_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/passconf_txt"
+        tools:layout_editor_absoluteY="593dp" />
+
+    <EditText
+        android:id="@+id/passconf_txt"
+        android:layout_width="365dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.709" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
