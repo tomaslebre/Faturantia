@@ -24,13 +24,15 @@
         android:id="@+id/sign_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="236dp"
         android:text="Sign Up"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.243" />
 
     <EditText
         android:id="@+id/email_txt"
@@ -52,8 +54,8 @@
         android:text="E-mail"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/email_txt"
-        tools:layout_editor_absoluteY="390dp" />
+        app:layout_constraintBottom_toTopOf="@+id/email_txt"
+        app:layout_constraintStart_toStartOf="@+id/email_txt" />
 
     <TextView
         android:id="@+id/pass_view"
@@ -62,8 +64,8 @@
         android:text="Password"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/pass_txt"
-        tools:layout_editor_absoluteY="495dp" />
+        app:layout_constraintBottom_toTopOf="@+id/pass_txt"
+        app:layout_constraintStart_toStartOf="@+id/pass_txt" />
 
     <EditText
         android:id="@+id/pass_txt"
@@ -97,8 +99,8 @@
         android:text="Full Name"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/name_txt"
-        tools:layout_editor_absoluteY="302dp" />
+        app:layout_constraintBottom_toTopOf="@+id/name_txt"
+        app:layout_constraintStart_toStartOf="@+id/name_txt" />
 
     <EditText
         android:id="@+id/name_txt"
@@ -118,8 +120,8 @@
         android:text="Confirm Password"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/passconf_txt"
-        tools:layout_editor_absoluteY="593dp" />
+        app:layout_constraintBottom_toTopOf="@+id/passconf_txt"
+        app:layout_constraintStart_toStartOf="@+id/passconf_txt" />
 
     <EditText
         android:id="@+id/passconf_txt"
