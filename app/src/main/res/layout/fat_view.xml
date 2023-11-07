@@ -68,14 +68,16 @@
 
     <EditText
         android:id="@+id/add_nome_prod"
-        android:layout_width="288dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
-        android:hint="Nome"
         style="@style/edittext_background"
+        android:layout_width="334dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:hint="Nome"
         android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_prod_view"
-        tools:layout_editor_absoluteX="35dp" />
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
