@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041" />
+        app:layout_constraintVertical_bias="0.088" />
 
     <TextView
         android:id="@+id/sign_view"
@@ -43,7 +43,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintHorizontal_bias="0.652"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_view"
         app:layout_constraintVertical_bias="0.0" />
@@ -56,7 +56,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/email_txt"
-        tools:layout_editor_absoluteY="392dp" />
+        app:layout_constraintTop_toBottomOf="@+id/name_txt" />
 
     <TextView
         android:id="@+id/pass_view"
@@ -66,7 +66,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/pass_txt"
-        tools:layout_editor_absoluteY="489dp" />
+        app:layout_constraintTop_toBottomOf="@+id/email_txt" />
 
     <EditText
         android:id="@+id/pass_txt"
@@ -85,13 +85,14 @@
         android:id="@+id/login_button"
         android:layout_width="299dp"
         android:layout_height="58dp"
+        android:layout_marginTop="88dp"
         android:background="#add827"
         android:clickable="true"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="772dp" />
+        app:layout_constraintTop_toBottomOf="@+id/passconf_txt"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/name_view"
@@ -111,7 +112,7 @@
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_view" />
 
