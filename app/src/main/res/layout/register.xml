@@ -12,16 +12,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Faturantia"
-        android:textSize="35sp"
+        android:textColor="#7adf3b"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_bias="0.041" />
 
     <TextView
-        android:id="@+id/sign_view"
+        android:id="@+id/fatura_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up"
@@ -103,7 +104,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/name_txt"
-        app:layout_constraintTop_toBottomOf="@+id/sign_view" />
+        app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
 
     <EditText
         android:id="@+id/name_txt"
