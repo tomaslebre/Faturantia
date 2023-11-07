@@ -58,9 +58,24 @@
         android:id="@+id/name_prod_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="346dp" />
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="52dp"
+        android:text="Nome do produto"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addimg_but" />
 
+    <EditText
+        android:id="@+id/add_nome_prod"
+        android:layout_width="288dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:hint="Nome"
+        style="@style/edittext_background"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/name_prod_view"
+        tools:layout_editor_absoluteX="35dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
