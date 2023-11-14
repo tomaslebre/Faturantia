@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="login_view">Login</string>
-    <string name="ver_fat_view">Ver Fatura</string>
-    <string name="faturantia">Faturantia</string>
     <string name="email_view">Email</string>
     <string name="password_view">Password</string>
+    <string name="faturantia">Faturantia</string>
+
+    <string name="ver_fat_view">Ver Fatura</string>
     <string name="loja_view">Loja</string>
     <string name="locLoja_view">Localização da Loja</string>
     <string name="buy_date_view">Data da Compra</string>
