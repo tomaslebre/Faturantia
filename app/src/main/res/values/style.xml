@@ -7,4 +7,27 @@
     <style name="custom_button_background">
         <item name="android:background">@drawable/custom_button_background</item>
     </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <style name="tittoolbar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/greenmain</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">100sp</item>
+        <item name="android:background">@drawable/tool_redondo</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:radius">20dp</item>
+
+    </style>
+
+
 </resources>

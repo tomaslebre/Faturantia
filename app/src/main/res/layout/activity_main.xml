@@ -83,12 +83,12 @@
     <Button
         android:id="@+id/login_button"
         android:layout_width="354dp"
-        android:layout_height="71dp"
-
+        android:layout_height="70dp"
         android:layout_marginTop="64dp"
         android:backgroundTint="#909090"
         android:clickable="true"
-        android:text="Login"
+        android:hint="Login"
+        android:textColorHint="@color/white"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.403"
