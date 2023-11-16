@@ -13,7 +13,7 @@ zzxz<?xml version="1.0" encoding="utf-8"?>
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fatura"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -151,7 +151,7 @@ zzxz<?xml version="1.0" encoding="utf-8"?>
         android:orientation="vertical"
         android:visibility="visible"
         tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="718dp">
+        tools:layout_editor_absoluteY="729dp">
 
         <ToggleButton
             android:id="@+id/toggleButton"
@@ -202,15 +202,19 @@ zzxz<?xml version="1.0" encoding="utf-8"?>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:layout_width="388dp"
+        android:layout_height="58dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/tittoolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/faturantia" />
+        app:layout_constraintVertical_bias="0.019"
+        app:title="@string/faturantia"
+        app:titleTextAppearance="@style/tittoolbar"
+        app:titleTextColor="#FFFFFF"  />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,22 +8,26 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="411dp"
-        android:layout_height="72dp"
-        android:background="?attr/colorPrimary"
+        android:layout_width="388dp"
+        android:layout_height="58dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/tittoolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/faturantia" />
+        app:layout_constraintVertical_bias="0.019"
+        app:title="@string/faturantia"
+        app:titleTextAppearance="@style/tittoolbar"
+        app:titleTextColor="#FFFFFF" />
 
     <Button
         android:id="@+id/button_fat"
         android:layout_width="354dp"
         android:layout_height="71dp"
         android:textColorHint="@color/white"
-        android:hint="Ver Fatura"
+        android:hint="Ver Faturas"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
