@@ -10,4 +10,5 @@
     <string name="buy_date_view">Date of purchase</string>
     <string name="name_product">Product name</string>
     <string name="add_pdf_img">+ PDF or Image</string>
+    <string name="datapurchase_view">Qualquer coisa</string>
 </resources>

@@ -7,4 +7,5 @@
     <color name="greenmain">#9DC183</color>
     <color name="colorPrimaryDark">#5cbf2a</color>
     <color name="colorAccent">#ff4081</color>
+    <color name="transparent">#00000000</color>
 </resources>
