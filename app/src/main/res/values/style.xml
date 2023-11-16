@@ -9,7 +9,6 @@
         <item name="android:background">@drawable/custom_button_background</item>
     </style>
 
-
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/darker_gray</item>
@@ -17,10 +16,14 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    #toolbar config
     <style name="tittoolbar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:background">@drawable/tool_redondo</item>
-        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/greenmain</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">100sp</item>
+        <item name="android:background">@drawable/tool_redondo</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textSize">23sp</item>
         <!-- fonte do titulo moderna e minimalista -->
         <item name="android:fontFamily">@font/jost</item>
