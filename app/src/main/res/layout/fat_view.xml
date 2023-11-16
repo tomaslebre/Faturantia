@@ -95,7 +95,7 @@
                 android:layout_height="51dp"
                 android:layout_marginTop="5dp"
                 android:ems="10"
-                android:hint="Store name"
+                android:hint="@string/hint_store_name"
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +123,7 @@
                 android:layout_height="51dp"
                 android:layout_marginTop="5dp"
                 android:ems="10"
-                android:hint="Store location"
+                android:hint="@string/locLoja_view"
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -150,9 +150,9 @@
                 android:layout_height="231dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit"
-                tools:visibility="visible" />
+                app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit" />
 
             <EditText
                 android:id="@+id/purchase_date_edit"
@@ -161,12 +161,51 @@
                 android:layout_height="51dp"
                 android:layout_marginTop="5dp"
                 android:ems="10"
-                android:hint="DD/MM/YYYY"
+                android:hint="@string/hintdata"
                 android:inputType="date"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buy_date_view" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/datawarrany"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.117"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit" />
+
+            <EditText
+                android:id="@+id/expiration_data_edit"
+                style="@style/edittext_background"
+                android:layout_width="350dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:inputType="date"
+                android:hint="@string/hintdata"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <CalendarView
+                android:id="@+id/expi_date_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.492"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expiration_data_edit"
+                tools:visibility="gone" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
