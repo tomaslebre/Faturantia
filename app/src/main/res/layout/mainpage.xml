@@ -8,7 +8,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="388dp"
+        android:layout_width="380dp"
         android:layout_height="58dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/tittoolbar"
@@ -24,7 +24,7 @@
 
     <Button
         android:id="@+id/button_fat"
-        android:layout_width="354dp"
+        android:layout_width="350dp"
         android:layout_height="71dp"
         android:textColorHint="@color/white"
         android:hint="Ver Faturas"
@@ -33,5 +33,11 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="733dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="328dp"
+        android:layout_height="523dp"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="110dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@
         <item name="android:textSize">23sp</item>
         <!-- fonte do titulo moderna e minimalista -->
         <item name="android:fontFamily">@font/jost</item>
-        <item name="android:textAppearance">null</item>
+        <item name="android:textAppearance">@null</item>
         <item name="android:textStyle">bold</item>
     </style>
 
