@@ -10,7 +10,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -95,7 +99,7 @@
                 android:layout_height="51dp"
                 android:layout_marginTop="5dp"
                 android:ems="10"
-                android:hint="Store name"
+                android:hint="@string/hint_store_name"
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +127,7 @@
                 android:layout_height="51dp"
                 android:layout_marginTop="5dp"
                 android:ems="10"
-                android:hint="Store location"
+                android:hint="@string/locLoja_view"
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,11 +152,15 @@
                 android:id="@+id/purchase_date_calendar"
                 android:layout_width="350dp"
                 android:layout_height="231dp"
-                android:visibility="gone"
+                android:background="@color/greenmain"
+                android:backgroundTint="@color/greenmain"
+                android:elevation="10dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <EditText
                 android:id="@+id/purchase_date_edit"
@@ -160,13 +168,29 @@
                 android:layout_width="350dp"
                 android:layout_height="51dp"
                 android:layout_marginTop="5dp"
+                android:clickable="true"
                 android:ems="10"
-                android:hint="DD/MM/YYYY"
-                android:inputType="date"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:hint="@string/hintdata"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buy_date_view" />
+
+            <Button
+                android:id="@+id/save_fat_butt"
+                android:layout_width="350dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/save_butt"
+                android:textSize="20sp"
+                android:fontFamily="@font/jost"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
