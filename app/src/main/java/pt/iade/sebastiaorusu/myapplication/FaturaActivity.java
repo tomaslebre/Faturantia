@@ -25,18 +25,15 @@ public class FaturaActivity extends AppCompatActivity {
     private void setupComponents() {
         purchaseDateEdit = findViewById(R.id.purchase_date_edit);
         purchaseDateCalendar = findViewById(R.id.purchase_date_calendar);
-
+        purchaseDateCalendar.setVisibility(View.INVISIBLE);
         purchaseDateEdit.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 // Quando o EditText recebe foco, esconde o teclado e mostra o CalendarView
-                hideKeyboard();
                 purchaseDateCalendar.setVisibility(View.VISIBLE);
-
             } else {
-                purchaseDateCalendar.setVisibility(View.GONE);
+                purchaseDateCalendar.setVisibility(View.INVISIBLE);
             }
         });
-
         purchaseDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // Quando a data é alterada no CalendarView, atualiza o EditText
             String date = dayOfMonth + "/" + (month + 1) + "/" + year;
@@ -44,12 +41,6 @@ public class FaturaActivity extends AppCompatActivity {
         });
     }
 
-    public void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        View currentFocus = getCurrentFocus();
-        if (currentFocus != null) {
-            imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
-        }
-    }
-
 }
+
+

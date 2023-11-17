@@ -14,5 +14,6 @@
     <string name="hintdata">DD/MM/YYYY</string>
     <string name="hint_store_name">Store name</string>
     <string name="hint_prod_name">Product name</string>
+    <string name="save_butt">Save</string>
 
 </resources>
