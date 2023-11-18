@@ -15,5 +15,7 @@
     <string name="hint_store_name">Store name</string>
     <string name="hint_prod_name">Product name</string>
     <string name="save_butt">Save</string>
+    <string name="fat_view">Bill</string>
+    <string name="save_warr_button">Save guarantee</string>
 
 </resources>
