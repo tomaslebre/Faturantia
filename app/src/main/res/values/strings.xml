@@ -22,5 +22,6 @@
     <string name="imp_garantee">Important?</string>
     <string name="radio_yes">Yes</string>
     <string name="radio_no">No</string>
+    <string name="remember_view">Remember when?</string>
 
 </resources>

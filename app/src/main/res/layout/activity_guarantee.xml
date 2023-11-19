@@ -105,6 +105,7 @@
         tools:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -120,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingTop="10sp"
+            android:contentDescription="Important?"
             android:text="@string/imp_garantee"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -127,29 +129,99 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:text="@string/radio_yes"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:contentDescription="Yes"
+                android:text="@string/radio_yes"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:text="@string/radio_no"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:contentDescription="No"
+                android:text="@string/radio_no"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
 
         </RadioGroup>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="Remember When?"
+            app:srcCompat="@drawable/noti_logo" />
+
+        <TextView
+            android:id="@+id/remember_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10sp"
+            android:layout_weight="1"
+            android:paddingTop="8sp"
+            android:text="@string/remember_view"
+            android:contentDescription="Remember When?"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/expand_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/transparent"
+            android:contentDescription="Open Calendar Remember"
+            app:srcCompat="@drawable/expand_butt" />
+
+    </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/rem_date_calendar"
+        android:layout_width="349dp"
+        android:layout_height="298dp"
+        android:background="@color/greenmain"
+        android:backgroundTint="@color/greenmain"
+        android:elevation="10dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:visibility="gone" />
+
+    <Button
+        android:id="@+id/save_guar_butt"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:text="@string/save_warr_button"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="767dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
