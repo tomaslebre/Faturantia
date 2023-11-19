@@ -15,6 +15,9 @@
         <activity
             android:name=".MainActivity2"
             android:exported="false" />
+        <activity
+            android:name=".guarantee_activity"
+            android:exported="false" />
         <activity android:name=".FaturaActivity" />
         <activity
             android:name=".MainActivity"

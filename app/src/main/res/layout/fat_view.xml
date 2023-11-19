@@ -52,11 +52,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
 
             <TextView
-                android:id="@+id/name_prod_view"
+                android:id="@+id/bill_name_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/name_product"
+                android:text="@string/bill_name"
                 android:textColor="@color/black"
                 android:textSize="21sp"
                 android:textStyle="bold"
@@ -66,7 +66,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/addimg_but" />
 
             <EditText
-                android:id="@+id/add_nome_prod"
+                android:id="@+id/bill_name_but"
                 style="@style/edittext_background"
                 android:layout_width="350dp"
                 android:layout_height="51dp"
@@ -74,8 +74,9 @@
                 android:hint="Name"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.508"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_prod_view"
+                app:layout_constraintTop_toBottomOf="@+id/bill_name_view"
                 tools:ignore="MissingConstraints" />
 
             <TextView
@@ -90,7 +91,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.102"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_nome_prod" />
+                app:layout_constraintTop_toBottomOf="@+id/bill_name_but" />
 
             <EditText
                 android:id="@+id/edit_nome_loja"

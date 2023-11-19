@@ -9,13 +9,18 @@
     <string name="locLoja_view">Store location</string>
     <string name="buy_date_view">Date of purchase</string>
     <string name="name_product">Product name</string>
+    <string name="bill_name">Bill name</string>
     <string name="add_pdf_img">+ PDF or Image</string>
     <string name="datawarrany">Expiration date</string>
     <string name="hintdata">DD/MM/YYYY</string>
     <string name="hint_store_name">Store name</string>
-    <string name="hint_prod_name">Product name</string>
     <string name="save_butt">Save</string>
     <string name="fat_view">Bill</string>
     <string name="save_warr_button">Save guarantee</string>
+    <string name="guarantee_tit">Guarantee</string>
+    <string name="exp_date">Expire Date</string>
+    <string name="imp_garantee">Important?</string>
+    <string name="radio_yes">Yes</string>
+    <string name="radio_no">No</string>
 
 </resources>
