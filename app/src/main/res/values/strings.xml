@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="login_view">Login</string>
-    <string name="email_view">Email</string>
+    <string name="email_view">E-mail</string>
     <string name="password_view">Password</string>
     <string name="faturantia">Faturantia</string>
     <string name="ver_fat_view">View bill</string>
