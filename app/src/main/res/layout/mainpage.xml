@@ -31,7 +31,6 @@
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginRight="20sp"
                 android:onClick="toggleMenu"
-
                 />
 
     </androidx.appcompat.widget.Toolbar>
