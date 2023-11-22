@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 public class MainActivity extends AppCompatActivity {
     protected Button loginButton;
 
@@ -20,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupComponents() {
         loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, FaturaActivity.class);
+            Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
         });
     }
 }
+
