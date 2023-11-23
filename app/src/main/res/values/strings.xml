@@ -27,5 +27,7 @@
     <string name="important_guarantee">Important Guarantee</string>
     <string name="remember_view">Remember when?</string>
     <string name="logout">Logout</string>
+    <string name="open">Open Navigation Drawer</string>
+    <string name="close">Close Navigation Drawer</string>
 
 </resources>

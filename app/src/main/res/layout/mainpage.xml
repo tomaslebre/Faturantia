@@ -24,6 +24,7 @@
         app:titleTextAppearance="@style/tittoolbar"
         app:titleTextColor="#FFFFFF">
             <ImageButton
+                android:id="@+id/burguer_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/menu_burguer"
@@ -60,16 +61,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/burguer_menu"
-        app:itemIconTint="@color/greenmain"
-        android:visibility="gone"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="-16dp">
 
-        />
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:itemIconTint="@color/greenmain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu="@menu/burguer_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
