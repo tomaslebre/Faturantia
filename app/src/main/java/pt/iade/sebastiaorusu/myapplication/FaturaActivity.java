@@ -2,6 +2,7 @@ package pt.iade.sebastiaorusu.myapplication;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.content.Context;
@@ -13,12 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FaturaActivity extends AppCompatActivity {
     protected EditText purchaseDateEdit;
     protected CalendarView purchaseDateCalendar;
+    protected Button saveButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fat_view);
-
         setupComponents();
     }
 
@@ -38,7 +39,14 @@ public class FaturaActivity extends AppCompatActivity {
             // Quando a data é alterada no CalendarView, atualiza o EditText
             String date = dayOfMonth + "/" + (month + 1) + "/" + year;
             purchaseDateEdit.setText(date);
+            // Quando escolhe a data, esconde o teclado e o CalendarView
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(purchaseDateEdit.getWindowToken(), 0);
+            purchaseDateCalendar.setVisibility(View.INVISIBLE);
         });
+
+
+
     }
 
 }
