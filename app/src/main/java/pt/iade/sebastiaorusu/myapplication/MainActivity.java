@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupComponents() {
         loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
+            Intent noBackLogin = new Intent(this, MenuActivity.class);
+            noBackLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(noBackLogin);
         });
     }
 }
