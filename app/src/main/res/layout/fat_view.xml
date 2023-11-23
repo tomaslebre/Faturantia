@@ -13,9 +13,6 @@
     tools:layout_editor_absoluteY="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grey"
@@ -186,7 +183,6 @@
                     android:ems="10"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:freezesText="true"
                     android:hint="@string/hintdata"
                     android:padding="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -194,11 +190,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/buy_date_view" />
 
                 <Button
-                    android:id="@+id/save_fat_butt"
+                    android:id="@+id/next_button"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/save_butt"
+                    android:text="@string/next_but"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.508"
@@ -206,16 +202,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/exit_button"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/save_warr_button"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/cancel_but"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.508"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/save_fat_butt" />
+                    app:layout_constraintTop_toBottomOf="@+id/next_button" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

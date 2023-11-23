@@ -83,26 +83,15 @@
         android:layout_width="350dp"
         android:layout_height="51dp"
         android:layout_marginTop="5dp"
+        android:clickable="true"
         android:ems="10"
-        android:hint="@string/exp_date"
-        android:inputType="text"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/hintdata"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exp_date_view" />
-
-    <CalendarView
-        android:id="@+id/exp_date_calendar"
-        android:layout_width="349dp"
-        android:layout_height="298dp"
-        android:background="@color/greenmain"
-        android:backgroundTint="@color/greenmain"
-        android:elevation="10dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exp_date_txt"
-        tools:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -111,8 +100,8 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintTop_toBottomOf="@+id/exp_date_txt">
 
         <TextView
@@ -200,9 +189,23 @@
     </LinearLayout>
 
     <CalendarView
+        android:id="@+id/exp_date_calendar"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:background="@color/greenmain"
+        android:backgroundTint="@color/greenmain"
+        android:elevation="10dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exp_date_txt"
+        tools:visibility="gone" />
+
+    <CalendarView
         android:id="@+id/rem_date_calendar"
         android:layout_width="349dp"
-        android:layout_height="298dp"
+        android:layout_height="300dp"
         android:background="@color/greenmain"
         android:backgroundTint="@color/greenmain"
         android:elevation="10dp"
@@ -217,7 +220,7 @@
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginTop="216dp"
-        android:text="@string/save_warr_button"
+        android:text="@string/save_but"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"

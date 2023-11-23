@@ -14,9 +14,9 @@
     <string name="datawarrany">Expiration date</string>
     <string name="hintdata">DD/MM/YYYY</string>
     <string name="hint_store_name">Store name</string>
-    <string name="save_butt">Save</string>
+    <string name="next_but">Next</string>
     <string name="fat_view">Bill</string>
-    <string name="save_warr_button">Save guarantee</string>
+    <string name="cancel_but">Cancel</string>
     <string name="guarantee_tit">Guarantee</string>
     <string name="guarantee_add_view">Add guarantee</string>
     <string name="exp_date">Expire Date</string>
@@ -30,5 +30,6 @@
     <string name="logout">Logout</string>
     <string name="open">Open Navigation Drawer</string>
     <string name="close">Close Navigation Drawer</string>
+    <string name="save_but">Save</string>
 
 </resources>
