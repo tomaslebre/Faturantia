@@ -1,15 +1,12 @@
 package pt.iade.sebastiaorusu.myapplication;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
-
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -17,10 +14,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MenuActivity extends AppCompatActivity {
+public class MainPageActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
+
+    protected ImageButton addGuarantee;
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -30,6 +31,7 @@ public class MenuActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,23 +54,29 @@ public class MenuActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(MenuActivity.this, "Home ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MenuActivity.this, MenuActivity.class);
+                    Toast.makeText(MainPageActivity.this, "Home ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainPageActivity.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(MenuActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainPageActivity.this, " ", Toast.LENGTH_SHORT).show();
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(MenuActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainPageActivity.this, " ", Toast.LENGTH_SHORT).show();
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(MenuActivity.this, "Login Page ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                    Toast.makeText(MainPageActivity.this, "Login Page ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainPageActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
                 return false;
             }
+        });
+
+        addGuarantee = findViewById(R.id.add_butt_guarantee);
+        addGuarantee.setOnClickListener(v -> {
+            Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
+            startActivity(intent);
         });
 
     }
