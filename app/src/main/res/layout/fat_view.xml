@@ -82,7 +82,7 @@
                     android:layout_width="350dp"
                     android:layout_height="51dp"
                     android:layout_marginTop="5dp"
-                    android:hint="Name"
+                    android:hint="@string/bill_name"
                     android:padding="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.508"

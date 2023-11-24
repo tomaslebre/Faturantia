@@ -12,6 +12,8 @@ import android.widget.Button;
 public class LoginActivity extends AppCompatActivity {
     protected Button loginButton;
 
+    protected Button signUpButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,14 @@ public class LoginActivity extends AppCompatActivity {
             noBackLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(noBackLogin);
         });
-    }
+
+            signUpButton = findViewById(R.id.sign_up);
+            signUpButton.setOnClickListener(v -> {
+                Intent noBackLogin = new Intent(this, RegisterActivity.class);
+                noBackLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(noBackLogin);
+            });
+        }
+
 }
 
