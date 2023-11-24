@@ -14,7 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/grey"
         tools:context=".LoginActivity">
 
@@ -26,6 +26,7 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp"
             tools:visibility="visible">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -161,15 +162,14 @@
 
                 <CalendarView
                     android:id="@+id/purchase_date_calendar"
-                    android:layout_width="350dp"
-                    android:layout_height="231dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/greenmain"
                     android:backgroundTint="@color/greenmain"
                     android:elevation="10dp"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.491"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/purchase_date_edit"
+                    app:layout_constraintStart_toStartOf="@+id/purchase_date_edit"
                     app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit"
                     tools:visibility="gone" />
 
@@ -231,9 +231,7 @@
             app:layout_constraintVertical_bias="0.019"
             app:title="@string/faturantia"
             app:titleTextAppearance="@style/tittoolbar"
-            app:titleTextColor="#FFFFFF"/>
-
-
+            app:titleTextColor="#FFFFFF" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

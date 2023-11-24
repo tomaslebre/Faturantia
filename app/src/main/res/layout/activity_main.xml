@@ -41,6 +41,7 @@
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:hint="@string/email_view"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +80,10 @@
         android:layout_width="365dp"
         android:layout_height="48dp"
         android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/password_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pass_view"
         app:passwordToggleEnabled="true" />
