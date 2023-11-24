@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,225 +10,233 @@
     android:background="@color/grey"
     tools:context=".guarantee_activity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="388dp"
-        android:layout_height="58dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/tittoolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019"
-        app:title="@string/faturantia"
-        app:titleTextAppearance="@style/tittoolbar"
-        app:titleTextColor="#FFFFFF" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey"
+        tools:context=".guarantee_activity">
 
-    <TextView
-        android:id="@+id/prod_name_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="@string/name_product"
-        android:textColor="@color/black"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
-
-    <TextView
-        android:id="@+id/fatura_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:text="@string/guarantee_tit"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/prod_name_txt"
-        style="@style/edittext_background"
-        android:layout_width="350dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:hint="@string/name_product"
-        android:inputType="text"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prod_name_view" />
-
-    <TextView
-        android:id="@+id/exp_date_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/exp_date"
-        android:textColor="@color/black"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prod_name_txt" />
-
-    <EditText
-        android:id="@+id/exp_date_txt"
-        style="@style/edittext_background"
-        android:layout_width="350dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="5dp"
-        android:clickable="true"
-        android:ems="10"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="@string/hintdata"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exp_date_view" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
-        app:layout_constraintTop_toBottomOf="@+id/exp_date_txt">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="388dp"
+            android:layout_height="58dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/tittoolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.019"
+            app:title="@string/faturantia"
+            app:titleTextAppearance="@style/tittoolbar"
+            app:titleTextColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/important_txt"
+            android:id="@+id/prod_name_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="10sp"
-            android:contentDescription="Important?"
-            android:text="@string/imp_garantee"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="64dp"
+            android:text="@string/name_product"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.111"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
 
-        <RadioGroup
+        <TextView
+            android:id="@+id/fatura_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_marginTop="120dp"
+            android:text="@string/guarantee_tit"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                android:id="@+id/radioButton2"
+        <EditText
+            android:id="@+id/prod_name_txt"
+            style="@style/edittext_background"
+            android:layout_width="350dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:hint="@string/name_product"
+            android:inputType="text"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prod_name_view" />
+
+        <TextView
+            android:id="@+id/exp_date_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/exp_date"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prod_name_txt" />
+
+        <EditText
+            android:id="@+id/exp_date_txt"
+            style="@style/edittext_background"
+            android:layout_width="350dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/hintdata"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exp_date_view" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.176"
+            app:layout_constraintTop_toBottomOf="@+id/exp_date_txt">
+
+            <TextView
+                android:id="@+id/important_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="10sp"
+                android:contentDescription="Important?"
+                android:text="@string/imp_garantee"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:contentDescription="Yes"
+                    android:text="@string/radio_yes"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:contentDescription="No"
+                    android:text="@string/radio_no"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="Remember When?"
+                app:srcCompat="@drawable/noti_logo" />
+
+            <TextView
+                android:id="@+id/remember_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10sp"
-                android:contentDescription="Yes"
-                android:text="@string/radio_yes"
-                android:textSize="17sp"
+                android:layout_weight="1"
+                android:layout_marginTop="15dp"
+                android:text="@string/remember_view"
+                android:contentDescription="Remember When?"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/radioButton"
+            <ImageButton
+                android:id="@+id/expand_butt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
-                android:contentDescription="No"
-                android:text="@string/radio_no"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:layout_marginLeft="85sp"
+                android:layout_marginTop="5sp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/transparent"
+                android:clickable="true"
+                android:contentDescription="Open Calendar Remember"
+                app:srcCompat="@drawable/expand_butt" />
 
+        </LinearLayout>
 
-        </RadioGroup>
-    </LinearLayout>
+        <CalendarView
+            android:id="@+id/exp_date_calendar"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:background="@color/greenmain"
+            android:backgroundTint="@color/greenmain"
+            android:elevation="10dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
+            app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
+            app:layout_constraintTop_toBottomOf="@+id/exp_date_txt"
+            tools:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        <CalendarView
+            android:id="@+id/rem_date_calendar"
+            android:layout_width="349dp"
+            android:layout_height="300dp"
+            android:background="@color/greenmain"
+            android:backgroundTint="@color/greenmain"
+            android:elevation="15dp"
+            android:visibility="visible"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            tools:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="Remember When?"
-            app:srcCompat="@drawable/noti_logo" />
-
-        <TextView
-            android:id="@+id/remember_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10sp"
-            android:layout_weight="1"
-            android:paddingTop="8sp"
-            android:text="@string/remember_view"
-            android:contentDescription="Remember When?"
+        <Button
+            android:id="@+id/save_guar_butt"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="132dp"
+            android:text="@string/save_but"
             android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/expand_butt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="85sp"
-            android:layout_marginTop="5sp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/transparent"
-            android:contentDescription="Open Calendar Remember"
-            app:srcCompat="@drawable/expand_butt" />
-
-    </LinearLayout>
-
-    <CalendarView
-        android:id="@+id/exp_date_calendar"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:background="@color/greenmain"
-        android:backgroundTint="@color/greenmain"
-        android:elevation="10dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exp_date_txt"
-        tools:visibility="gone" />
-
-    <CalendarView
-        android:id="@+id/rem_date_calendar"
-        android:layout_width="349dp"
-        android:layout_height="300dp"
-        android:background="@color/greenmain"
-        android:backgroundTint="@color/greenmain"
-        android:elevation="10dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:visibility="gone" />
-
-    <Button
-        android:id="@+id/save_guar_butt"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="216dp"
-        android:text="@string/save_but"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
