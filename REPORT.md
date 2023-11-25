@@ -14,6 +14,8 @@ Na página da garantia fizemos alterações dos textbox, como juntamos as fatura
 
 ## Modelo Entidade-Relação
 
+![diagrama](imagens/Imagens%20Github/Diagrama.png)
+
 ## Dicionário
 
 ### Tabela `userapp`
