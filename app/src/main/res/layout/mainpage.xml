@@ -38,6 +38,7 @@
             android:minHeight="?attr/actionBarSize"
             android:textSize="40sp"
             android:theme="@style/tittoolbar"
+            android:elevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.478"
             app:layout_constraintStart_toStartOf="parent"

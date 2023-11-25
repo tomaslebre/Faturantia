@@ -39,6 +39,11 @@ public class MainPageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+
         if (item.getItemId() == R.id.add_butt_guarantee) {
             // ActionBar "Add" button.
             Intent intent = new Intent(MainPageActivity.this, guarantee_activity.class);
