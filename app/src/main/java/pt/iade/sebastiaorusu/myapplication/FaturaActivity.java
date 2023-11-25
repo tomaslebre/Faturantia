@@ -16,10 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class FaturaActivity extends AppCompatActivity {
+    private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     protected EditText purchaseDateEdit;
     protected CalendarView purchaseDateCalendar;
     protected Button nextButton;
-
     protected Button cancelButtonFat;
 
     @Override
@@ -27,8 +27,35 @@ public class FaturaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fat_view);
 
+
         setupComponents();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Must be called always and before everything.
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check which activity returned to us.
+        if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
+            // Check if the activity was successful.
+            if (resultCode == AppCompatActivity.RESULT_OK) {
+                // Get extras returned to us.
+                int position = data.getIntExtra("position", -1);
+                TodoItem updatedItem = (TodoItem) data.getSerializableExtra("item");
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("position", position);
+                returnIntent.putExtra("item", updatedItem);
+                setResult(AppCompatActivity.RESULT_OK, returnIntent);
+
+                finish();
+
+            }
+
+        }
+    }
+
 
     private void setupComponents() {
         purchaseDateEdit = findViewById(R.id.purchase_date_edit);
@@ -65,10 +92,18 @@ public class FaturaActivity extends AppCompatActivity {
         });
 
         nextButton = findViewById(R.id.next_button);
-        nextButton.setOnClickListener(v -> {
-            Intent intent = new Intent(FaturaActivity.this, guarantee_activity.class);
-            intent.putExtra("item", new TodoItem());
-            startActivity(intent);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FaturaActivity.this, guarantee_activity.class);
+                intent.putExtra("position", -1);
+                intent.putExtra("item", new TodoItem());
+
+                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+
+            }
+
+
         });
 
         cancelButtonFat = findViewById(R.id.exit_button);
