@@ -36,11 +36,6 @@ public class guarantee_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guarantee);
 
-        Calendar chosenDate = Calendar.getInstance();
-        chosenDate.set(2022, Calendar.MARCH, 15);
-
-        item = new TodoItem(1, "Titlo Teste", chosenDate, true, Calendar.getInstance(), "Notas teste");
-
         setupComponents();
         setupCalendar();
     }

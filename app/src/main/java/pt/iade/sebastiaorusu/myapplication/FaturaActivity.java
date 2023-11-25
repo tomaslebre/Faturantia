@@ -13,6 +13,8 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+
 public class FaturaActivity extends AppCompatActivity {
     protected EditText purchaseDateEdit;
     protected CalendarView purchaseDateCalendar;
@@ -22,6 +24,7 @@ public class FaturaActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fat_view);
+
         setupComponents();
     }
 
@@ -61,8 +64,8 @@ public class FaturaActivity extends AppCompatActivity {
 
         nextButton = findViewById(R.id.next_button);
         nextButton.setOnClickListener(v -> {
-            Intent intent = new Intent(FaturaActivity.this, guarantee_activity.class);
-            startActivity(intent);
+            Intent intentGarantia = new Intent(FaturaActivity.this, guarantee_activity.class);
+            startActivity(intentGarantia);
         });
 
 

@@ -2,10 +2,12 @@ package pt.iade.sebastiaorusu.myapplication.models;
 
 import android.widget.EditText;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class TodoItem {
+public class TodoItem implements Serializable {
     private int id;
     private String title;
     private Calendar expDateCalendar;
@@ -27,6 +29,21 @@ public class TodoItem {
         this.notes = notes;
     }
 
+
+    public static ArrayList<TodoItem> List(){
+        ArrayList<TodoItem> items = new ArrayList<TodoItem>();
+        items.add(new TodoItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
+        items.add(new TodoItem(2, "Item 2", new GregorianCalendar(2021, 11, 23), true, new GregorianCalendar(2021, 10, 23), "Item Notes 2"));
+        items.add(new TodoItem(3, "Item 3", new GregorianCalendar(2019, 1, 12), false, new GregorianCalendar(2022, 12, 12), "Item Notes 3"));
+        items.add(new TodoItem(4, "Item 4", new GregorianCalendar(2021, 7, 11), false, new GregorianCalendar(2021, 6, 11), "Item Notes 4"));
+
+        return items;
+    }
+
+
+    public static TodoItem GetById(int id){
+        return new TodoItem(id, "Item ", new GregorianCalendar(), false, new GregorianCalendar(), "Item Notes ");
+    }
     public int getId() {
         return id;
     }

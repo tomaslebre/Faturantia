@@ -2,6 +2,7 @@ package pt.iade.sebastiaorusu.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
@@ -11,14 +12,23 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+
 public class MainPageActivity extends AppCompatActivity {
+    protected RecyclerView itemsListView;
+    protected ArrayList<TodoItem> itemsList;
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
-
     protected ImageButton addGuarantee;
 
 
@@ -37,6 +47,8 @@ public class MainPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage);
+
+        itemsList = TodoItem.List();
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,8 +89,16 @@ public class MainPageActivity extends AppCompatActivity {
         addGuarantee.setOnClickListener(v -> {
             Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
             startActivity(intent);
-        });
 
+        });
+        setupComponents();
+
+
+    }
+
+    private void setupComponents() {
+        itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
+        itemsListView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
