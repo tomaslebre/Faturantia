@@ -124,7 +124,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:contentDescription="Important?"
                 android:paddingTop="10sp"
                 android:text="@string/imp_guarantee"
                 android:textSize="20sp"
@@ -155,17 +154,15 @@
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:contentDescription="Remember When?"
                 app:srcCompat="@drawable/noti_logo" />
 
             <TextView
                 android:id="@+id/remember_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_marginStart="10sp"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:contentDescription="Remember When?"
                 android:text="@string/remember_view"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -174,12 +171,10 @@
                 android:id="@+id/expand_butt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="85sp"
+                android:layout_marginStart="85sp"
                 android:layout_marginTop="5sp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/transparent"
-                android:clickable="true"
-                android:contentDescription="Open Calendar Remember"
                 app:srcCompat="@drawable/expand_butt" />
 
         </LinearLayout>
@@ -260,7 +255,7 @@
                 android:gravity="start|top"
                 android:hint="@string/notes_hint"
                 android:inputType="textMultiLine"
-                android:paddingLeft="5dp" />
+                android:paddingStart="5dp" />
         </LinearLayout>
 
 

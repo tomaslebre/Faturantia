@@ -15,12 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class guarantee_activity extends AppCompatActivity {
-    protected TodoItem item;
     protected EditText titleEdit;
     protected CheckBox importantCheck;
     protected EditText notes;
@@ -30,14 +28,20 @@ public class guarantee_activity extends AppCompatActivity {
     protected Button saveButton;
     protected ImageButton expandButton;
 
+    protected TodoItem item;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guarantee);
 
-        setupComponents();
+        Intent intent = getIntent();
+        item = (TodoItem) intent.getSerializableExtra("item");
+
         setupCalendar();
+        setupComponents();
+
     }
 
     private void setupCalendar() {
@@ -97,13 +101,6 @@ public class guarantee_activity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
         // Save button garantias
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
@@ -126,6 +123,8 @@ public class guarantee_activity extends AppCompatActivity {
         populateView();
 
     }
+
+
     protected void populateView(){
         titleEdit.setText(item.getTitle());
         expDateCalendar.setDate(item.getExp_date().getTimeInMillis());

@@ -64,8 +64,9 @@ public class FaturaActivity extends AppCompatActivity {
 
         nextButton = findViewById(R.id.next_button);
         nextButton.setOnClickListener(v -> {
-            Intent intentGarantia = new Intent(FaturaActivity.this, guarantee_activity.class);
-            startActivity(intentGarantia);
+            Intent intent = new Intent(FaturaActivity.this, guarantee_activity.class);
+            intent.putExtra("item", new TodoItem());
+            startActivity(intent);
         });
 
 

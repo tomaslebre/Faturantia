@@ -41,9 +41,7 @@ public class TodoItem implements Serializable {
     }
 
 
-    public static TodoItem GetById(int id){
-        return new TodoItem(id, "Item ", new GregorianCalendar(), false, new GregorianCalendar(), "Item Notes ");
-    }
+
     public int getId() {
         return id;
     }

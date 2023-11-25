@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ImageButton;
@@ -100,6 +101,14 @@ public class MainPageActivity extends AppCompatActivity {
 
     private void setupComponents() {
         itemsRowAdapter = new TodoItemRowAdapter(this, itemsList);
+        itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(MainPageActivity.this, guarantee_activity.class);
+                intent.putExtra("item", itemsList.get(position));
+                startActivity(intent);
+            }
+        });
 
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
