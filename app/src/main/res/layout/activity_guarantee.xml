@@ -1,263 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
-    android:visibility="visible"
-    tools:context=".guarantee_activity"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="0dp"
-    tools:visibility="visible">
+    android:layout_gravity="right"
+    app:elevation="0dp"
+    tools:layout_editor_absoluteX="16dp"
+    tools:layout_editor_absoluteY="0dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/grey"
-        tools:context=".guarantee_activity">
+        android:visibility="visible"
+        tools:context=".guarantee_activity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:visibility="visible">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="388dp"
-            android:layout_height="58dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/tittoolbar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.478"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.019"
-            app:title="@string/faturantia"
-            app:titleTextAppearance="@style/tittoolbar"
-            app:titleTextColor="#FFFFFF" />
-
-        <TextView
-            android:id="@+id/prod_name_view"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/name_product"
-            android:textColor="@color/black"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/prod_name_txt"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/prod_name_txt"
-            app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
+            android:background="@color/grey"
+            tools:context=".guarantee_activity">
 
-        <TextView
-            android:id="@+id/fatura_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="132dp"
-            android:text="@string/guarantee_tit"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/prod_name_view"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/prod_name_txt"
-            style="@style/edittext_background"
-            android:layout_width="350dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="@string/name_product"
-            android:inputType="text"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prod_name_view" />
-
-        <TextView
-            android:id="@+id/exp_date_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/exp_date"
-            android:textColor="@color/black"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
-            app:layout_constraintTop_toBottomOf="@+id/prod_name_txt" />
-
-        <EditText
-            android:id="@+id/exp_date_txt"
-            style="@style/edittext_background"
-            android:layout_width="350dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="4dp"
-            android:clickable="true"
-            android:ems="10"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:hint="@string/hintdata"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/exp_date_view" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
-            app:layout_constraintTop_toBottomOf="@+id/exp_date_txt">
-
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="388dp"
+                android:layout_height="58dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/tittoolbar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.478"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.019"
+                app:title="@string/faturantia"
+                app:titleTextAppearance="@style/tittoolbar"
+                app:titleTextColor="#FFFFFF" />
 
             <TextView
-                android:id="@+id/important_txt"
+                android:id="@+id/prod_name_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="10sp"
-                android:text="@string/imp_guarantee"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <CheckBox
-                android:id="@+id/check_important"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="35dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/noti_logo" />
+                android:layout_marginTop="40dp"
+                android:text="@string/name_product"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/prod_name_txt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/prod_name_txt"
+                app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
 
             <TextView
-                android:id="@+id/remember_view"
+                android:id="@+id/fatura_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1"
-                android:text="@string/remember_view"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/expand_butt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="85sp"
-                android:layout_marginTop="5sp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/transparent"
-                app:srcCompat="@drawable/expand_butt" />
-
-        </LinearLayout>
-
-        <CalendarView
-            android:id="@+id/exp_date_calendar"
-            android:layout_width="350dp"
-            android:layout_height="300dp"
-            android:background="@color/greenmain"
-            android:backgroundTint="@color/greenmain"
-            android:elevation="10dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
-            app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
-            app:layout_constraintTop_toBottomOf="@+id/exp_date_txt"
-            tools:visibility="gone" />
-
-        <CalendarView
-            android:id="@+id/rem_date_calendar"
-            android:layout_width="349dp"
-            android:layout_height="300dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/greenmain"
-            android:backgroundTint="@color/greenmain"
-            android:elevation="15dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            tools:visibility="gone" />
-
-        <Button
-            android:id="@+id/save_guar_butt"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="180dp"
-            android:text="@string/save_but"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-        <Button
-            android:id="@+id/exit_button"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/cancel_but"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/save_guar_butt"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/save_guar_butt"
-            app:layout_constraintTop_toBottomOf="@+id/save_guar_butt" />
-
-        <LinearLayout
-            android:layout_width="347dp"
-            android:layout_height="136dp"
-            android:layout_marginTop="24dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.531"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/notas_txt"
-                android:textSize="15sp" />
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="132dp"
+                android:text="@string/guarantee_tit"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/prod_name_view"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/notes_edit"
+                android:id="@+id/prod_name_txt"
                 style="@style/edittext_background"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="350dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="5dp"
                 android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/notes_hint"
-                android:inputType="textMultiLine"
-                android:paddingStart="5dp" />
-        </LinearLayout>
+                android:hint="@string/name_product"
+                android:inputType="text"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prod_name_view" />
+
+            <TextView
+                android:id="@+id/exp_date_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/exp_date"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
+                app:layout_constraintTop_toBottomOf="@+id/prod_name_txt" />
+
+            <EditText
+                android:id="@+id/exp_date_txt"
+                style="@style/edittext_background"
+                android:layout_width="350dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="4dp"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/hintdata"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exp_date_view" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
+                app:layout_constraintTop_toBottomOf="@+id/exp_date_txt">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/important_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="10sp"
+                    android:text="@string/imp_guarantee"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_important"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/noti_logo" />
+
+                <TextView
+                    android:id="@+id/remember_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/remember_view"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/expand_butt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="85sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/transparent"
+                    app:srcCompat="@drawable/expand_butt" />
+
+            </LinearLayout>
+
+            <CalendarView
+                android:id="@+id/exp_date_calendar"
+                android:layout_width="350dp"
+                android:layout_height="300dp"
+                android:background="@color/greenmain"
+                android:backgroundTint="@color/greenmain"
+                android:elevation="10dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
+                app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
+                app:layout_constraintTop_toBottomOf="@+id/exp_date_txt"
+                tools:visibility="gone" />
+
+            <CalendarView
+                android:id="@+id/rem_date_calendar"
+                android:layout_width="349dp"
+                android:layout_height="300dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/greenmain"
+                android:backgroundTint="@color/greenmain"
+                android:elevation="15dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                tools:visibility="gone" />
+
+            <Button
+                android:id="@+id/save_guar_butt"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="180dp"
+                android:text="@string/save_but"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <Button
+                android:id="@+id/exit_button"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/cancel_but"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/save_guar_butt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/save_guar_butt"
+                app:layout_constraintTop_toBottomOf="@+id/save_guar_butt" />
+
+            <LinearLayout
+                android:layout_width="347dp"
+                android:layout_height="136dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.531"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notas_txt"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/notes_edit"
+                    style="@style/edittext_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/notes_hint"
+                    android:inputType="textMultiLine"
+                    android:paddingStart="5dp" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        app:elevation="5dp"
+        app:itemIconTint="@color/greenmain"
+        app:menu="@menu/burguer_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>

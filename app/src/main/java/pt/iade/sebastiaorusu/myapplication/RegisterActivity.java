@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class RegisterActivity extends AppCompatActivity {
     protected Button cancelButtonReg;
+    protected Button signUpButtonReg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.register);
@@ -22,6 +23,13 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(cancelIntent);
 
         });
+
+        signUpButtonReg = findViewById(R.id.register_butt);
+        signUpButtonReg.setOnClickListener(v -> {
+            Intent regIntent = new Intent(this, MainPageActivity.class);
+            startActivity(regIntent);
+        });
+
 
 
     }

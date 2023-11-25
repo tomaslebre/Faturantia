@@ -2,6 +2,7 @@ package pt.iade.sebastiaorusu.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -9,27 +10,83 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class FaturaActivity extends AppCompatActivity {
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
+    private NavigationView navigationView;
     protected EditText purchaseDateEdit;
     protected CalendarView purchaseDateCalendar;
     protected Button nextButton;
+
     protected Button cancelButtonFat;
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fat_view);
 
+        setSupportActionBar(findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.nav_leave) {
+
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                }
+                else if(item.getItemId() == R.id.home) {
+                    Toast.makeText(FaturaActivity.this, "Home ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FaturaActivity.this, MainPageActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.nav_important_guarantee) {
+                    Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
+                }
+                else if(item.getItemId() == R.id.nav_support) {
+                    Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
+                }
+                else if(item.getItemId() == R.id.nav_logout) {
+                    Toast.makeText(FaturaActivity.this, "Login Page ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FaturaActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
+
 
         setupComponents();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -114,6 +171,15 @@ public class FaturaActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
 }

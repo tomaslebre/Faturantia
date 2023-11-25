@@ -21,7 +21,7 @@
     <string name="fat_view">Bill</string>
     <string name="cancel_but">Cancel</string>
     <string name="guarantee_tit">Guarantee</string>
-    <string name="guarantee_add_view">Add guarantee</string>
+    <string name="guarantee_add_view">Add Bill</string>
     <string name="exp_date">Expire Date</string>
     <string name="imp_guarantee">Important?</string>
     <string name="radio_yes">Yes</string>
