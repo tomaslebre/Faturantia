@@ -50,6 +50,7 @@ public class TodoItemRowAdapter extends RecyclerView.Adapter<TodoItemRowAdapter.
     }
 
     public int getItemCount() {
+
         return items.size();
     }
 

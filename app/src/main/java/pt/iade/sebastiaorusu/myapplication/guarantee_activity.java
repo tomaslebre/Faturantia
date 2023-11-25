@@ -1,11 +1,13 @@
 package pt.iade.sebastiaorusu.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.Nullable;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
@@ -29,21 +32,24 @@ public class guarantee_activity extends AppCompatActivity {
     protected ImageButton expandButton;
 
     protected TodoItem item;
+    protected int listPosition;
     protected Button cancelButton;
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guarantee);
 
+        // Get the item passed from the previous activity.
         Intent intent = getIntent();
+        listPosition = intent.getIntExtra("position", -1);
         item = (TodoItem) intent.getSerializableExtra("item");
 
-        setupCalendar();
         setupComponents();
-
+        setupCalendar();
     }
+
 
     private void setupCalendar() {
 
@@ -105,9 +111,17 @@ public class guarantee_activity extends AppCompatActivity {
         // Save button garantias
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
-            Intent saveIntent = new Intent(guarantee_activity.this, MainPageActivity.class);
-            startActivity(saveIntent);
+            // ActionBar "Save" button.
+            commitView();
+            this.item.save();
 
+            // Setup the data to be sent back to the previous activity.
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("position", this.listPosition);
+            returnIntent.putExtra("item", this.item);
+            setResult(AppCompatActivity.RESULT_OK, returnIntent);
+
+            finish();
         });
 
         // Cancel button garantias
@@ -121,7 +135,6 @@ public class guarantee_activity extends AppCompatActivity {
 
     }
     private void setupComponents(){
-        setSupportActionBar(findViewById(R.id.toolbar));
 
         titleEdit = (EditText) findViewById(R.id.prod_name_txt);
         expDateCalendar = (CalendarView) findViewById(R.id.exp_date_calendar);
@@ -142,5 +155,19 @@ public class guarantee_activity extends AppCompatActivity {
         importantCheck.setChecked(item.isImportant());
         remDateCalendar.setDate(item.getRem_date().getTimeInMillis());
         notes.setText(item.getNotes());
+    }
+
+
+    protected void commitView() {
+        item.setTitle(titleEdit.getText().toString());
+        Calendar expDateCalendar = Calendar.getInstance();
+        expDateCalendar.setTimeInMillis(this.expDateCalendar.getDate());
+        item.setExp_date(expDateCalendar);
+        item.setImportant(importantCheck.isChecked());
+        Calendar remDateCalendar = Calendar.getInstance();
+        remDateCalendar.setTimeInMillis(this.remDateCalendar.getDate());
+        item.setRem_date(remDateCalendar);
+        item.setNotes(notes.getText().toString());
+
     }
 }

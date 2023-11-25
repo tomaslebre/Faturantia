@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -25,6 +26,7 @@ import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class MainPageActivity extends AppCompatActivity {
+    private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     protected RecyclerView itemsListView;
     protected TodoItemRowAdapter itemsRowAdapter;
     protected ArrayList<TodoItem> itemsList;
@@ -35,16 +37,47 @@ public class MainPageActivity extends AppCompatActivity {
     protected ImageButton addGuarantee;
 
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            drawerLayout.openDrawer(GravityCompat.START);
+        if (item.getItemId() == R.id.add_butt_guarantee) {
+            // ActionBar "Add" button.
+            Intent intent = new Intent(MainPageActivity.this, guarantee_activity.class);
+            intent.putExtra("position", -1);
+            intent.putExtra("item", new TodoItem());
+
+            startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Must be called always and before everything.
+        super.onActivityResult(requestCode, resultCode, data);
 
+        // Check which activity returned to us.
+        if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
+            // Check if the activity was successful.
+            if (resultCode == AppCompatActivity.RESULT_OK) {
+                // Get extras returned to us.
+                int position = data.getIntExtra("position", -1);
+                TodoItem updatedItem = (TodoItem) data.getSerializableExtra("item");
+
+                if (position == -1) {
+                    // Add the item to the list it was created new.
+                    itemsList.add(updatedItem);
+                    itemsRowAdapter.notifyItemInserted(itemsList.size() - 1);
+                } else {
+                    // Updates an existing item on the list.
+                    itemsList.set(position, updatedItem);
+                    itemsRowAdapter.notifyItemChanged(position);
+                }
+            }
+
+       }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,31 +122,49 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
         addGuarantee = findViewById(R.id.add_butt_guarantee);
-        addGuarantee.setOnClickListener(v -> {
-            Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
-            startActivity(intent);
+        addGuarantee.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
+                intent.putExtra("position", -1);
+                intent.putExtra("item", new TodoItem());
+
+                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+            }
         });
+
+        // Get the items from the web server.
+        itemsList = TodoItem.List();
+
         setupComponents();
 
 
     }
 
     private void setupComponents() {
+        // Setup the ActionBar.
+
+        // Set up row adapter with our items list.
         itemsRowAdapter = new TodoItemRowAdapter(this, itemsList);
         itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                // Place our clicked item object in the intent to send to the other activity.
                 Intent intent = new Intent(MainPageActivity.this, guarantee_activity.class);
+                intent.putExtra("position", position);
                 intent.putExtra("item", itemsList.get(position));
-                startActivity(intent);
+
+                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
         });
 
+        // Set up the items recycler view.
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsListView.setAdapter(itemsRowAdapter);
     }
+
 
     @Override
     public void onBackPressed() {
