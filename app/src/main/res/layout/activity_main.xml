@@ -29,13 +29,13 @@
         android:text="@string/email_view"
         android:textSize="27sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/email_reg_txt"
+        app:layout_constraintEnd_toEndOf="@+id/email_log_txt"
         app:layout_constraintHorizontal_bias="0.017"
-        app:layout_constraintStart_toStartOf="@+id/email_reg_txt"
+        app:layout_constraintStart_toStartOf="@+id/email_log_txt"
         app:layout_constraintTop_toBottomOf="@+id/login_view" />
 
     <EditText
-        android:id="@+id/email_reg_txt"
+        android:id="@+id/email_log_txt"
         style="@style/edittext_background"
         android:layout_width="365dp"
         android:layout_height="48dp"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="@+id/pass_log_txt"
         app:layout_constraintHorizontal_bias="0.004"
         app:layout_constraintStart_toStartOf="@+id/pass_log_txt"
-        app:layout_constraintTop_toBottomOf="@+id/email_reg_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/email_log_txt" />
 
     <EditText
         android:id="@+id/pass_log_txt"
@@ -94,8 +94,6 @@
         android:layout_width="354dp"
         android:layout_height="70dp"
         android:layout_marginTop="88dp"
-        android:backgroundTint="#909090"
-        android:clickable="true"
         android:hint="@string/login_view"
         android:textColorHint="@color/white"
         android:textSize="25sp"

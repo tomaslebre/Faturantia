@@ -5,6 +5,7 @@
     <string name="password_view">Password</string>
     <string name="confirm_pass_view">Confirm Password</string>
     <string name="full_name">Full Name</string>
+    <string name="register_view">Register</string>
     <string name="faturantia">Faturantia</string>
     <string name="ver_fat_view">View bill</string>
     <string name="loja_view">Store name</string>

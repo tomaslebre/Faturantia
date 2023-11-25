@@ -29,6 +29,7 @@ public class guarantee_activity extends AppCompatActivity {
     protected ImageButton expandButton;
 
     protected TodoItem item;
+    protected Button cancelButton;
 
 
     @Override
@@ -108,6 +109,15 @@ public class guarantee_activity extends AppCompatActivity {
             startActivity(saveIntent);
 
         });
+
+        // Cancel button garantias
+        cancelButton = findViewById(R.id.exit_button);
+        cancelButton.setOnClickListener(v -> {
+            Intent cancelIntent = new Intent(guarantee_activity.this, MainPageActivity.class);
+            startActivity(cancelIntent);
+
+        });
+
 
     }
     private void setupComponents(){

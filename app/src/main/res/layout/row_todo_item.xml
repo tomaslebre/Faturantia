@@ -7,6 +7,7 @@
     android:paddingVertical="8dp">
 
     <LinearLayout
+        android:background="@drawable/form_recycle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,8 +51,10 @@
             android:id="@+id/important_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:freezesText="true"
             android:text="@string/imp"
-            android:textSize="16sp"
-            android:layout_gravity="center"/>
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,8 @@ public class FaturaActivity extends AppCompatActivity {
     protected CalendarView purchaseDateCalendar;
     protected Button nextButton;
 
+    protected Button cancelButtonFat;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,13 @@ public class FaturaActivity extends AppCompatActivity {
             Intent intent = new Intent(FaturaActivity.this, guarantee_activity.class);
             intent.putExtra("item", new TodoItem());
             startActivity(intent);
+        });
+
+        cancelButtonFat = findViewById(R.id.exit_button);
+        cancelButtonFat.setOnClickListener(v -> {
+            Intent cancelIntent = new Intent(FaturaActivity.this, MainPageActivity.class);
+            startActivity(cancelIntent);
+
         });
 
 
