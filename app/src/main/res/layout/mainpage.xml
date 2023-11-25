@@ -12,86 +12,76 @@
     tools:layout_editor_absoluteX="16dp"
     tools:layout_editor_absoluteY="0dp">
 
-    <ScrollView
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:visibility="visible">
+        android:background="@color/grey">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/grey">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="388dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="16dp"
+            android:minHeight="?attr/actionBarSize"
+            android:textSize="40sp"
+            android:theme="@style/tittoolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/faturantia"
+            app:titleTextAppearance="@style/tittoolbar"
+            app:titleTextColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_fat"
+            android:layout_width="350dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="36dp"
+            android:hint="Ver Faturas"
+            android:textColorHint="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_butt_guarantee" />
+
+        <ImageButton
+            android:id="@+id/add_butt_guarantee"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_guarantee_view"
+            app:srcCompat="@drawable/add_butt" />
+
+        <TextView
+            android:id="@+id/add_guarantee_view"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/guarantee_add_view"
+            android:textColor="@color/black"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="582dp" />
 
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="388dp"
-                android:layout_height="58dp"
-                android:layout_marginTop="16dp"
-                android:minHeight="?attr/actionBarSize"
-                android:textSize="40sp"
-                android:theme="@style/tittoolbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.478"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:title="@string/faturantia"
-                app:titleTextAppearance="@style/tittoolbar"
-                app:titleTextColor="#FFFFFF" />
-
-            <Button
-                android:id="@+id/button_fat"
-                android:layout_width="350dp"
-                android:layout_height="71dp"
-                android:layout_marginTop="32dp"
-                android:hint="Ver Faturas"
-                android:textColorHint="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_butt_guarantee" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="326dp"
-                android:layout_height="400dp"
-                android:layout_marginTop="64dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-            <ImageButton
-                android:id="@+id/add_butt_guarantee"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="40dp"
-                android:backgroundTint="@color/transparent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_guarantee_view"
-                app:srcCompat="@drawable/add_butt" />
-
-            <TextView
-                android:id="@+id/add_guarantee_view"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="52dp"
-                android:text="@string/guarantee_add_view"
-                android:textColor="@color/black"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
