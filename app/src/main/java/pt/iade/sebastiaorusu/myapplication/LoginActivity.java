@@ -78,15 +78,10 @@ public class LoginActivity extends AppCompatActivity {
 
         signUpButton = findViewById(R.id.sign_up);
         signUpButton.setOnClickListener(v -> {
-            Intent signUpIntent = new Intent(this, RegisterActivity.class);
+            Intent signUpIntent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(signUpIntent);
         });
     }
-
-    //Login Credentials
-
-
-
 
 }
 
