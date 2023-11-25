@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/text_label"
+            android:id="@+id/title_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -37,7 +37,7 @@
             tools:text="Date" />
 
         <CheckBox
-            android:id="@+id/done_check"
+            android:id="@+id/important_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/imp"

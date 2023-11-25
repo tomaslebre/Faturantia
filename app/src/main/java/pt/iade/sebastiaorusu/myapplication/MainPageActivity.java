@@ -20,10 +20,12 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class MainPageActivity extends AppCompatActivity {
     protected RecyclerView itemsListView;
+    protected TodoItemRowAdapter itemsRowAdapter;
     protected ArrayList<TodoItem> itemsList;
 
     private DrawerLayout drawerLayout;
@@ -97,8 +99,11 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     private void setupComponents() {
+        itemsRowAdapter = new TodoItemRowAdapter(this, itemsList);
+
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
+        itemsListView.setAdapter(itemsRowAdapter);
     }
 
     @Override
