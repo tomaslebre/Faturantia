@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    tools:context=".guarantee_activity">
+    android:visibility="visible"
+    tools:context=".guarantee_activity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp"
+    tools:visibility="visible">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/grey"
         tools:context=".guarantee_activity">
 
@@ -115,6 +118,7 @@
             app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
             app:layout_constraintTop_toBottomOf="@+id/exp_date_txt">
 
+
             <TextView
                 android:id="@+id/important_txt"
                 android:layout_width="wrap_content"
@@ -122,38 +126,17 @@
                 android:layout_weight="1"
                 android:contentDescription="Important?"
                 android:paddingTop="10sp"
-                android:text="@string/imp_garantee"
+                android:text="@string/imp_guarantee"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <RadioGroup
+            <CheckBox
+                android:id="@+id/check_important"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                />
 
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:contentDescription="Yes"
-                    android:text="@string/radio_yes"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:contentDescription="No"
-                    android:text="@string/radio_no"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-
-            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -218,11 +201,11 @@
             android:id="@+id/rem_date_calendar"
             android:layout_width="349dp"
             android:layout_height="300dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/greenmain"
             android:backgroundTint="@color/greenmain"
             android:elevation="15dp"
             android:visibility="visible"
-            android:layout_marginBottom="10dp"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
@@ -232,10 +215,11 @@
             android:id="@+id/save_guar_butt"
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:layout_marginTop="104dp"
+            android:layout_marginTop="180dp"
             android:text="@string/save_but"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
@@ -243,13 +227,41 @@
             android:id="@+id/exit_button"
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="12dp"
             android:text="@string/cancel_but"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/save_guar_butt"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/save_guar_butt"
             app:layout_constraintTop_toBottomOf="@+id/save_guar_butt" />
+
+        <LinearLayout
+            android:layout_width="347dp"
+            android:layout_height="136dp"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.531"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/notas_txt"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/notes_edit"
+                style="@style/edittext_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/notes_hint"
+                android:inputType="textMultiLine"
+                android:paddingLeft="5dp" />
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

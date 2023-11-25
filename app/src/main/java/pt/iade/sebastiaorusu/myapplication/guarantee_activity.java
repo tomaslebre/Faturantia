@@ -10,10 +10,20 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+
 public class guarantee_activity extends AppCompatActivity {
+    protected TodoItem item;
+    protected EditText titleEdit;
+    protected CheckBox importantCheck;
+    protected EditText notes;
     protected EditText expDateEdit;
     protected CalendarView expDateCalendar;
     protected CalendarView remDateCalendar;
@@ -25,6 +35,13 @@ public class guarantee_activity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guarantee);
+
+        Calendar chosenDate = Calendar.getInstance();
+        chosenDate.set(2022, Calendar.MARCH, 15);
+
+        item = new TodoItem(1, "Titlo Teste", chosenDate, true, Calendar.getInstance(), "Notas teste");
+
+        setupComponents();
         setupCalendar();
     }
 
@@ -101,5 +118,25 @@ public class guarantee_activity extends AppCompatActivity {
         });
 
     }
+    private void setupComponents(){
+        setSupportActionBar(findViewById(R.id.toolbar));
 
+        titleEdit = (EditText) findViewById(R.id.prod_name_txt);
+        expDateCalendar = (CalendarView) findViewById(R.id.exp_date_calendar);
+        expDateEdit = (EditText) findViewById(R.id.exp_date_txt);
+        importantCheck = (CheckBox) findViewById(R.id.check_important);
+        remDateCalendar = (CalendarView) findViewById(R.id.rem_date_calendar);
+        notes = (EditText) findViewById(R.id.notes_edit);
+
+        populateView();
+
+    }
+    protected void populateView(){
+        titleEdit.setText(item.getTitle());
+        expDateCalendar.setDate(item.getExp_date().getTimeInMillis());
+        expDateEdit.setText(new SimpleDateFormat("dd/MM/yyyy").format(item.getExp_date().getTime()));
+        importantCheck.setChecked(item.isImportant());
+        remDateCalendar.setDate(item.getRem_date().getTimeInMillis());
+        notes.setText(item.getNotes());
+    }
 }

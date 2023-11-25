@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Faturantia</string>
     <string name="login_view">Login</string>
     <string name="email_view">E-mail</string>
     <string name="password_view">Password</string>
@@ -22,7 +22,7 @@
     <string name="guarantee_tit">Guarantee</string>
     <string name="guarantee_add_view">Add guarantee</string>
     <string name="exp_date">Expire Date</string>
-    <string name="imp_garantee">Important?</string>
+    <string name="imp_guarantee">Important?</string>
     <string name="radio_yes">Yes</string>
     <string name="radio_no">No</string>
     <string name="home">Home</string>
@@ -34,5 +34,7 @@
     <string name="close">Close Navigation Drawer</string>
     <string name="save_but">Save</string>
     <string name="sign_Up">Sign up</string>
+    <string name="notas_txt">Notes:</string>
+    <string name="notes_hint">Write a descriptive note here...</string>
 
 </resources>
