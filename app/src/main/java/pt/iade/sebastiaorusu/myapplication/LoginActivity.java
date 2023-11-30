@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-        private void iniciarContagemRegressiva() {
+        private void iniciarContagemRegressiva() {  
             new CountDownTimer(5000, 1000) { // 5000 milissegundos (5 segundos), intervalo de 1000 milissegundos (1 segundo)
                 public void onTick(long millisUntilFinished) {
                     // A cada tick (1 segundo no exemplo), você pode realizar alguma ação se necessário

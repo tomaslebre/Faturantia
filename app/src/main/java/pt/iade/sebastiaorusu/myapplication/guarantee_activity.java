@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
@@ -198,6 +199,10 @@ public class guarantee_activity extends AppCompatActivity {
         remDateCalendar = (CalendarView) findViewById(R.id.rem_date_calendar);
         notes = (EditText) findViewById(R.id.notes_edit);
 
+        remDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            item.setRemDateCalendar(new GregorianCalendar(year, month, dayOfMonth));
+        });
+
         populateView();
 
     }
@@ -220,7 +225,7 @@ public class guarantee_activity extends AppCompatActivity {
         item.setExp_date(expDateCalendar);
         item.setImportant(importantCheck.isChecked());
         Calendar remDateCalendar = Calendar.getInstance();
-        remDateCalendar.setTimeInMillis(this.remDateCalendar.getDate());
+
         item.setRem_date(remDateCalendar);
         item.setNotes(notes.getText().toString());
 

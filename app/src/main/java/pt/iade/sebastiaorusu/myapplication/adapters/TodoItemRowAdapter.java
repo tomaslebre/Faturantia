@@ -69,6 +69,15 @@ public class TodoItemRowAdapter extends RecyclerView.Adapter<TodoItemRowAdapter.
             dateLabel = itemView.findViewById(R.id.date_label);
             importantCheck = itemView.findViewById(R.id.important_check);
 
+            importantCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            });
+            importantCheck.setOnTouchListener((v, event) -> {
+                return true;
+            });
+
             itemView.setOnClickListener(this);
         }
         @Override
