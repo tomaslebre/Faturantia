@@ -132,118 +132,113 @@ Na página da garantia fizemos alterações dos textbox, como juntamos as fatura
 
 ## Código da Base de Dados
 
-create table userapp(
-				user_id int not null auto_increment,
-                user_name VARCHAR(60) not null,
-                user_email VARCHAR(30) not null,
-                user_place VARCHAR(30),
-                primary key (user_id)
+CREATE TABLE userapp (
+    user_id INT NOT NULL AUTO_INCREMENT,
+    user_name VARCHAR(60) NOT NULL,
+    user_email VARCHAR(30) NOT NULL,
+    user_place VARCHAR(30),
+    PRIMARY KEY (user_id)
 );
 
-create table fatura(
-				fat_id int not null auto_increment,
-				fat_pdf BLOB,
-                fat_name VARCHAR(60) not null,	
-                fat_user_id int,
-                fat_est_fat_id int,
-                primary key (fat_id)
+CREATE TABLE fatura (
+    fat_id INT NOT NULL AUTO_INCREMENT,
+    fat_pdf BLOB,
+    fat_name VARCHAR(60) NOT NULL,
+    fat_user_id INT,
+    fat_est_fat_id INT,
+    PRIMARY KEY (fat_id)
 );
 
-create table estadofatura(
-				est_fat_id int not null auto_increment,
-                est_fat_nome VARCHAR(60) not null,
-                primary key (est_fat_id)
+CREATE TABLE estadofatura (
+    est_fat_id INT NOT NULL AUTO_INCREMENT,
+    est_fat_nome VARCHAR(60) NOT NULL,
+    PRIMARY KEY (est_fat_id)
 );
 
-create table garantia(
-				gar_id int not null auto_increment,
-                gar_endDate date not null,
-                primary key(gar_id)
+CREATE TABLE garantia (
+    gar_id INT NOT NULL AUTO_INCREMENT,
+    gar_endDate DATE NOT NULL,
+    PRIMARY KEY (gar_id)
 );
 
-create table lembrete(
-				lem_id int not null auto_increment,
-                lem_date date not null,
-                lem_pfat_id int,
-                primary key(lem_id)
+CREATE TABLE lembrete (
+    lem_id INT NOT NULL AUTO_INCREMENT,
+    lem_date DATE NOT NULL,
+    lem_pfat_id INT,
+    PRIMARY KEY (lem_id)
 );
 
-create table produto(
-				prod_id int not null auto_increment,
-                prod_name VARCHAR(60) not null,
-                primary key(prod_id)
+CREATE TABLE produto (
+    prod_id INT NOT NULL AUTO_INCREMENT,
+    prod_name VARCHAR(60) NOT NULL,
+    PRIMARY KEY (prod_id)
 );
 
-create table loja(
-				loja_id int not null auto_increment,
-                loja_name VARCHAR(30) not null,
-                loja_place VARCHAR(30) not null,
-                primary key(loja_id)
+CREATE TABLE loja (
+    loja_id INT NOT NULL AUTO_INCREMENT,
+    loja_name VARCHAR(30) NOT NULL,
+    loja_place VARCHAR(30) NOT NULL,
+    PRIMARY KEY (loja_id)
 );
 
-create table tipogarantia(
-				tgar_id int not null auto_increment,
-                tgar_estado VARCHAR(30),
-                primary key(tgar_id)
+CREATE TABLE tipogarantia (
+    tgar_id INT NOT NULL AUTO_INCREMENT,
+    tgar_estado VARCHAR(30),
+    PRIMARY KEY (tgar_id)
 );
 
-create table prodloja(
-				ploja_id int not null auto_increment,
-                ploja_loja_id int,
-                ploja_prod_id int,
-                primary key(ploja_id)
+CREATE TABLE prodloja (
+    ploja_id INT NOT NULL AUTO_INCREMENT,
+    ploja_loja_id INT,
+    ploja_prod_id INT,
+    PRIMARY KEY (ploja_id)
 );
 
-create table prodfatura(
-				pfat_id int not null auto_increment,
-                pfat_buyDate date not null,
-                pfat_tgar_id int,
-                pfat_fat_id int,
-                pfat_ploja int,
-                primary key(pfat_id)
+CREATE TABLE prodfatura (
+    pfat_id INT NOT NULL AUTO_INCREMENT,
+    pfat_buyDate DATE NOT NULL,
+    pfat_tgar_id INT,
+    pfat_fat_id INT,
+    pfat_ploja_id INT,
+    PRIMARY KEY (pfat_id)
 );
 
-create table prodfatgarantia(
-				pfatgar_id int not null auto_increment,
-                pfatgar_gar_id int,
-                pfatgar_pfat_id int,
-                primary key(pfatgar_id)
+CREATE TABLE prodfatgarantia (
+    pfatgar_id INT NOT NULL AUTO_INCREMENT,
+    pfatgar_gar_id INT,
+    pfatgar_pfat_id INT,
+    PRIMARY KEY (pfatgar_id)
 );
 
-ALTER TABLE fatura
-ADD CONSTRAINT fatura_fk_user
-FOREIGN KEY (fat_user_id) REFERENCES user(user_id),
+ALTER TABLE fatura ADD CONSTRAINT fatura_fk_userapp 
+FOREIGN KEY (fat_user_id) REFERENCES userapp(user_id),
 ADD CONSTRAINT fatura_fk_estadofatura 
-FOREIGN KEY (fat_est_fat_id) REFERENCES estadofatura(est_fat_id)
-ON DELETE NO ACTION ON UPDATE NO ACTION; 
+FOREIGN KEY (fat_est_fat_id) REFERENCES estadofatura(est_fat_id) 
+ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE lembrete
-ADD CONSTRAINT lembrete_fk_fatura
-FOREIGN KEY (lem_pfat_id) REFERENCES fatura(fat_id)
-ON DELETE NO ACTION ON UPDATE NO ACTION; 
+ALTER TABLE lembrete ADD CONSTRAINT lembrete_fk_fatura 
+FOREIGN KEY (lem_pfat_id) REFERENCES prodfatura(pfat_id) 
+ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE prodloja
-ADD CONSTRAINT prodloja_fk_loja
-FOREIGN KEY (ploja_loja_id) REFERENCES loja(loja_id),
+ALTER TABLE prodloja ADD CONSTRAINT prodloja_fk_loja 
+FOREIGN KEY (ploja_loja_id) REFERENCES loja(loja_id), 
 ADD CONSTRAINT prodloja_fk_produto 
-FOREIGN KEY (ploja_prod_id) REFERENCES produto(prod_id)
-ON DELETE NO ACTION ON UPDATE NO ACTION; 
+FOREIGN KEY (ploja_prod_id) REFERENCES produto(prod_id) 
+ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE prodfatura
-ADD CONSTRAINT prodfatura_fk_tipogarantia 
-FOREIGN KEY (pfat_tgar_id) REFERENCES tipogarantia(tgar_id),
+ALTER TABLE prodfatura ADD CONSTRAINT prodfatura_fk_tipogarantia 
+FOREIGN KEY (pfat_tgar_id) REFERENCES tipogarantia(tgar_id), 
 ADD CONSTRAINT prodfatura_fk_fatura 
-FOREIGN KEY (pfat_fat_id) REFERENCES fatura(fat_id),
+FOREIGN KEY (pfat_fat_id) REFERENCES fatura(fat_id), 
 ADD CONSTRAINT prodfatura_fk_prodloja 
-FOREIGN KEY (pfat_ploja) REFERENCES pordloja(ploja_id)
-ON DELETE NO ACTION ON UPDATE NO ACTION; 
+FOREIGN KEY (pfat_ploja_id) REFERENCES prodloja(ploja_id) 
+ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE prodfatgarantia
-ADD CONSTRAINT prodfatgarantia_fk_garantia 
-FOREIGN KEY (pfatgar_gar_id) REFERENCES garantia(gar_id),
+ALTER TABLE prodfatgarantia ADD CONSTRAINT prodfatgarantia_fk_garantia 
+FOREIGN KEY (pfatgar_gar_id) REFERENCES garantia(gar_id), 
 ADD CONSTRAINT prodfatgarantia_fk_prodfatura 
-FOREIGN KEY (pfatgar_pfat_id) REFERENCES prodfatura(pfat_id)
-ON DELETE NO ACTION ON UPDATE NO ACTION; 
+FOREIGN KEY (pfatgar_pfat_id) REFERENCES prodfatura(pfat_id) 
+ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 
