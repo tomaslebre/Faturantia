@@ -30,12 +30,23 @@
             android:layout_height="wrap_content"
             android:title="@string/support"
             android:icon="@drawable/supp"/>
+        <item
+            android:id="@+id/nav_statistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="@string/statistics"
+            android:icon="@drawable/statistics"/>
     </group>
 
     <item
         android:title="">
-
         <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:title="@string/profile"
+                android:icon="@drawable/profile"/>
             <item
                 android:id="@+id/nav_logout"
                 android:layout_width="wrap_content"
@@ -45,8 +56,5 @@
 
         </menu>
     </item>
-
-
-
 
 </menu>
