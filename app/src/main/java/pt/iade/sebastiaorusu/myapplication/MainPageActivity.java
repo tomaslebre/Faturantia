@@ -2,18 +2,16 @@ package pt.iade.sebastiaorusu.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -116,6 +114,8 @@ public class MainPageActivity extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(MainPageActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainPageActivity.this, SupportActivity.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
                     Toast.makeText(MainPageActivity.this, "Login Page ", Toast.LENGTH_SHORT).show();

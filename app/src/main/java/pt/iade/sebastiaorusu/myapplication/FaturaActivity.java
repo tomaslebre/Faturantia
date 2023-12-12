@@ -107,7 +107,6 @@ public class FaturaActivity extends AppCompatActivity {
                 setResult(AppCompatActivity.RESULT_OK, returnIntent);
 
                 finish();
-
             }
 
         }
