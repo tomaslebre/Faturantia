@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
