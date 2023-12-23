@@ -28,5 +28,14 @@
         <item name="android:textAppearance">@null</item>
     </style>
 
+    <style name="searchbar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@drawable/search_draw</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- fonte do titulo moderna e minimalista -->
+        <item name="android:fontFamily">@font/jost</item>
+        <item name="android:textAppearance">@null</item>
+    </style>
+
 
 </resources>
