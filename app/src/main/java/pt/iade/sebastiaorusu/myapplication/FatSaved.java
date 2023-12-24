@@ -61,12 +61,18 @@ public class FatSaved extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FatSaved.this, SupportActivity.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
                     Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FatSaved.this, ProfileActivity.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
                     Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FatSaved.this, LoginActivity.class);
+                    startActivity(intent);
                 }
                 return false;
             }
