@@ -1,26 +1,25 @@
 package pt.iade.sebastiaorusu.myapplication;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-
 import com.google.android.material.navigation.NavigationView;
 
 
+public class FatSaved extends AppCompatActivity {
 
-public class ProfileActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
 
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             drawerLayout.openDrawer(GravityCompat.START);
@@ -29,10 +28,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_fat_saved);
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -42,7 +42,9 @@ public class ProfileActivity extends AppCompatActivity {
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.nav_leave) {
@@ -50,33 +52,28 @@ public class ProfileActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(ProfileActivity.this, "Home", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ProfileActivity.this, MainPageActivity.class);
+                    Toast.makeText(FatSaved.this, "Home", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FatSaved.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ProfileActivity.this, SupportActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
-                    Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(ProfileActivity.this, "Login Page", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
         });
-    }
 
+
+   }
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -86,5 +83,4 @@ public class ProfileActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 }

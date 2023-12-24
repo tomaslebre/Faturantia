@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ public class MainPageActivity extends AppCompatActivity {
     protected RecyclerView itemsListView;
     protected TodoItemRowAdapter itemsRowAdapter;
     protected ArrayList<TodoItem> itemsList;
+    protected Button viewBill;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -172,6 +174,16 @@ public class MainPageActivity extends AppCompatActivity {
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsListView.setAdapter(itemsRowAdapter);
+
+        //Set up the View bill button
+         viewBill = (Button) findViewById(R.id.butt_view_bill);
+            viewBill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainPageActivity.this, FatSaved.class);
+                    startActivity(intent);
+                }
+            });
     }
 
 
