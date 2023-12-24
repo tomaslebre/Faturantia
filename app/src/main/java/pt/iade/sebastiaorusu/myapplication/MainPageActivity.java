@@ -104,7 +104,7 @@ public class MainPageActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(MainPageActivity.this, "Home ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainPageActivity.this, "Home", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainPageActivity.this, MainPageActivity.class);
                     startActivity(intent);
                 }
@@ -116,8 +116,13 @@ public class MainPageActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainPageActivity.this, SupportActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.nav_profile) {
+                    Toast.makeText(MainPageActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainPageActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(MainPageActivity.this, "Login Page ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainPageActivity.this, "Login Page", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainPageActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }

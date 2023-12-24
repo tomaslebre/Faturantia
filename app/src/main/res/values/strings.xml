@@ -40,6 +40,8 @@
     <string name="notas_txt">Notes:</string>
     <string name="statistics">Statistics</string>
     <string name="profile">Profile</string>
+    <string name="inf_pessoal">Personal Information</string>
+    <string name="back_button">Back</string>
     <string name="email_lebre">20220907@gmail.com</string>
     <string name="email_sebas">20220905@gmail.com</string>
 
