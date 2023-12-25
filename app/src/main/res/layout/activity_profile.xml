@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="right"
+    android:layout_gravity="end"
     app:elevation="0dp"
     tools:layout_editor_absoluteX="16dp"
     tools:layout_editor_absoluteY="0dp">
@@ -48,7 +48,7 @@
             android:id="@+id/user_name"
             android:layout_width="168dp"
             android:layout_height="52dp"
-            android:text="[Name]"
+            android:text="@string/name_profile"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -57,11 +57,12 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_pic" />
 
         <LinearLayout
+            android:id="@+id/inf_pessoal"
             android:layout_width="390dp"
             android:layout_height="73dp"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:gravity="left"
+            android:gravity="start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_name">
@@ -84,6 +85,34 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="390dp"
+            android:layout_height="73dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inf_pessoal">
+
+            <ImageView
+                android:id="@+id/security_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/privacy" />
+
+            <Button
+                android:id="@+id/security_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/transparent"
+                android:text="@string/privacy"
+                android:textColor="@color/black"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,7 +120,7 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         app:elevation="5dp"
         app:itemIconTint="@color/greenmain"
         app:menu="@menu/burguer_menu"/>

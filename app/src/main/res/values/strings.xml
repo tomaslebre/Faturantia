@@ -37,6 +37,7 @@
     <string name="close">Close Navigation Drawer</string>
     <string name="save_but">Save</string>
     <string name="sign_Up">Sign up</string>
+    <string name="name_profile">[Name]</string>
     <string name="notas_txt">Notes:</string>
     <string name="statistics">Statistics</string>
     <string name="profile">Profile</string>
@@ -44,6 +45,7 @@
     <string name="back_button">Back</string>
     <string name="email_lebre">20220907@gmail.com</string>
     <string name="email_sebas">20220905@gmail.com</string>
+    <string name="privacy">Security and Privacy</string>
 
     <string name="notes_hint">Write a descriptive note here...</string>
 
