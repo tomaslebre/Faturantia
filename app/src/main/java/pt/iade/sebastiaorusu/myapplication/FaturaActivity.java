@@ -74,6 +74,11 @@ public class FaturaActivity extends AppCompatActivity {
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
                 }
+                else if(item.getItemId() == R.id.nav_profile) {
+                    Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FaturaActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
                 else if(item.getItemId() == R.id.nav_logout) {
                     Toast.makeText(FaturaActivity.this, "Login Page ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FaturaActivity.this, LoginActivity.class);

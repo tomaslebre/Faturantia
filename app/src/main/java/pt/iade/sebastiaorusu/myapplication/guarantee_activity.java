@@ -87,6 +87,11 @@ public class guarantee_activity extends AppCompatActivity {
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(guarantee_activity.this, " ", Toast.LENGTH_SHORT).show();
                 }
+                else if(item.getItemId() == R.id.nav_profile) {
+                    Toast.makeText(guarantee_activity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(guarantee_activity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
                 else if(item.getItemId() == R.id.nav_logout) {
                     Toast.makeText(guarantee_activity.this, "Login Page ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(guarantee_activity.this, LoginActivity.class);

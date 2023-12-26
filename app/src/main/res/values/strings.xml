@@ -26,6 +26,7 @@
     <string name="imp_guarantee">Important?</string>
     <string name="radio_yes">Yes</string>
     <string name="radio_no">No</string>
+    <string name="changepass">Change Password</string>
     <string name="home">Home</string>
     <string name="location">Location</string>
     <string name="contacts">Contacts</string>
