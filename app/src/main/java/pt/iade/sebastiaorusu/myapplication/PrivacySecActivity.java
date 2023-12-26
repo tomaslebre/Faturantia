@@ -9,11 +9,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class PrivacySecActivity extends AppCompatActivity {
+    protected Button SaveSecurity;
+    protected Button BackSecurity;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
@@ -30,7 +33,7 @@ public class PrivacySecActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_privacy_sec);
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -73,6 +76,7 @@ public class PrivacySecActivity extends AppCompatActivity {
                 return false;
             }
         });
+        setupComponents();
     }
 
     @Override
@@ -83,6 +87,21 @@ public class PrivacySecActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+    }
+
+    private void setupComponents() {
+        SaveSecurity = findViewById(R.id.save_security);
+        SaveSecurity.setOnClickListener(v -> {
+            Toast.makeText(PrivacySecActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(PrivacySecActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        BackSecurity = findViewById(R.id.back_security);
+        BackSecurity.setOnClickListener(v -> {
+            Intent intent = new Intent(PrivacySecActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
     }
 
 }

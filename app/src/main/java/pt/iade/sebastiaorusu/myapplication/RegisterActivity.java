@@ -11,7 +11,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected Button signUpButtonReg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.register);
+        setContentView(R.layout.activity_register);
         super.onCreate(savedInstanceState);
         setupComponents();
     }

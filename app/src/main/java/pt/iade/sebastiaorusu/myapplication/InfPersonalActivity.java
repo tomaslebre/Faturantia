@@ -9,11 +9,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class InfPersonalActivity extends AppCompatActivity {
+
+    protected Button SavePersonalInfoButton;
+    protected Button BackPersonalInfoButton;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -31,7 +35,7 @@ public class InfPersonalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_inf_personal);
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,6 +78,7 @@ public class InfPersonalActivity extends AppCompatActivity {
                 return false;
             }
         });
+        setupComponents();
     }
 
     @Override
@@ -84,6 +89,21 @@ public class InfPersonalActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+    }
+
+    private void setupComponents() {
+        SavePersonalInfoButton = findViewById(R.id.save_profile);
+        SavePersonalInfoButton.setOnClickListener(v -> {
+            Toast.makeText(InfPersonalActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(InfPersonalActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        BackPersonalInfoButton = findViewById(R.id.back_profile);
+        BackPersonalInfoButton.setOnClickListener(v -> {
+            Intent intent = new Intent(InfPersonalActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
     }
 
 }

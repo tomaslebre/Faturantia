@@ -3,6 +3,7 @@ package pt.iade.sebastiaorusu.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,10 @@ import com.google.android.material.navigation.NavigationView;
 
 
 public class ProfileActivity extends AppCompatActivity {
+    protected Button PersonalInfoButton;
+    protected Button SecurityButton;
+
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
@@ -75,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
+        setupComponents();
     }
 
     @Override
@@ -85,6 +91,23 @@ public class ProfileActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+    }
+
+    private void setupComponents() {
+        PersonalInfoButton = findViewById(R.id.inf_button);
+        PersonalInfoButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, InfPersonalActivity.class);
+            startActivity(intent);
+        });
+
+
+        SecurityButton = findViewById(R.id.security_button);
+        SecurityButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, PrivacySecActivity.class);
+            startActivity(intent);
+        });
+
+
     }
 
 }
