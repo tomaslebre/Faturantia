@@ -27,6 +27,7 @@
     <string name="radio_yes">Yes</string>
     <string name="radio_no">No</string>
     <string name="home">Home</string>
+    <string name="location">Location</string>
     <string name="contacts">Contacts</string>
     <string name="support">Support</string>
     <string name="important_guarantee">Important Guarantee</string>
@@ -38,6 +39,7 @@
     <string name="save_but">Save</string>
     <string name="sign_Up">Sign up</string>
     <string name="name_profile">[Name]</string>
+    <string name="name_edit">Name</string>
     <string name="notas_txt">Notes:</string>
     <string name="statistics">Statistics</string>
     <string name="profile">Profile</string>
