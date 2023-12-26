@@ -39,6 +39,7 @@
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginTop="28dp"
+            android:text="@string/add_img"
             app:icon="@drawable/edit_profile_pic"
             app:iconSize="140dp"
             app:layout_constraintEnd_toEndOf="parent"
