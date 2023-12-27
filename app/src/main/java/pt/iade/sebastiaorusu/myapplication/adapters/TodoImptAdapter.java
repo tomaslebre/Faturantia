@@ -53,11 +53,25 @@ public class TodoImptAdapter extends RecyclerView.Adapter<TodoImptAdapter.ViewHo
         return items.size();
     }
 
-    public void updateItems(ArrayList<TodoItem> newItems) {
-        items.clear();
-        items.addAll(newItems);
+    public void setItems(ArrayList<TodoItem> importantItems) {
+        this.items = importantItems;
         notifyDataSetChanged();
     }
+
+    //get important items
+    public ArrayList<TodoItem> getImportantItems() {
+        ArrayList<TodoItem> importantItems = new ArrayList<TodoItem>();
+
+        for (TodoItem item : items) {
+            if (item.isImportant()) {
+                importantItems.add(item);
+            }
+        }
+
+        return importantItems;
+    }
+    //only show important items
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView titleLabel;
         public TextView notesLabel;
@@ -92,6 +106,17 @@ public class TodoImptAdapter extends RecyclerView.Adapter<TodoImptAdapter.ViewHo
     }
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    //only show important items
+    public void showImportantItems(View view) {
+        ArrayList<TodoItem> importantItems = new ArrayList<TodoItem>();
+
+        for (TodoItem item : items) {
+            if (item.isImportant()) {
+                importantItems.add(item);
+            }
+        }
     }
 }
 
