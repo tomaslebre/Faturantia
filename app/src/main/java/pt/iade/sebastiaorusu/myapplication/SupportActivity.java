@@ -1,6 +1,5 @@
 package pt.iade.sebastiaorusu.myapplication;
 
-import android.app.admin.SystemUpdatePolicy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,12 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
-
-import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 
 public class SupportActivity extends AppCompatActivity {

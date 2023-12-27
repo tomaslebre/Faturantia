@@ -16,12 +16,12 @@ import java.util.Locale;
 import pt.iade.sebastiaorusu.myapplication.R;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
-public class TodoItemRowAdapter extends RecyclerView.Adapter<TodoItemRowAdapter.ViewHolder>{
+public class TodoImptAdapter extends RecyclerView.Adapter<TodoImptAdapter.ViewHolder>{
     private ArrayList<TodoItem> items;
     private LayoutInflater inflater;
     private ItemClickListener clickListener;
 
-    public TodoItemRowAdapter(Context context, ArrayList<TodoItem> items) {
+    public TodoImptAdapter(Context context, ArrayList<TodoItem> items) {
         inflater = LayoutInflater.from(context);
         this.items = items;
         clickListener = null;
@@ -53,7 +53,11 @@ public class TodoItemRowAdapter extends RecyclerView.Adapter<TodoItemRowAdapter.
         return items.size();
     }
 
-
+    public void updateItems(ArrayList<TodoItem> newItems) {
+        items.clear();
+        items.addAll(newItems);
+        notifyDataSetChanged();
+    }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView titleLabel;
         public TextView notesLabel;
