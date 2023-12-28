@@ -18,7 +18,7 @@ import pt.iade.sebastiaorusu.myapplication.models.FatItem;
 public class FatItemRowAdapter extends RecyclerView.Adapter<FatItemRowAdapter.ViewHolder>{
     private ArrayList<FatItem> items;
     private LayoutInflater inflater;
-    private TodoItemRowAdapter.ItemClickListener clickListener;
+    private FatItemRowAdapter.ItemClickListener clickListener;
 
     public FatItemRowAdapter(Context context, ArrayList<FatItem> items) {
         inflater = LayoutInflater.from(context);
@@ -26,7 +26,7 @@ public class FatItemRowAdapter extends RecyclerView.Adapter<FatItemRowAdapter.Vi
         clickListener = null;
     }
 
-    public void setOnClickListener(TodoItemRowAdapter.ItemClickListener listener) {
+    public void setOnClickListener(FatItemRowAdapter.ItemClickListener listener) {
         clickListener = listener;
     }
 

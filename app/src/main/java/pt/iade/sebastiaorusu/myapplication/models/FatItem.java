@@ -2,12 +2,13 @@ package pt.iade.sebastiaorusu.myapplication.models;
 
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class FatItem {
+public class FatItem implements Serializable {
     private int id;
     private Button Image;
     private Button PDF;
@@ -103,5 +104,13 @@ public class FatItem {
 
     public void setDateofpurchaseCalendar(Calendar dateofpurchaseCalendar) {
         this.dateofpurchaseCalendar = dateofpurchaseCalendar;
+    }
+
+    public String getDatePurchase() {
+        return datePurchase;
+    }
+
+    public void setDatePurchase(String datePurchase) {
+        this.datePurchase = datePurchase;
     }
 }

@@ -115,7 +115,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/add_img_but" />
 
                     <EditText
-                        android:id="@+id/bill_name_but"
+                        android:id="@+id/bill_name"
                         style="@style/edittext_background"
                         android:layout_width="350dp"
                         android:layout_height="51dp"
@@ -140,7 +140,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.102"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/bill_name_but" />
+                        app:layout_constraintTop_toBottomOf="@+id/bill_name" />
 
                     <EditText
                         android:id="@+id/edit_nome_loja"
