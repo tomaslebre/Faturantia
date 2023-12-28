@@ -41,49 +41,57 @@ public class ImptGuarantee extends AppCompatActivity {
             return true;
         }
 
-        if (item.getItemId() == isImportant()) {
-            // ActionBar "Add" button.
-            Intent intent = new Intent(ImptGuarantee.this, guarantee_activity.class);
-            intent.putExtra("position", -1);
-            intent.putExtra("item", new TodoItem());
-
-            startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private int isImportant() {
-        return 0;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        // Must be called always and before everything.
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check which activity returned to us.
-        if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
-            // Check if the activity was successful.
-            if (resultCode == AppCompatActivity.RESULT_OK) {
-                // Get extras returned to us.
-                int position = data.getIntExtra("position", -1);
-                TodoItem updatedItem = (TodoItem) data.getSerializableExtra("item");
+        // Verifica se o resultado veio da atividade correta e se foi bem-sucedido
+        if (requestCode == EDITOR_ACTIVITY_RETURN_ID && resultCode == RESULT_OK) {
+            // Obtém os dados extras retornados (o item atualizado ou novo)
+            int position = data.getIntExtra("position", -1);
+            TodoItem updatedItem = (TodoItem) data.getSerializableExtra("item");
 
-                if (position == -1) {
-                    // Add the item to the list it was created new.
+            if (position == -1) {
+                // Se position é -1, um novo item foi adicionado
+                if (updatedItem.isImportant()) {
+                    // Se o novo item é importante, adiciona na lista e notifica o adapter
                     itemsList.add(updatedItem);
                     itemsRowAdapter.notifyItemInserted(itemsList.size() - 1);
-                } else {
-                    // Updates an existing item on the list.
-                    itemsList.set(position, updatedItem);
+                }
+            } else {
+                // Se position não é -1, um item existente foi atualizado
+                itemsList.set(position, updatedItem);
+
+                // Aqui, precisamos verificar se o item atualizado ainda é importante
+                if (updatedItem.isImportant()) {
+                    // Se ainda é importante, atualiza o item no adapter
                     itemsRowAdapter.notifyItemChanged(position);
+                } else {
+                    // Se não é mais importante, remove da lista e notifica o adapter
+                    itemsList.remove(position);
+                    itemsRowAdapter.notifyItemRemoved(position);
                 }
             }
 
+            // Re-filtrar a lista para mostrar apenas os itens importantes
+            filterAndDisplayImportantItems();
         }
+    }
+
+    private void filterAndDisplayImportantItems() {
+        ArrayList<TodoItem> importantItems = new ArrayList<>();
+        for (TodoItem item : itemsList) {
+            if (item.isImportant()) {
+                importantItems.add(item);
+            }
+        }
+        itemsRowAdapter.setItems(importantItems);
+        itemsRowAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,6 +100,13 @@ public class ImptGuarantee extends AppCompatActivity {
         setContentView(R.layout.activity_impt_guarantee);
 
         itemsList = TodoItem.List();
+
+        ArrayList<TodoItem> importantItems = new ArrayList<>();
+        for (TodoItem item : itemsList) {
+            if (item.isImportant()) {
+                importantItems.add(item);
+            }
+        }
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -102,6 +117,7 @@ public class ImptGuarantee extends AppCompatActivity {
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.nav_leave) {
@@ -137,20 +153,18 @@ public class ImptGuarantee extends AppCompatActivity {
             }
         });
 
-
         // Get the items from the web server.
         itemsList = TodoItem.List();
 
-        setupComponents();
-
+        setupComponents(importantItems);
 
     }
 
-    private void setupComponents() {
+    private void setupComponents(ArrayList<TodoItem> importantItems) {
         // Setup the ActionBar.
 
         // Set up row adapter with our items list.
-        itemsRowAdapter = new TodoImptAdapter(this, itemsList);
+        itemsRowAdapter = new TodoImptAdapter(this, importantItems);
         itemsRowAdapter.setOnClickListener(new TodoImptAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -164,7 +178,7 @@ public class ImptGuarantee extends AppCompatActivity {
         });
 
         // Set up the items recycler view.
-        itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
+        itemsListView = (RecyclerView) findViewById(R.id.recyclerView_imptGua);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsListView.setAdapter(itemsRowAdapter);
 
@@ -181,16 +195,4 @@ public class ImptGuarantee extends AppCompatActivity {
         }
     }
 
-    //only show important items
-    public void showImportantItems(View view) {
-        ArrayList<TodoItem> importantItems = new ArrayList<TodoItem>();
-
-        for (TodoItem item : itemsList) {
-            if (item.isImportant()) {
-                importantItems.add(item);
-            }
-        }
-        itemsRowAdapter.setItems(importantItems);
-        itemsRowAdapter.notifyDataSetChanged();
-    }
 }

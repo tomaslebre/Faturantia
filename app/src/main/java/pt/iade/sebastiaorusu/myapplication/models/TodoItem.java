@@ -34,6 +34,7 @@ public class TodoItem implements Serializable {
     public static ArrayList<TodoItem> List(){
         ArrayList<TodoItem> items = new ArrayList<TodoItem>();
         items.add(new TodoItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
+        items.add(new TodoItem(2, "Item 2", new GregorianCalendar(2022, 4, 24), false, new GregorianCalendar(2022, 3, 24), "Item Notes 2"));
 
         return items;
     }

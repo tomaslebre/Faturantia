@@ -20,13 +20,13 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import pt.iade.sebastiaorusu.myapplication.adapters.TodoImptAdapter;
+import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class MainPageActivity extends AppCompatActivity {
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     protected RecyclerView itemsListView;
-    protected TodoImptAdapter itemsRowAdapter;
+    protected TodoItemRowAdapter itemsRowAdapter;
     protected ArrayList<TodoItem> itemsList;
     protected Button viewBill;
 
@@ -159,8 +159,8 @@ public class MainPageActivity extends AppCompatActivity {
         // Setup the ActionBar.
 
         // Set up row adapter with our items list.
-        itemsRowAdapter = new TodoImptAdapter(this, itemsList);
-        itemsRowAdapter.setOnClickListener(new TodoImptAdapter.ItemClickListener() {
+        itemsRowAdapter = new TodoItemRowAdapter(this, itemsList);
+        itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 // Place our clicked item object in the intent to send to the other activity.
