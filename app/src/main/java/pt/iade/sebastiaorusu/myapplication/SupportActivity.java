@@ -3,6 +3,7 @@ package pt.iade.sebastiaorusu.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 
 
 public class SupportActivity extends AppCompatActivity {
+    protected Button backButton;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
@@ -73,9 +75,16 @@ public class SupportActivity extends AppCompatActivity {
                 return false;
             }
         });
+        setupComponents();
     }
 
-
+    private void setupComponents() {
+        backButton = findViewById(R.id.back_butt);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SupportActivity.this, MainPageActivity.class);
+            startActivity(intent);
+        });
+    }
 
 
     @Override
