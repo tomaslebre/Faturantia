@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="right"
+    app:elevation="0dp"
+    tools:layout_editor_absoluteX="16dp"
+    tools:layout_editor_absoluteY="0dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="388dp"
+            android:layout_height="58dp"
+            android:minHeight="?attr/actionBarSize"
+            android:textSize="40sp"
+            android:theme="@style/tittoolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.019"
+            app:title="@string/faturantia"
+            app:titleTextAppearance="@style/tittoolbar"
+            app:titleTextColor="#FFFFFF" />
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.508"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey">
+
+
+
+
+                    <TextView
+                        android:id="@+id/fatura_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fat_view"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <Button
+                        android:id="@+id/add_img_but"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@drawable/custom_button_background"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="8dp"
+                        android:text="@string/add_img"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        app:layout_constraintEnd_toEndOf="@id/add_pdf_but"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
+
+                    <Button
+                        android:id="@+id/add_pdf_but"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/custom_button_background"
+                        android:onClick="buttonCreateFile"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="8dp"
+                        android:text="@string/add_pdf"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/add_img_but"
+                        app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
+
+                    <ImageView
+                        android:id="@+id/imageCamera"
+                        android:layout_width="250dp"
+                        android:layout_height="320dp"
+                        android:layout_gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fatura_view"/>
+
+
+
+                    <TextView
+                        android:id="@+id/bill_name_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/bill_name"
+                        android:textColor="@color/black"
+                        android:textSize="21sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.111"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/add_img_but" />
+
+                    <EditText
+                        android:id="@+id/bill_name"
+                        style="@style/edittext_background"
+                        android:layout_width="350dp"
+                        android:layout_height="51dp"
+                        android:layout_marginTop="5dp"
+                        android:hint="@string/bill_name"
+                        android:padding="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.508"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bill_name_view"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/loja_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/loja_view"
+                        android:textColor="@color/black"
+                        android:textSize="21sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bill_name" />
+
+                    <EditText
+                        android:id="@+id/edit_nome_loja"
+                        style="@style/edittext_background"
+                        android:layout_width="350dp"
+                        android:layout_height="51dp"
+                        android:layout_marginTop="5dp"
+                        android:ems="10"
+                        android:hint="@string/hint_store_name"
+                        android:inputType="text"
+                        android:padding="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/loja_view" />
+
+                    <TextView
+                        android:id="@+id/locLoja_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/locLoja_view"
+                        android:textColor="@color/black"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.113"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_nome_loja" />
+
+                    <EditText
+                        android:id="@+id/loc_view"
+                        style="@style/edittext_background"
+                        android:layout_width="350dp"
+                        android:layout_height="51dp"
+                        android:layout_marginTop="5dp"
+                        android:ems="10"
+                        android:hint="@string/locLoja_view"
+                        android:inputType="text"
+                        android:padding="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/locLoja_view" />
+
+                    <TextView
+                        android:id="@+id/buy_date_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/buy_date_view"
+                        android:textColor="@color/black"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.127"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/loc_view" />
+
+                    <CalendarView
+                        android:id="@+id/purchase_date_calendar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/greenmain"
+                        android:backgroundTint="@color/greenmain"
+                        android:elevation="10dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/purchase_date_edit"
+                        app:layout_constraintStart_toStartOf="@+id/purchase_date_edit"
+                        app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit"
+                        tools:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/purchase_date_edit"
+                        style="@style/edittext_background"
+                        android:layout_width="350dp"
+                        android:layout_height="51dp"
+                        android:layout_marginTop="5dp"
+                        android:clickable="true"
+                        android:ems="10"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/hintdata"
+                        android:padding="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/buy_date_view" />
+
+                    <Button
+                        android:id="@+id/next_button"
+                        android:layout_width="350dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/next_but"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.508"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit" />
+
+                    <Button
+                        android:id="@+id/exit_button"
+                        android:layout_width="350dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/cancel_but"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.508"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/next_button" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        app:elevation="5dp"
+        app:itemIconTint="@color/greenmain"
+        app:menu="@menu/burguer_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>

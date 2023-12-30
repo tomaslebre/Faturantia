@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -21,9 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.FatItemRowAdapter;
-import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
-import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 
 public class FatSaved extends AppCompatActivity {
@@ -75,7 +72,7 @@ public class FatSaved extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fat_saved);
+        setContentView(R.layout.activity_fat_view);
 
         itemsList = FatItem.List();
 

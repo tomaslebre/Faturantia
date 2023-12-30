@@ -1,7 +1,11 @@
 package pt.iade.sebastiaorusu.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,12 +14,14 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -25,10 +31,14 @@ import pt.iade.sebastiaorusu.myapplication.models.FatItem;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class FaturaActivity extends AppCompatActivity {
+    protected Button imageButton;
+    protected ImageView imageView;
+    protected Button pdfButton;
     protected EditText titleEdit;
     protected EditText storeEdit;
     protected EditText storelocalEdit;
     protected EditText datePurchaseEdit;
+
     protected FatItem item;
 
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
@@ -53,7 +63,23 @@ public class FaturaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fat_view);
+        setContentView(R.layout.activity_fat_create);
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                PackageManager.PERMISSION_GRANTED);
+
+        imageView = findViewById(R.id.imageCamera);
+        imageButton = findViewById(R.id.add_img_but);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent open_camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivity(open_camera);
+            }
+        });
+
+
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -95,17 +121,28 @@ public class FaturaActivity extends AppCompatActivity {
             }
         });
 
-
         setupCalendar();
         setupComponents();
     }
 
+    public void buttonCreateFile(View view) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT, MediaStore.Downloads.EXTERNAL_CONTENT_URI);
+            intent.setType("*/*");
+            this.startActivity(intent);
+
+        }
+
+    }
+
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data) {
         // Must be called always and before everything.
         super.onActivityResult(requestCode, resultCode, data);
 
+        Bitmap photo = (Bitmap) data.getExtras().get("data");
+        imageView.setImageBitmap(photo);
         // Check which activity returned to us.
         if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
             // Check if the activity was successful.
@@ -211,6 +248,7 @@ public class FaturaActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 
 }
 
