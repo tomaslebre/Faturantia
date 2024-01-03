@@ -57,6 +57,8 @@ public class PrivacySecActivity extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
                     Toast.makeText(PrivacySecActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PrivacySecActivity.this, ImptGuarantee.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(PrivacySecActivity.this, " ", Toast.LENGTH_SHORT).show();

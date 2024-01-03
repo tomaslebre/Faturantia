@@ -58,6 +58,8 @@ public class SupportActivity extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
                     Toast.makeText(SupportActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SupportActivity.this, ImptGuarantee.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(SupportActivity.this, " ", Toast.LENGTH_SHORT).show();

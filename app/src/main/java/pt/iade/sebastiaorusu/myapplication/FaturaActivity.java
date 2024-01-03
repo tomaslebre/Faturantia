@@ -103,6 +103,8 @@ public class FaturaActivity extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
                     Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FaturaActivity.this, ImptGuarantee.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();

@@ -1,20 +1,27 @@
 package pt.iade.sebastiaorusu.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class InfPersonalActivity extends AppCompatActivity {
+    protected Button imageButtonProfile;
+    protected ImageView imageViewProfile;
 
     protected Button SavePersonalInfoButton;
     protected Button BackPersonalInfoButton;
@@ -36,6 +43,16 @@ public class InfPersonalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inf_personal);
+
+        imageViewProfile = findViewById(R.id.imageViewProfilw);
+        imageButtonProfile = findViewById(R.id.profile_pic);
+        imageButtonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent open_camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivity(open_camera);
+            }
+        });
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,6 +76,8 @@ public class InfPersonalActivity extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
                     Toast.makeText(InfPersonalActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(InfPersonalActivity.this, ImptGuarantee.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(InfPersonalActivity.this, " ", Toast.LENGTH_SHORT).show();
@@ -79,6 +98,15 @@ public class InfPersonalActivity extends AppCompatActivity {
             }
         });
         setupComponents();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data) {
+        // Must be called always and before everything.
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Bitmap photo = (Bitmap) data.getExtras().get("data");
+        imageViewProfile.setImageBitmap(photo);
     }
 
     @Override

@@ -61,6 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
                     Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ProfileActivity.this, ImptGuarantee.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();

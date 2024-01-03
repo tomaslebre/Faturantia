@@ -100,6 +100,8 @@ public class FatSaved extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
                     Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FatSaved.this, ImptGuarantee.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
                     Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
