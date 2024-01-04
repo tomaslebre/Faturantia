@@ -30,6 +30,8 @@ public class InfPersonalActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
 
+    protected static final int CAMERA_REQUEST = 123456789;
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -50,7 +52,7 @@ public class InfPersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent open_camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivity(open_camera);
+                startActivityForResult(open_camera, CAMERA_REQUEST);
             }
         });
 
@@ -105,8 +107,11 @@ public class InfPersonalActivity extends AppCompatActivity {
         // Must be called always and before everything.
         super.onActivityResult(requestCode, resultCode, data);
 
+        // TODO: Check if returning from CAMERA_REQUEST.
+
         Bitmap photo = (Bitmap) data.getExtras().get("data");
         imageViewProfile.setImageBitmap(photo);
+        //imageViewProfile.setBackgroundResource();
     }
 
     @Override

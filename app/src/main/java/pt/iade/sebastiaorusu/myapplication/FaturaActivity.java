@@ -123,8 +123,14 @@ public class FaturaActivity extends AppCompatActivity {
             }
         });
 
+
+        // Get the item passed from the previous activity.
+        Intent intent = getIntent();
+        item = (FatItem) intent.getSerializableExtra("item");
+
         setupCalendar();
         setupComponents();
+        populateView();
     }
 
     public void buttonCreateFile(View view) {

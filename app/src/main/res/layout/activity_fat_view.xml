@@ -31,7 +31,7 @@
             app:titleTextAppearance="@style/tittoolbar"
             app:titleTextColor="#FFFFFF" />
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             style="@style/searchbar"
             android:layout_width="329dp"

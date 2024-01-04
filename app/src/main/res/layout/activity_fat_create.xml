@@ -64,42 +64,87 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
 
-                    <Button
-                        android:id="@+id/add_img_but"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="50dp"
-                        android:background="@drawable/custom_button_background"
-                        android:paddingStart="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="16dp"
-                        android:paddingBottom="8dp"
-                        android:text="@string/add_img"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        app:layout_constraintEnd_toEndOf="@id/add_pdf_but"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
-
-                    <Button
-                        android:id="@+id/add_pdf_but"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/custom_button_background"
-                        android:onClick="buttonCreateFile"
-                        android:paddingStart="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="16dp"
-                        android:paddingBottom="8dp"
-                        android:text="@string/add_pdf"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
+                    <LinearLayout
+                        android:id="@+id/add_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/add_img_but"
-                        app:layout_constraintTop_toBottomOf="@+id/fatura_view" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fatura_view">
+
+                        <Button
+                            android:id="@+id/add_img_but"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="50dp"
+                            android:background="@drawable/custom_button_background"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/add_img"
+                            android:textColor="#000000"
+                            android:textSize="25sp" />
+
+                        <Button
+                            android:id="@+id/add_pdf_but"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_marginStart="50dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/custom_button_background"
+                            android:onClick="buttonCreateFile"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/add_pdf"
+                            android:textColor="#000000"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_layout"
+                        android:layout_width="274dp"
+                        android:layout_height="119dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fatura_view">
+
+                        <Button
+                            android:id="@+id/show_img_but"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="50dp"
+                            android:background="@drawable/custom_button_background"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/add_img"
+                            android:textColor="#000000"
+                            android:textSize="25sp" />
+
+                        <Button
+                            android:id="@+id/show_pdf_but"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_marginStart="50dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/custom_button_background"
+                            android:onClick="buttonCreateFile"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/add_pdf"
+                            android:textColor="#000000"
+                            android:textSize="25sp" />
+                    </LinearLayout>
 
                     <ImageView
                         android:id="@+id/imageCamera"
@@ -111,12 +156,10 @@
                         app:layout_constraintTop_toBottomOf="@+id/fatura_view"/>
 
 
-
                     <TextView
                         android:id="@+id/bill_name_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:text="@string/bill_name"
                         android:textColor="@color/black"
                         android:textSize="21sp"
@@ -124,7 +167,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.111"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/add_img_but" />
+                        app:layout_constraintTop_toBottomOf="@+id/add_layout" />
 
                     <EditText
                         android:id="@+id/bill_name"

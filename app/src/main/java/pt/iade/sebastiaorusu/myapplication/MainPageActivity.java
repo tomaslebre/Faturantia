@@ -21,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
+import pt.iade.sebastiaorusu.myapplication.models.FatItem;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class MainPageActivity extends AppCompatActivity {
@@ -141,7 +142,7 @@ public class MainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
                 intent.putExtra("position", -1);
-                intent.putExtra("item", new TodoItem());
+                intent.putExtra("item", new FatItem());
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
