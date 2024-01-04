@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:background="@color/grey"
         android:visibility="visible"
-        tools:context=".guarantee_activity"
+        tools:context=".GuaranteeActivity"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
         tools:visibility="visible">
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/grey"
-            tools:context=".guarantee_activity">
+            tools:context=".GuaranteeActivity">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

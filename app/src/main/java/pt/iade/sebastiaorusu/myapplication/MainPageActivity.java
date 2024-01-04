@@ -46,7 +46,7 @@ public class MainPageActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.add_butt_guarantee) {
             // ActionBar "Add" button.
-            Intent intent = new Intent(MainPageActivity.this, guarantee_activity.class);
+            Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
             intent.putExtra("position", -1);
             intent.putExtra("item", new TodoItem());
 
@@ -142,7 +142,7 @@ public class MainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
                 intent.putExtra("position", -1);
-                intent.putExtra("item", new FatItem());
+                intent.putExtra("item", new TodoItem());
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
@@ -165,7 +165,7 @@ public class MainPageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 // Place our clicked item object in the intent to send to the other activity.
-                Intent intent = new Intent(MainPageActivity.this, guarantee_activity.class);
+                Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
                 intent.putExtra("position", position);
                 intent.putExtra("item", itemsList.get(position));
 

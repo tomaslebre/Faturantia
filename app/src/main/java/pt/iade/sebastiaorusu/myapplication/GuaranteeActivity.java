@@ -25,9 +25,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import pt.iade.sebastiaorusu.myapplication.models.FatItem;
 import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
-public class guarantee_activity extends AppCompatActivity {
+public class GuaranteeActivity extends AppCompatActivity {
     protected EditText titleEdit;
     protected CheckBox importantCheck;
     protected EditText notes;
@@ -38,6 +39,7 @@ public class guarantee_activity extends AppCompatActivity {
     protected ImageButton expandButton;
 
     protected TodoItem item;
+    protected FatItem fatitem;
     protected int listPosition;
     protected Button cancelButton;
     private DrawerLayout drawerLayout;
@@ -76,26 +78,26 @@ public class guarantee_activity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(guarantee_activity.this, "Home ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(guarantee_activity.this, MainPageActivity.class);
+                    Toast.makeText(GuaranteeActivity.this, "Home ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(GuaranteeActivity.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(guarantee_activity.this, " ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(guarantee_activity.this, ImptGuarantee.class);
+                    Toast.makeText(GuaranteeActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(GuaranteeActivity.this, ImptGuarantee.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(guarantee_activity.this, " ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GuaranteeActivity.this, " ", Toast.LENGTH_SHORT).show();
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
-                    Toast.makeText(guarantee_activity.this, " ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(guarantee_activity .this, ProfileActivity.class);
+                    Toast.makeText(GuaranteeActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(GuaranteeActivity.this, ProfileActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(guarantee_activity.this, "Login Page ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(guarantee_activity.this, LoginActivity.class);
+                    Toast.makeText(GuaranteeActivity.this, "Login Page ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(GuaranteeActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
                 return false;
@@ -189,7 +191,7 @@ public class guarantee_activity extends AppCompatActivity {
         // Cancel button garantias
         cancelButton = findViewById(R.id.exit_button);
         cancelButton.setOnClickListener(v -> {
-            Intent cancelIntent = new Intent(guarantee_activity.this, MainPageActivity.class);
+            Intent cancelIntent = new Intent(GuaranteeActivity.this, MainPageActivity.class);
             startActivity(cancelIntent);
 
         });
@@ -208,6 +210,8 @@ public class guarantee_activity extends AppCompatActivity {
         remDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             item.setRemDateCalendar(new GregorianCalendar(year, month, dayOfMonth));
         });
+
+
 
         populateView();
 

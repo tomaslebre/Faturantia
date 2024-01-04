@@ -75,31 +75,20 @@
 
                         <Button
                             android:id="@+id/add_img_but"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="50dp"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="bottom"
                             android:background="@drawable/custom_button_background"
-                            android:paddingStart="16dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="16dp"
-                            android:paddingBottom="8dp"
                             android:text="@string/add_img"
                             android:textColor="#000000"
                             android:textSize="25sp" />
 
                         <Button
                             android:id="@+id/add_pdf_but"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:layout_marginStart="50dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
                             android:background="@drawable/custom_button_background"
                             android:onClick="buttonCreateFile"
-                            android:paddingStart="16dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="16dp"
-                            android:paddingBottom="8dp"
                             android:text="@string/add_pdf"
                             android:textColor="#000000"
                             android:textSize="25sp" />
@@ -107,8 +96,9 @@
 
                     <LinearLayout
                         android:id="@+id/show_layout"
-                        android:layout_width="274dp"
-                        android:layout_height="119dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="invisible"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -116,45 +106,22 @@
 
                         <Button
                             android:id="@+id/show_img_but"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="50dp"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
                             android:background="@drawable/custom_button_background"
-                            android:paddingStart="16dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="16dp"
-                            android:paddingBottom="8dp"
-                            android:text="@string/add_img"
+                            android:text="@string/show_img"
                             android:textColor="#000000"
                             android:textSize="25sp" />
 
                         <Button
                             android:id="@+id/show_pdf_but"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:layout_marginStart="50dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
                             android:background="@drawable/custom_button_background"
-                            android:onClick="buttonCreateFile"
-                            android:paddingStart="16dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="16dp"
-                            android:paddingBottom="8dp"
-                            android:text="@string/add_pdf"
+                            android:text="@string/show_pdf"
                             android:textColor="#000000"
                             android:textSize="25sp" />
                     </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageCamera"
-                        android:layout_width="250dp"
-                        android:layout_height="320dp"
-                        android:layout_gravity="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fatura_view"/>
-
 
                     <TextView
                         android:id="@+id/bill_name_view"

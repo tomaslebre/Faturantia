@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -169,7 +168,7 @@ public class ImptGuarantee extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 // Place our clicked item object in the intent to send to the other activity.
-                Intent intent = new Intent(ImptGuarantee.this, guarantee_activity.class);
+                Intent intent = new Intent(ImptGuarantee.this, GuaranteeActivity.class);
                 intent.putExtra("position", position);
                 intent.putExtra("item", itemsList.get(position));
 

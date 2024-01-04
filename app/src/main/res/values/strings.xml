@@ -13,8 +13,10 @@
     <string name="buy_date_view">Date of purchase</string>
     <string name="name_product">Product name</string>
     <string name="bill_name">Bill name</string>
-    <string name="add_pdf">+ PDF </string>
+    <string name="add_pdf">+PDF </string>
+    <string name="show_pdf">PDF </string>
     <string name="add_img">+ Image </string>
+    <string name="show_img">Image </string>
     <string name="datawarrany">Expiration date</string>
     <string name="hintdata">DD/MM/YYYY</string>
     <string name="hint_store_name">Store name</string>

@@ -69,7 +69,6 @@ public class FaturaActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 PackageManager.PERMISSION_GRANTED);
 
-        imageView = findViewById(R.id.imageCamera);
         imageButton = findViewById(R.id.add_img_but);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,12 +124,10 @@ public class FaturaActivity extends AppCompatActivity {
 
 
         // Get the item passed from the previous activity.
-        Intent intent = getIntent();
-        item = (FatItem) intent.getSerializableExtra("item");
+
 
         setupCalendar();
         setupComponents();
-        populateView();
     }
 
     public void buttonCreateFile(View view) {
@@ -150,7 +147,7 @@ public class FaturaActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bitmap photo = (Bitmap) data.getExtras().get("data");
-        imageView.setImageBitmap(photo);
+        //imageView.setImageBitmap(photo);
         // Check which activity returned to us.
         if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
             // Check if the activity was successful.
@@ -209,7 +206,7 @@ public class FaturaActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FaturaActivity.this, guarantee_activity.class);
+                Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class);
                 intent.putExtra("position", -1);
                 intent.putExtra("item", new TodoItem());
 
@@ -226,6 +223,7 @@ public class FaturaActivity extends AppCompatActivity {
             startActivity(cancelIntent);
 
         });
+
     }
 
     private void setupComponents() {
@@ -233,12 +231,14 @@ public class FaturaActivity extends AppCompatActivity {
         storeEdit= (EditText) findViewById(R.id.edit_nome_loja);
         storelocalEdit= (EditText) findViewById(R.id.loc_view);
         datePurchaseEdit= (EditText) findViewById(R.id.purchase_date_edit);
+
     }
     protected void populateView() {
         titleEdit.setText(item.getTitle());
         storeEdit.setText(item.getStore());
         storelocalEdit.setText(item.getStoreLocation());
         datePurchaseEdit.setText(item.getDatePurchase());
+
     }
     protected void commitView() {
         item.setTitle(titleEdit.getText().toString());
