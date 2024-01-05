@@ -41,6 +41,7 @@ public class FaturaActivity extends AppCompatActivity {
 
     protected FatItem item;
 
+    protected static final int CAMERA_REQUEST = 123456789;
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -69,12 +70,13 @@ public class FaturaActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 PackageManager.PERMISSION_GRANTED);
 
+        imageView = findViewById(R.id.add_img_view);
         imageButton = findViewById(R.id.add_img_but);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent open_camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivity(open_camera);
+                startActivityForResult(open_camera, CAMERA_REQUEST);
             }
         });
 
@@ -147,7 +149,8 @@ public class FaturaActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bitmap photo = (Bitmap) data.getExtras().get("data");
-        //imageView.setImageBitmap(photo);
+        imageView.setImageBitmap(photo);
+        //imageView.setBackgroundResource();
         // Check which activity returned to us.
         if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
             // Check if the activity was successful.

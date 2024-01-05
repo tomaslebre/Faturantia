@@ -1,6 +1,7 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class TodoItem implements Serializable {
     private Calendar expDateCalendar;
     private EditText expDateEdit;
     private boolean importantCheck;
+
     private Calendar remDateCalendar;
     private String notes;
 

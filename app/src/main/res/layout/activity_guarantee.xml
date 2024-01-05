@@ -118,16 +118,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/exp_date_view" />
 
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/category"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/exp_date_txt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/exp_date_txt"
+                app:layout_constraintTop_toBottomOf="@+id/exp_date_txt" />
+
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/exp_date_txt"
+                app:layout_constraintEnd_toEndOf="@+id/category_spinner"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/exp_date_txt"
-                app:layout_constraintTop_toBottomOf="@+id/exp_date_txt">
+                app:layout_constraintStart_toStartOf="@+id/category_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/category_spinner">
 
 
                 <TextView

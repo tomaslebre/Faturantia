@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -30,6 +33,7 @@ import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
 
 public class GuaranteeActivity extends AppCompatActivity {
     protected EditText titleEdit;
+    protected Spinner categorySpinner;
     protected CheckBox importantCheck;
     protected EditText notes;
     protected EditText expDateEdit;
@@ -64,6 +68,25 @@ public class GuaranteeActivity extends AppCompatActivity {
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Spinner categorySpinner = findViewById(R.id.category_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
+        // Configurar um listener para quando um item é selecionado
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Faça algo com a categoria selecionada
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Opcional: Faça algo quando nenhum item está selecionado
+            }
+        });
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -204,6 +227,7 @@ public class GuaranteeActivity extends AppCompatActivity {
         expDateCalendar = (CalendarView) findViewById(R.id.exp_date_calendar);
         expDateEdit = (EditText) findViewById(R.id.exp_date_txt);
         importantCheck = (CheckBox) findViewById(R.id.check_important);
+        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         remDateCalendar = (CalendarView) findViewById(R.id.rem_date_calendar);
         notes = (EditText) findViewById(R.id.notes_edit);
 
@@ -234,8 +258,8 @@ public class GuaranteeActivity extends AppCompatActivity {
         expDateCalendar.setTimeInMillis(this.expDateCalendar.getDate());
         item.setExp_date(expDateCalendar);
         item.setImportant(importantCheck.isChecked());
-        Calendar remDateCalendar = Calendar.getInstance();
 
+        Calendar remDateCalendar = Calendar.getInstance();
         item.setRem_date(remDateCalendar);
         item.setNotes(notes.getText().toString());
 
