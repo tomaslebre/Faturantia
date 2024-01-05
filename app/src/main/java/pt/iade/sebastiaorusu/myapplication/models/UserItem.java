@@ -21,6 +21,7 @@ public class UserItem implements Serializable {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.location = location;
     }
 
     public void save() {
