@@ -20,13 +20,13 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.TodoImptAdapter;
-import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class ImptGuarantee extends AppCompatActivity {
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     protected RecyclerView itemsListView;
     protected TodoImptAdapter itemsRowAdapter;
-    protected ArrayList<TodoItem> itemsList;
+    protected ArrayList<GuarItem> itemsList;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -53,7 +53,7 @@ public class ImptGuarantee extends AppCompatActivity {
         if (requestCode == EDITOR_ACTIVITY_RETURN_ID && resultCode == RESULT_OK) {
             // Obtém os dados extras retornados (o item atualizado ou novo)
             int position = data.getIntExtra("position", -1);
-            TodoItem updatedItem = (TodoItem) data.getSerializableExtra("item");
+            GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
 
             if (position == -1) {
                 // Se position é -1, um novo item foi adicionado
@@ -83,8 +83,8 @@ public class ImptGuarantee extends AppCompatActivity {
     }
 
     private void filterAndDisplayImportantItems() {
-        ArrayList<TodoItem> importantItems = new ArrayList<>();
-        for (TodoItem item : itemsList) {
+        ArrayList<GuarItem> importantItems = new ArrayList<>();
+        for (GuarItem item : itemsList) {
             if (item.isImportant()) {
                 importantItems.add(item);
             }
@@ -98,10 +98,10 @@ public class ImptGuarantee extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_impt_guarantee);
 
-        itemsList = TodoItem.List();
+        itemsList = GuarItem.List();
 
-        ArrayList<TodoItem> importantItems = new ArrayList<>();
-        for (TodoItem item : itemsList) {
+        ArrayList<GuarItem> importantItems = new ArrayList<>();
+        for (GuarItem item : itemsList) {
             if (item.isImportant()) {
                 importantItems.add(item);
             }
@@ -153,13 +153,13 @@ public class ImptGuarantee extends AppCompatActivity {
         });
 
         // Get the items from the web server.
-        itemsList = TodoItem.List();
+        itemsList = GuarItem.List();
 
         setupComponents(importantItems);
 
     }
 
-    private void setupComponents(ArrayList<TodoItem> importantItems) {
+    private void setupComponents(ArrayList<GuarItem> importantItems) {
         // Setup the ActionBar.
 
         // Set up row adapter with our items list.

@@ -21,14 +21,13 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
-import pt.iade.sebastiaorusu.myapplication.models.FatItem;
-import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class MainPageActivity extends AppCompatActivity {
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     protected RecyclerView itemsListView;
     protected TodoItemRowAdapter itemsRowAdapter;
-    protected ArrayList<TodoItem> itemsList;
+    protected ArrayList<GuarItem> itemsList;
     protected Button viewBill;
 
     private DrawerLayout drawerLayout;
@@ -48,7 +47,7 @@ public class MainPageActivity extends AppCompatActivity {
             // ActionBar "Add" button.
             Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
             intent.putExtra("position", -1);
-            intent.putExtra("item", new TodoItem());
+            intent.putExtra("item", new GuarItem());
 
             startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
 
@@ -68,7 +67,7 @@ public class MainPageActivity extends AppCompatActivity {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 // Get extras returned to us.
                 int position = data.getIntExtra("position", -1);
-                TodoItem updatedItem = (TodoItem) data.getSerializableExtra("item");
+                GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
 
                 if (position == -1) {
                     // Add the item to the list it was created new.
@@ -89,7 +88,7 @@ public class MainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
 
-        itemsList = TodoItem.List();
+        itemsList = GuarItem.List();
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -142,14 +141,14 @@ public class MainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
                 intent.putExtra("position", -1);
-                intent.putExtra("item", new TodoItem());
+                intent.putExtra("item", new GuarItem());
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
         });
 
         // Get the items from the web server.
-        itemsList = TodoItem.List();
+        itemsList = GuarItem.List();
 
         setupComponents();
 

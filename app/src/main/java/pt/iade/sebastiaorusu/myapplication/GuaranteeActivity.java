@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
-import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class GuaranteeActivity extends AppCompatActivity {
     protected EditText titleEdit;
@@ -42,7 +42,7 @@ public class GuaranteeActivity extends AppCompatActivity {
     protected Button saveButton;
     protected ImageButton expandButton;
 
-    protected TodoItem item;
+    protected GuarItem item;
     protected FatItem fatitem;
     protected int listPosition;
     protected Button cancelButton;
@@ -131,7 +131,7 @@ public class GuaranteeActivity extends AppCompatActivity {
         // Get the item passed from the previous activity.
         Intent intent = getIntent();
         listPosition = intent.getIntExtra("position", -1);
-        item = (TodoItem) intent.getSerializableExtra("item");
+        item = (GuarItem) intent.getSerializableExtra("item");
 
         setupComponents();
         setupCalendar();

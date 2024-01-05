@@ -28,7 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
-import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class FaturaActivity extends AppCompatActivity {
     protected Button imageButton;
@@ -157,7 +157,7 @@ public class FaturaActivity extends AppCompatActivity {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 // Get extras returned to us.
                 int position = data.getIntExtra("position", -1);
-                TodoItem updatedItem = (TodoItem) data.getSerializableExtra("item");
+                GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("position", position);
@@ -211,7 +211,7 @@ public class FaturaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class);
                 intent.putExtra("position", -1);
-                intent.putExtra("item", new TodoItem());
+                intent.putExtra("item", new GuarItem());
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
 

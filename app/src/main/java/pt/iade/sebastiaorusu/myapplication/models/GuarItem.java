@@ -1,7 +1,6 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-public class TodoItem implements Serializable {
+public class GuarItem implements Serializable {
     private int id;
     private String title;
     private Calendar expDateCalendar;
@@ -19,11 +18,11 @@ public class TodoItem implements Serializable {
     private Calendar remDateCalendar;
     private String notes;
 
-    public TodoItem() {
+    public GuarItem() {
         this(0, "", Calendar.getInstance(), false, Calendar.getInstance(), "");
     }
 
-    public TodoItem(int id, String title, Calendar exp_date, boolean important, Calendar rem_date, String notes) {
+    public GuarItem(int id, String title, Calendar exp_date, boolean important, Calendar rem_date, String notes) {
         this.id = id;
         this.title = title;
         this.expDateCalendar = exp_date;
@@ -33,10 +32,10 @@ public class TodoItem implements Serializable {
     }
 
 
-    public static ArrayList<TodoItem> List(){
-        ArrayList<TodoItem> items = new ArrayList<TodoItem>();
-        items.add(new TodoItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
-        items.add(new TodoItem(2, "Item 2", new GregorianCalendar(2022, 4, 24), false, new GregorianCalendar(2022, 3, 24), "Item Notes 2"));
+    public static ArrayList<GuarItem> List(){
+        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
+        items.add(new GuarItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
+        items.add(new GuarItem(2, "Item 2", new GregorianCalendar(2022, 4, 24), false, new GregorianCalendar(2022, 3, 24), "Item Notes 2"));
 
         return items;
     }

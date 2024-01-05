@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import pt.iade.sebastiaorusu.myapplication.R;
-import pt.iade.sebastiaorusu.myapplication.models.TodoItem;
+import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class TodoImptAdapter extends RecyclerView.Adapter<TodoImptAdapter.ViewHolder>{
-    private ArrayList<TodoItem> items;
+    private ArrayList<GuarItem> items;
     private LayoutInflater inflater;
     private ItemClickListener clickListener;
 
-    public TodoImptAdapter(Context context, ArrayList<TodoItem> items) {
+    public TodoImptAdapter(Context context, ArrayList<GuarItem> items) {
         inflater = LayoutInflater.from(context);
         this.items = items;
         clickListener = null;
@@ -40,7 +40,7 @@ public class TodoImptAdapter extends RecyclerView.Adapter<TodoImptAdapter.ViewHo
     }
 
     public void onBindViewHolder( ViewHolder holder, int position) {
-        TodoItem item = items.get(position);
+        GuarItem item = items.get(position);
 
         holder.titleLabel.setText(item.getTitle());
         holder.notesLabel.setText(item.getNotes());
@@ -53,7 +53,7 @@ public class TodoImptAdapter extends RecyclerView.Adapter<TodoImptAdapter.ViewHo
         return items.size();
     }
 
-    public void setItems(ArrayList<TodoItem> importantItems) {
+    public void setItems(ArrayList<GuarItem> importantItems) {
         this.items = importantItems;
         notifyDataSetChanged();
     }
