@@ -84,26 +84,39 @@ public class WebRequest {
         Log.i("WebRequest-Body", body);
         URI uri = buildUri(params);
         HttpURLConnection urlConnection = (HttpURLConnection) uri.toURL().openConnection();
-        urlConnection.setRequestMethod("POST");
-        urlConnection.setRequestProperty("Content-Type", contentType);
-        urlConnection.setRequestProperty("Content-Length", Integer.toString(postData.length));
-        urlConnection.setUseCaches(false);
-        urlConnection.setDoOutput(true);
+        try {
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Content-Type", contentType);
+            urlConnection.setRequestProperty("Content-Length", Integer.toString(postData.length));
+            urlConnection.setUseCaches(false);
+            urlConnection.setDoOutput(true);
 
-        // Send request body.
-        OutputStream os = urlConnection.getOutputStream();
-        os.write(postData, 0, postData.length);
-        os.flush();
+            // Send request body.
+            try (OutputStream os = urlConnection.getOutputStream()) {
+                os.write(postData, 0, postData.length);
+                os.flush();
+            }
 
-        // Get request response.
-        InputStream is = new BufferedInputStream(urlConnection.getInputStream());
-        String result = readStreamToString(is);
-        Log.i("WebRequest-Response", result);
-
-        os.close();
-        is.close();
-
-        return result;
+            // Check the response code and handle errors if any.
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Read input stream
+                try (InputStream is = new BufferedInputStream(urlConnection.getInputStream())) {
+                    String result = readStreamToString(is);
+                    Log.i("WebRequest-Response", result);
+                    return result;
+                }
+            } else {
+                // Read error stream
+                try (InputStream is = new BufferedInputStream(urlConnection.getErrorStream())) {
+                    String result = readStreamToString(is);
+                    Log.e("WebRequest-Error", "Error response from server: " + result);
+                    throw new IOException("HTTP error code: " + responseCode);
+                }
+            }
+        } finally {
+            urlConnection.disconnect();
+        }
     }
 
     /**
