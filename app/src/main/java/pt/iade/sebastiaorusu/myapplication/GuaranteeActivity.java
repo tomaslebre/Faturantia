@@ -227,18 +227,9 @@ public class GuaranteeActivity extends AppCompatActivity {
         titleEdit = (EditText) findViewById(R.id.prod_name_txt);
         expDateCalendar = (CalendarView) findViewById(R.id.exp_date_calendar);
         expDateEdit = (EditText) findViewById(R.id.exp_date_txt);
-
         importantCheck = (CheckBox) findViewById(R.id.check_important);
         remDateCalendar = (CalendarView) findViewById(R.id.rem_date_calendar);
         notes = (EditText) findViewById(R.id.notes_edit);
-
-        remDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            item.setRemDateCalendar(new GregorianCalendar(year, month, dayOfMonth));
-        });
-
-        expDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            item.setExpDateCalendar(new GregorianCalendar(year, month, dayOfMonth));
-        });
 
         populateView();
 
@@ -264,6 +255,7 @@ public class GuaranteeActivity extends AppCompatActivity {
         item.setImportantCheck(importantCheck.isChecked());
 
         Calendar remDateCalendar = Calendar.getInstance();
+        remDateCalendar.setTimeInMillis(this.remDateCalendar.getDate());
         item.setRemDateCalendar(remDateCalendar);
         item.setNotes(notes.getText().toString());
 

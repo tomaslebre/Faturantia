@@ -4,17 +4,16 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Random;
 
 import pt.iade.sebastiaorusu.myapplication.utilities.CalendarJsonAdapter;
 import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
@@ -30,6 +29,7 @@ public class GuarItem implements Serializable {
     private Calendar remDateCalendar;
     private String notes;
 
+
     public GuarItem() {
         this(0, "", Calendar.getInstance(), " ", false, Calendar.getInstance(), "");
     }
@@ -43,6 +43,7 @@ public class GuarItem implements Serializable {
         this.remDateCalendar = rem_date;
         this.notes = notes;
     }
+
 
 
     /*public static ArrayList<GuarItem> List(){
