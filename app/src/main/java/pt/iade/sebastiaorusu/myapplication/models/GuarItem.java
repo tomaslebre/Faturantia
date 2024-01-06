@@ -1,7 +1,5 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
-import android.widget.EditText;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
