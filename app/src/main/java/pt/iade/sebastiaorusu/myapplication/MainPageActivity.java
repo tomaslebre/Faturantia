@@ -42,18 +42,6 @@ public class MainPageActivity extends AppCompatActivity {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
-
-        if (item.getItemId() == R.id.add_butt_guarantee) {
-            // ActionBar "Add" button.
-            Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
-            intent.putExtra("position", -1);
-            intent.putExtra("item", new GuarItem());
-
-            startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -173,7 +161,7 @@ public class MainPageActivity extends AppCompatActivity {
             }
         });
 
-        /*addGuarantee = findViewById(R.id.add_butt_guarantee);
+        addGuarantee = findViewById(R.id.add_butt_guarantee);
         addGuarantee.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -184,7 +172,7 @@ public class MainPageActivity extends AppCompatActivity {
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
-        });*/
+        });
 
         // Get the items from the web server.
         setupComponents();
