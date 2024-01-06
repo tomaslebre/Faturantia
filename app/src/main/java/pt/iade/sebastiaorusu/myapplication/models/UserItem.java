@@ -7,7 +7,6 @@ public class UserItem implements Serializable {
     private int id;
     private String email;
     private String password;
-
     private String name;
 
     private String location;

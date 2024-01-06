@@ -40,7 +40,7 @@ public class FatItemRowAdapter extends RecyclerView.Adapter<FatItemRowAdapter.Vi
         holder.titleLabel.setText(item.getTitle());
         holder.storeLabel.setText(item.getStore());
         holder.storeLocationLabel.setText(item.getStoreLocation());
-        holder.datePurchaseLabel.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(item.getDateofpurchaseCalendar().getTime()));
+        holder.datePurchaseLabel.setText(item.getDatePurchase());
     }
     
     public int getItemCount() {

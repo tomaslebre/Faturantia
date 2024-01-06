@@ -33,12 +33,13 @@ import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class GuaranteeActivity extends AppCompatActivity {
     protected EditText titleEdit;
-    protected Spinner categorySpinner;
     protected CheckBox importantCheck;
     protected EditText notes;
     protected EditText expDateEdit;
     protected CalendarView expDateCalendar;
     protected CalendarView remDateCalendar;
+
+
     protected Button saveButton;
     protected ImageButton expandButton;
 
@@ -226,8 +227,8 @@ public class GuaranteeActivity extends AppCompatActivity {
         titleEdit = (EditText) findViewById(R.id.prod_name_txt);
         expDateCalendar = (CalendarView) findViewById(R.id.exp_date_calendar);
         expDateEdit = (EditText) findViewById(R.id.exp_date_txt);
+
         importantCheck = (CheckBox) findViewById(R.id.check_important);
-        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         remDateCalendar = (CalendarView) findViewById(R.id.rem_date_calendar);
         notes = (EditText) findViewById(R.id.notes_edit);
 
@@ -235,7 +236,9 @@ public class GuaranteeActivity extends AppCompatActivity {
             item.setRemDateCalendar(new GregorianCalendar(year, month, dayOfMonth));
         });
 
-
+        expDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            item.setExpDateCalendar(new GregorianCalendar(year, month, dayOfMonth));
+        });
 
         populateView();
 
@@ -244,10 +247,10 @@ public class GuaranteeActivity extends AppCompatActivity {
 
     protected void populateView(){
         titleEdit.setText(item.getTitle());
-        expDateCalendar.setDate(item.getExp_date().getTimeInMillis());
-        expDateEdit.setText(new SimpleDateFormat("dd/MM/yyyy").format(item.getExp_date().getTime()));
-        importantCheck.setChecked(item.isImportant());
-        remDateCalendar.setDate(item.getRem_date().getTimeInMillis());
+        expDateCalendar.setDate(item.getExpDateCalendar().getTimeInMillis());
+        expDateEdit.setText(item.getExpDateEdit());
+        importantCheck.setChecked(item.isImportantCheck());
+        remDateCalendar.setDate(item.getRemDateCalendar().getTimeInMillis());
         notes.setText(item.getNotes());
     }
 
@@ -256,11 +259,12 @@ public class GuaranteeActivity extends AppCompatActivity {
         item.setTitle(titleEdit.getText().toString());
         Calendar expDateCalendar = Calendar.getInstance();
         expDateCalendar.setTimeInMillis(this.expDateCalendar.getDate());
-        item.setExp_date(expDateCalendar);
-        item.setImportant(importantCheck.isChecked());
+        item.setExpDateCalendar(expDateCalendar);
+        item.setExpDateEdit(expDateEdit.getText().toString());
+        item.setImportantCheck(importantCheck.isChecked());
 
         Calendar remDateCalendar = Calendar.getInstance();
-        item.setRem_date(remDateCalendar);
+        item.setRemDateCalendar(remDateCalendar);
         item.setNotes(notes.getText().toString());
 
     }

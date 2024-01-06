@@ -44,8 +44,8 @@ public class TodoItemRowAdapter extends RecyclerView.Adapter<TodoItemRowAdapter.
 
         holder.titleLabel.setText(item.getTitle());
         holder.notesLabel.setText(item.getNotes());
-        holder.dateLabel.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(item.getExp_date().getTime()));
-        holder.importantCheck.setChecked(item.isImportant());
+        holder.dateLabel.setText(item.getExpDateEdit());
+        holder.importantCheck.setChecked(item.isImportantCheck());
     }
 
     public int getItemCount() {

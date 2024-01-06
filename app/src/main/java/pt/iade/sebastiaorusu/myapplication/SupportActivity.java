@@ -1,5 +1,6 @@
 package pt.iade.sebastiaorusu.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -83,8 +84,14 @@ public class SupportActivity extends AppCompatActivity {
     private void setupComponents() {
         backButton = findViewById(R.id.back_butt);
         backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SupportActivity.this, MainPageActivity.class);
-            startActivity(intent);
+            // Cria um novo Intent
+            Intent returnIntent = new Intent();
+            // Adiciona dados extras se necessário
+            // returnIntent.putExtra("resultKey", "resultado");
+
+            // Define o resultado da atividade e finaliza
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
         });
     }
 

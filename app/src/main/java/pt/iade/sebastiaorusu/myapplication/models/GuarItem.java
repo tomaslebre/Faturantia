@@ -12,20 +12,20 @@ public class GuarItem implements Serializable {
     private int id;
     private String title;
     private Calendar expDateCalendar;
-    private EditText expDateEdit;
+    private String expDateEdit;
     private boolean importantCheck;
-
     private Calendar remDateCalendar;
     private String notes;
 
     public GuarItem() {
-        this(0, "", Calendar.getInstance(), false, Calendar.getInstance(), "");
+        this(0, "", Calendar.getInstance(), " ", false, Calendar.getInstance(), "");
     }
 
-    public GuarItem(int id, String title, Calendar exp_date, boolean important, Calendar rem_date, String notes) {
+    public GuarItem(int id, String title, Calendar exp_date,String exp_date_edit, boolean important, Calendar rem_date, String notes) {
         this.id = id;
         this.title = title;
         this.expDateCalendar = exp_date;
+        this.expDateEdit = exp_date_edit;
         this.importantCheck = important;
         this.remDateCalendar = rem_date;
         this.notes = notes;
@@ -34,8 +34,8 @@ public class GuarItem implements Serializable {
 
     public static ArrayList<GuarItem> List(){
         ArrayList<GuarItem> items = new ArrayList<GuarItem>();
-        items.add(new GuarItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
-        items.add(new GuarItem(2, "Item 2", new GregorianCalendar(2022, 4, 24), false, new GregorianCalendar(2022, 3, 24), "Item Notes 2"));
+        items.add(new GuarItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), " ", true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
+        items.add(new GuarItem(2, "Item 2", new GregorianCalendar(2022, 4, 24), " ", false, new GregorianCalendar(2022, 3, 24), "Item Notes 2"));
 
         return items;
     }
@@ -59,48 +59,13 @@ public class GuarItem implements Serializable {
         return id;
     }
 
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Calendar getExp_date() {
-        return expDateCalendar;
-    }
-
-    public void setExp_date(Calendar exp_date) {
-        this.expDateCalendar = exp_date;
-    }
-
-    public boolean isImportant() {
-        return importantCheck;
-    }
-
-    public void setImportant(boolean important) {
-        this.importantCheck = important;
-    }
-
-    public Calendar getRem_date() {
-        return remDateCalendar;
-    }
-
-    public void setRem_date(Calendar rem_date) {
-        this.remDateCalendar = rem_date;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Calendar getExpDateCalendar() {
@@ -111,11 +76,11 @@ public class GuarItem implements Serializable {
         this.expDateCalendar = expDateCalendar;
     }
 
-    public EditText getExpDateEdit() {
+    public String getExpDateEdit() {
         return expDateEdit;
     }
 
-    public void setExpDateEdit(EditText expDateEdit) {
+    public void setExpDateEdit(String expDateEdit) {
         this.expDateEdit = expDateEdit;
     }
 
@@ -133,5 +98,13 @@ public class GuarItem implements Serializable {
 
     public void setRemDateCalendar(Calendar remDateCalendar) {
         this.remDateCalendar = remDateCalendar;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

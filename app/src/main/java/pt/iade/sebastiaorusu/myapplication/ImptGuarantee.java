@@ -57,7 +57,7 @@ public class ImptGuarantee extends AppCompatActivity {
 
             if (position == -1) {
                 // Se position é -1, um novo item foi adicionado
-                if (updatedItem.isImportant()) {
+                if (updatedItem.isImportantCheck()) {
                     // Se o novo item é importante, adiciona na lista e notifica o adapter
                     itemsList.add(updatedItem);
                     itemsRowAdapter.notifyItemInserted(itemsList.size() - 1);
@@ -67,7 +67,7 @@ public class ImptGuarantee extends AppCompatActivity {
                 itemsList.set(position, updatedItem);
 
                 // Aqui, precisamos verificar se o item atualizado ainda é importante
-                if (updatedItem.isImportant()) {
+                if (updatedItem.isImportantCheck()) {
                     // Se ainda é importante, atualiza o item no adapter
                     itemsRowAdapter.notifyItemChanged(position);
                 } else {
@@ -85,7 +85,7 @@ public class ImptGuarantee extends AppCompatActivity {
     private void filterAndDisplayImportantItems() {
         ArrayList<GuarItem> importantItems = new ArrayList<>();
         for (GuarItem item : itemsList) {
-            if (item.isImportant()) {
+            if (item.isImportantCheck()) {
                 importantItems.add(item);
             }
         }
@@ -102,7 +102,7 @@ public class ImptGuarantee extends AppCompatActivity {
 
         ArrayList<GuarItem> importantItems = new ArrayList<>();
         for (GuarItem item : itemsList) {
-            if (item.isImportant()) {
+            if (item.isImportantCheck()) {
                 importantItems.add(item);
             }
         }

@@ -27,6 +27,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
 import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
@@ -37,7 +40,6 @@ public class FaturaActivity extends AppCompatActivity {
     protected EditText titleEdit;
     protected EditText storeEdit;
     protected EditText storelocalEdit;
-    protected EditText datePurchaseEdit;
 
     protected FatItem item;
 
@@ -233,21 +235,29 @@ public class FaturaActivity extends AppCompatActivity {
         titleEdit= (EditText) findViewById(R.id.bill_name);
         storeEdit= (EditText) findViewById(R.id.edit_nome_loja);
         storelocalEdit= (EditText) findViewById(R.id.loc_view);
-        datePurchaseEdit= (EditText) findViewById(R.id.purchase_date_edit);
+        purchaseDateEdit= (EditText) findViewById(R.id.purchase_date_edit);
+        purchaseDateCalendar= (CalendarView) findViewById(R.id.purchase_date_calendar);
 
+        purchaseDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            item.setDateofpurchaseCalendar(new GregorianCalendar(year, month, dayOfMonth));
+        });
     }
     protected void populateView() {
         titleEdit.setText(item.getTitle());
         storeEdit.setText(item.getStore());
         storelocalEdit.setText(item.getStoreLocation());
-        datePurchaseEdit.setText(item.getDatePurchase());
+        purchaseDateEdit.setText(item.getDatePurchase());
+        purchaseDateCalendar.setDate(item.getDateofpurchaseCalendar().getTimeInMillis());
 
     }
     protected void commitView() {
         item.setTitle(titleEdit.getText().toString());
         item.setStore(storeEdit.getText().toString());
         item.setStoreLocation(storelocalEdit.getText().toString());
-        item.setDatePurchase(datePurchaseEdit.getText().toString());
+        item.setDatePurchase(purchaseDateEdit.getText().toString());
+        Calendar purchaseDateCalendar = Calendar.getInstance();
+        purchaseDateCalendar.setTimeInMillis(this.purchaseDateCalendar.getDate());
+        item.setDateofpurchaseCalendar(purchaseDateCalendar);
     }
 
     @Override
