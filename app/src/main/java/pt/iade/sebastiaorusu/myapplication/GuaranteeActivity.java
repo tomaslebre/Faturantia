@@ -222,6 +222,7 @@ public class GuaranteeActivity extends AppCompatActivity {
 
 
     }
+
     private void setupComponents(){
 
         titleEdit = (EditText) findViewById(R.id.prod_name_txt);
