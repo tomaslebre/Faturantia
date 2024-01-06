@@ -152,17 +152,10 @@ public class MainPageActivity extends AppCompatActivity {
 
         setupComponents();
         fetchDataFromServer();
-        setupRecyclerView();
 
 
     }
-    private void setupRecyclerView() {
-        // Define o layout manager e o adaptador (inicialmente vazio).
-        itemsListView = findViewById(R.id.recyclerView);
-        itemsListView.setLayoutManager(new LinearLayoutManager(this));
-        itemsRowAdapter = new TodoItemRowAdapter(this, new ArrayList<>());
-        itemsListView.setAdapter(itemsRowAdapter);
-    }
+
     private void fetchDataFromServer() {
         GuarItem.List(new GuarItem.ListResponse() {
             @Override
@@ -170,8 +163,12 @@ public class MainPageActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Atualiza os dados do adaptador e notifica mudanças.
-                        itemsRowAdapter.updateData(items);
+                        // Update the itemsList with server response.
+                        itemsList.clear();
+                        itemsList.addAll(items);
+
+                        // Update the data in the adapter
+                        itemsRowAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -199,7 +196,7 @@ public class MainPageActivity extends AppCompatActivity {
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsListView.setAdapter(itemsRowAdapter);*/
 
-        GuarItem.List(new GuarItem.ListResponse() {
+        /*GuarItem.List(new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
                 // Set our items list.
@@ -224,7 +221,7 @@ public class MainPageActivity extends AppCompatActivity {
                 itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
                 itemsListView.setAdapter(itemsRowAdapter);
             }
-        });
+        });*/
 
 
         //Set up the View bill button

@@ -86,11 +86,7 @@ public class TodoItemRowAdapter extends RecyclerView.Adapter<TodoItemRowAdapter.
             }
         }
     }
-    public void updateData(ArrayList<GuarItem> newItems) {
-        this.items.clear();        // Limpa a lista atual
-        this.items.addAll(newItems); // Adiciona todos os novos itens
-        notifyDataSetChanged();     // Notifica que os dados foram alterados
-    }
+
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
