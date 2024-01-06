@@ -78,36 +78,40 @@ public class GuarItem implements Serializable {
 
 
     public void save(Context context) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    WebRequest req;
-                    if (id == 0) {
-                        req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/add"));
-                    } else {
-                        req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
-                    }
+        new Thread(() -> {
+            try {
+                WebRequest req;
+                String endpoint;
 
-                    String response = req.performPostRequest(GuarItem.this);
-
-                    // Process server response and update the UI on the main thread
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } catch (Exception e) {
-                    // Handle errors on the main thread
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Failed to save guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            Log.e("GuarItem", "Save failed", e);
-                        }
-                    });
+                if (id == 0) {
+                    // This is a new GuarItem, so use the 'add' endpoint
+                    endpoint = "/api/guarantee/add";
+                } else {
+                    // This is an existing GuarItem, so use the 'update' endpoint
+                    endpoint = "/api/guarantee/update/" + id;
                 }
+
+                // Prepare and send the request
+                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                String jsonBody = new Gson().toJson(this);
+                String response = req.performPostRequest(null, jsonBody, "application/json");
+
+                // Process the response
+                if (id == 0) {
+                    GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
+                    id = respItem.getId(); // Update the id if it's a new item
+                }
+
+                // Update UI on success
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
+                });
+            } catch (Exception e) {
+                // Update UI on error
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Failed to save guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("GuarItem", "Save failed", e);
+                });
             }
         }).start();
     }
