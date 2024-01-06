@@ -1,32 +1,38 @@
 package pt.iade.sebastiaorusu.myapplication.utilities;
 
-
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.google.gson.JsonDeserializer;
-import java.time.OffsetDateTime;
+import com.google.gson.*;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class CalendarJsonAdapter implements JsonSerializer<Calendar>, JsonDeserializer<Calendar> {
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
+
     @Override
     public JsonElement serialize(Calendar src, Type typeOfSrc, JsonSerializationContext context) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ENGLISH);
-        return new JsonPrimitive(formatter.format(((GregorianCalendar)src).toZonedDateTime()));
+        if (src == null) {
+            return null;
+        }
+        ZonedDateTime zdt = ((GregorianCalendar) src).toZonedDateTime();
+        return new JsonPrimitive(FORMATTER.format(zdt));
     }
 
     @Override
     public Calendar deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ENGLISH);
-        LocalDate localDate = LocalDate.parse(json.getAsString(), formatter);
-
-        return new GregorianCalendar(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
+        if (json == null) {
+            return null;
+        }
+        try {
+            ZonedDateTime zdt = ZonedDateTime.parse(json.getAsString(), FORMATTER);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(zdt.toInstant().toEpochMilli());
+            return calendar;
+        } catch (Exception e) {
+            throw new JsonParseException("Could not parse date: " + json.getAsString(), e);
+        }
     }
 }

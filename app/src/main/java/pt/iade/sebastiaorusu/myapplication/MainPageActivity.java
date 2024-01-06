@@ -84,15 +84,11 @@ public class MainPageActivity extends AppCompatActivity {
 
         }
     }
-    private void setupComponents() {
-        // Setup the ActionBar and other UI components if not already set up.
 
-        // Initialize RecyclerView and its properties, but not the adapter.
+    private void setupComponents() {
         itemsListView = findViewById(R.id.recyclerView);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Initialize the empty list and adapter.
-        itemsList = new ArrayList<>();
+        itemsList = new ArrayList<>(); // Initialize your list
         itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
 
 
@@ -104,29 +100,27 @@ public class MainPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // Fetch and set items from the server.
+        // Call the method to fetch items from the server.
         fetchItemsFromServer();
     }
-
 
     private void fetchItemsFromServer() {
         GuarItem.List(new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
-                // Update our items list with the fetched items.
-                itemsList.clear();
-                itemsList.addAll(items);
-
-                // Set the adapter to the RecyclerView if it's not already set.
-                if (itemsListView.getAdapter() == null) {
-                    itemsListView.setAdapter(itemsRowAdapter);
-                }
-
-                // Notify the adapter that the data set has changed to refresh the view.
-                itemsRowAdapter.notifyDataSetChanged();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        itemsList.clear();
+                        itemsList.addAll(items);
+                        itemsListView.setAdapter(itemsRowAdapter); // Set the adapter here
+                        itemsRowAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
     }
+
 
 
     @Override
