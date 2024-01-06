@@ -57,15 +57,6 @@ public class GuaranteeActivity extends AppCompatActivity {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
-        if (item.getItemId() == R.id.save_guar_butt) {
-            commitView();  // Collect data from UI
-            this.item.save(this);  // Save the item
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("position", this.listPosition);
-            returnIntent.putExtra("item", this.item);
-            setResult(AppCompatActivity.RESULT_OK, returnIntent);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
 
     }
@@ -206,12 +197,10 @@ public class GuaranteeActivity extends AppCompatActivity {
 
 
         // Save button garantias
-        /*saveButton = findViewById(R.id.save_guar_butt);
+        saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
-            // ActionBar "Save" button.
             commitView();  // Collect data from UI
-            this.item.save(this);  // Save the item
-
+            item.save();   // Save the item to the server
             // Setup the data to be sent back to the previous activity.
             Intent returnIntent = new Intent();
             returnIntent.putExtra("position", this.listPosition);
@@ -219,7 +208,7 @@ public class GuaranteeActivity extends AppCompatActivity {
             setResult(AppCompatActivity.RESULT_OK, returnIntent);
 
             finish();
-        });*/
+        });
 
         // Cancel button garantias
         cancelButton = findViewById(R.id.exit_button);

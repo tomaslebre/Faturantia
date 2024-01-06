@@ -77,54 +77,40 @@ public class GuarItem implements Serializable {
     }
 
 
-    public void save(Context context) {
-        // Contexto necessário para o Toast. Deve ser o contexto da Activity.
-
+    public void save() {
+        // Send the object's data to our web server and update the database there.
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (id == 0) {
-                        // Código para inserir uma nova garantia
-                        WebRequest req = new WebRequest(new URL(
-                                WebRequest.LOCALHOST + "/api/guarantee/add"));
-                        String response = req.performPostRequest(GuarItem.this);
+                    try {
+                        if (id == 0) {
+                            // This is a brand new object and must be a INSERT in the database.
+                            WebRequest req = new WebRequest(new URL(
+                                    WebRequest.LOCALHOST + "/api/guarantee/add"));
+                            String response = req.performPostRequest(GuarItem.this);
 
-                        // Processar a resposta do servidor
-                        GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
-                        id = respItem.getId();
-                    } else {
-                        // Código para atualizar uma garantia existente
-                        WebRequest req = new WebRequest(new URL(
-                                WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
-                        req.performPostRequest(GuarItem.this);
+                            // Get the new ID from the server's response.
+                            GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
+                            id = respItem.getId();
+                        } else {
+                            // This is an update to an existing object and must use UPDATE in the database.
+                            WebRequest req = new WebRequest(new URL(
+                                    WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
+                            req.performPostRequest(GuarItem.this);
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(null, "Web request failed: " + e.toString(),
+                                Toast.LENGTH_LONG).show();
+                        Log.e("TodoItem", e.toString());
                     }
-
-                    // Atualizar UI após a operação de rede ser bem-sucedida
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 } catch (Exception e) {
-                    // Atualizar UI se a operação de rede falhar
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Web request failed: " + e.toString(), Toast.LENGTH_LONG).show();
-                            Log.e("GuarItem", e.toString());
-                        }
-                    });
+                    e.printStackTrace();
                 }
             }
         });
         thread.start();
     }
-
-
-
-
 
 
     public int getId() {
