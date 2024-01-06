@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
 import java.net.URL;
@@ -15,14 +16,17 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
+import pt.iade.sebastiaorusu.myapplication.utilities.CalendarJsonAdapter;
 import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
 
 public class GuarItem implements Serializable {
     private int id;
     private String title;
+    @JsonAdapter(CalendarJsonAdapter.class)
     private Calendar expDateCalendar;
     private String expDateEdit;
     private boolean importantCheck;
+    @JsonAdapter(CalendarJsonAdapter.class)
     private Calendar remDateCalendar;
     private String notes;
 
