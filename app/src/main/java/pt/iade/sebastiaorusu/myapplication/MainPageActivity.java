@@ -151,11 +151,11 @@ public class MainPageActivity extends AppCompatActivity {
         //itemsList = GuarItem.List();
 
         setupComponents();
-        fetchDataFromServer();
+        //fetchDataFromServer();
 
 
     }
-    private void fetchDataFromServer(){
+    /*private void fetchDataFromServer(){
         GuarItem.List(new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
@@ -169,7 +169,7 @@ public class MainPageActivity extends AppCompatActivity {
                 });
             }
         });
-    }
+    }*/
     private void setupComponents() {
         // Setup the ActionBar.
 
@@ -191,6 +191,34 @@ public class MainPageActivity extends AppCompatActivity {
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsListView.setAdapter(itemsRowAdapter);*/
+
+        GuarItem.List(new GuarItem.ListResponse() {
+            @Override
+            public void response(ArrayList<GuarItem> items) {
+                // Set our items list.
+                itemsList = items;
+
+                // Set up row adapter with our items list.
+                itemsRowAdapter = new TodoItemRowAdapter(MainPageActivity.this, itemsList);
+                itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // Place our clicked item object in the intent to send to the other activity.
+                        Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
+                        intent.putExtra("position", position);
+                        intent.putExtra("item", itemsList.get(position));
+
+                        startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+                    }
+                });
+
+                // Set up the items recycler view.
+                itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
+                itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
+                itemsListView.setAdapter(itemsRowAdapter);
+            }
+        });
+
 
         //Set up the View bill button
          viewBill = (Button) findViewById(R.id.butt_view_bill);
