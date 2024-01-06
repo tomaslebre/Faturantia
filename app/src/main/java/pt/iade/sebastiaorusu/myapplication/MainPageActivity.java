@@ -20,13 +20,13 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import pt.iade.sebastiaorusu.myapplication.adapters.TodoItemRowAdapter;
+import pt.iade.sebastiaorusu.myapplication.adapters.GuarItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class MainPageActivity extends AppCompatActivity {
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     protected RecyclerView itemsListView;
-    protected TodoItemRowAdapter itemsRowAdapter;
+    protected GuarItemRowAdapter itemsRowAdapter;
     protected ArrayList<GuarItem> itemsList;
     protected Button viewBill;
 
@@ -85,51 +85,49 @@ public class MainPageActivity extends AppCompatActivity {
         }
     }
     private void setupComponents() {
-        // Setup the ActionBar.
-        setSupportActionBar(findViewById(R.id.toolbar));
+        // Setup the ActionBar and other UI components if not already set up.
 
+        // Initialize RecyclerView and its properties, but not the adapter.
+        itemsListView = findViewById(R.id.recyclerView);
+        itemsListView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize the empty list and adapter.
+        itemsList = new ArrayList<>();
+        itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
+
+
+        viewBill = (Button) findViewById(R.id.butt_view_bill);
+        viewBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPageActivity.this, FatSaved.class);
+                startActivity(intent);
+            }
+        });
+        // Fetch and set items from the server.
+        fetchItemsFromServer();
+    }
+
+
+    private void fetchItemsFromServer() {
         GuarItem.List(new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
-                // Set our items list.
-                itemsList = items;
+                // Update our items list with the fetched items.
+                itemsList.clear();
+                itemsList.addAll(items);
 
-                // Set up row adapter with our items list.
-                itemsRowAdapter = new TodoItemRowAdapter(MainPageActivity.this, itemsList);
-                itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        // Place our clicked item object in the intent to send to the other activity.
-                        Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
-                        intent.putExtra("position", position);
-                        intent.putExtra("item", itemsList.get(position));
+                // Set the adapter to the RecyclerView if it's not already set.
+                if (itemsListView.getAdapter() == null) {
+                    itemsListView.setAdapter(itemsRowAdapter);
+                }
 
-                        startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-                    }
-                });
-
-                // Set up the items recycler view.
-                itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
-                itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
-                itemsListView.setAdapter(itemsRowAdapter);
+                // Notify the adapter that the data set has changed to refresh the view.
+                itemsRowAdapter.notifyDataSetChanged();
             }
         });
-
-
-
-
-
-
-    //Set up the View bill button
-         viewBill = (Button) findViewById(R.id.butt_view_bill);
-            viewBill.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainPageActivity.this, FatSaved.class);
-                    startActivity(intent);
-                }
-            });
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

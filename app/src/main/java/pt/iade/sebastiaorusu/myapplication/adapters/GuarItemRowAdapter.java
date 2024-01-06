@@ -9,19 +9,17 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import pt.iade.sebastiaorusu.myapplication.R;
 import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
-public class TodoItemRowAdapter extends RecyclerView.Adapter<TodoItemRowAdapter.ViewHolder>{
+public class GuarItemRowAdapter extends RecyclerView.Adapter<GuarItemRowAdapter.ViewHolder>{
     private ArrayList<GuarItem> items;
     private LayoutInflater inflater;
     private ItemClickListener clickListener;
 
-    public TodoItemRowAdapter(Context context, ArrayList<GuarItem> items) {
+    public GuarItemRowAdapter(Context context, ArrayList<GuarItem> items) {
         inflater = LayoutInflater.from(context);
         this.items = items;
         clickListener = null;

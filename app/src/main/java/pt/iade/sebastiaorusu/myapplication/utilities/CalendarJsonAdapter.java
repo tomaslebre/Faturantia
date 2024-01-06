@@ -24,7 +24,7 @@ public class CalendarJsonAdapter implements JsonSerializer<Calendar>, JsonDeseri
 
     @Override
     public Calendar deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ENGLISH);
         LocalDate localDate = LocalDate.parse(json.getAsString(), formatter);
 
         return new GregorianCalendar(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
