@@ -9,6 +9,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
@@ -44,38 +48,34 @@ public class GuarItem implements Serializable {
         this.notes = notes;
     }
     public static void List(ListResponse response) {
-        ArrayList<GuarItem> items = new ArrayList<>();
+        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
+
+        // Fetch a list of items from the web server and populate the list with them.
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    WebRequest request = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/list"));
+                    try {
+                        WebRequest req = new WebRequest(new URL(
+                                WebRequest.LOCALHOST + "/api/guarantee/list"));
+                        String resp = req.performGetRequest();
 
-                    //WebRequest requestState =   new WebRequest(new URL(WebRequest.LOCALHOST + "/api/userChallenge/completed/user/" + user.getId() ));
+                        // Get the array from the response.
+                        JsonObject json = new Gson().fromJson(resp, JsonObject.class);
+                        JsonArray arr = json.getAsJsonArray("items");
+                        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
+                        for (JsonElement elem : arr) {
+                            items.add(new Gson().fromJson(elem, GuarItem.class));
+                        }
 
-                    String resp = request.performGetRequest();
-
-                    //requestState.performGetRequest();
-
-                    Gson gson = new Gson();
-
-                    GuarItem[] array = gson.fromJson(resp, GuarItem[].class);
-
-                    //JsonObject json = new Gson().fromJson(resp,JsonObject.class);
-                    //JsonArray array = json.getAsJsonArray("items");
-
-
-                    ArrayList<GuarItem> items = new ArrayList<>();
-
-
-                    for (GuarItem elem : array) {
-                        items.add(elem);
+                        response.response(items);
+                    } catch (Exception e) {
+                        Toast.makeText(null, "Web request failed: " + e.toString(),
+                                Toast.LENGTH_LONG).show();
+                        Log.e("GuarItem", e.toString());
                     }
-
-                    response.response(items);
-
                 } catch (Exception e) {
-                    Log.e("permissions", e.toString());
+                    e.printStackTrace();
                 }
             }
         });

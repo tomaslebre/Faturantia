@@ -57,6 +57,20 @@ public class GuaranteeActivity extends AppCompatActivity {
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
+        if (item.getItemId() == R.id.save_guar_butt) {
+            // ActionBar "Save" button.
+            commitView();
+            this.item.save();
+
+            // Setup the data to be sent back to the previous activity.
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("position", this.listPosition);
+            returnIntent.putExtra("item", this.item);
+            setResult(AppCompatActivity.RESULT_OK, returnIntent);
+
+            finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
 
     }
@@ -70,14 +84,14 @@ public class GuaranteeActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Spinner categorySpinner = findViewById(R.id.category_spinner);
+        /*Spinner categorySpinner = findViewById(R.id.category_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
+        categorySpinner.setAdapter(adapter);*/
 
         // Configurar um listener para quando um item é selecionado
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Faça algo com a categoria selecionada
@@ -87,7 +101,7 @@ public class GuaranteeActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
                 // Opcional: Faça algo quando nenhum item está selecionado
             }
-        });
+        });*/
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -197,7 +211,7 @@ public class GuaranteeActivity extends AppCompatActivity {
 
 
         // Save button garantias
-        saveButton = findViewById(R.id.save_guar_butt);
+        /*saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
             // ActionBar "Save" button.
             commitView();
@@ -210,7 +224,7 @@ public class GuaranteeActivity extends AppCompatActivity {
             setResult(AppCompatActivity.RESULT_OK, returnIntent);
 
             finish();
-        });
+        });*/
 
         // Cancel button garantias
         cancelButton = findViewById(R.id.exit_button);
@@ -222,6 +236,8 @@ public class GuaranteeActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void setupComponents(){
 
