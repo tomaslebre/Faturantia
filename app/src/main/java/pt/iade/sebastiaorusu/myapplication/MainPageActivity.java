@@ -151,11 +151,11 @@ public class MainPageActivity extends AppCompatActivity {
         //itemsList = GuarItem.List();
 
         setupComponents();
-        //fetchDataFromServer();
+        fetchDataFromServer();
 
 
     }
-    /*private void fetchDataFromServer(){
+    private void fetchDataFromServer(){
         GuarItem.List(new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
@@ -169,7 +169,7 @@ public class MainPageActivity extends AppCompatActivity {
                 });
             }
         });
-    }*/
+    }
     private void setupComponents() {
         // Setup the ActionBar.
 

@@ -50,39 +50,46 @@ public class GuarItem implements Serializable {
     }*/
 
     public static void List(ListResponse response) {
-        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
+        ArrayList<GuarItem> items = new ArrayList<>();
 
-        // Fetch a list of items from the web server and populate the list with them.
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    try {
-                        WebRequest req = new WebRequest(new URL(
-                                WebRequest.LOCALHOST + "/api/guarantee/list"));
-                        String resp = req.performGetRequest();
+                    WebRequest request = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/list"));
 
-                        // Get the array from the response.
-                        JsonObject json = new Gson().fromJson(resp, JsonObject.class);
-                        JsonArray arr = json.getAsJsonArray("items");
-                        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
-                        for (JsonElement elem : arr) {
-                            items.add(new Gson().fromJson(elem, GuarItem.class));
-                        }
+                    //WebRequest requestState =   new WebRequest(new URL(WebRequest.LOCALHOST + "/api/userChallenge/completed/user/" + user.getId() ));
 
-                        response.response(items);
-                    } catch (Exception e) {
-                        Toast.makeText(null, "Web request failed: " + e.toString(),
-                                Toast.LENGTH_LONG).show();
-                        Log.e("GuarItem", e.toString());
+                    String resp = request.performGetRequest();
+
+                    //requestState.performGetRequest();
+
+                    Gson gson = new Gson();
+
+                    GuarItem[] array = gson.fromJson(resp, GuarItem[].class);
+
+                    //JsonObject json = new Gson().fromJson(resp,JsonObject.class);
+                    //JsonArray array = json.getAsJsonArray("items");
+
+
+                    ArrayList<GuarItem> items = new ArrayList<>();
+
+
+                    for (GuarItem elem : array) {
+                        items.add(elem);
                     }
+
+                    response.response(items);
+
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e("permissions", e.toString());
                 }
             }
         });
         thread.start();
     }
+
 
     public void save() {
         // TODO: Send the object's data to our web server and update the database there.
