@@ -43,21 +43,8 @@ public class GuarItem implements Serializable {
         this.remDateCalendar = rem_date;
         this.notes = notes;
     }
-
-
-
-    /*public static ArrayList<GuarItem> List(){
-        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
-        items.add(new GuarItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), " ", true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
-        items.add(new GuarItem(2, "Item 2", new GregorianCalendar(2022, 4, 24), " ", false, new GregorianCalendar(2022, 3, 24), "Item Notes 2"));
-
-        return items;
-    }*/
-
     public static void List(ListResponse response) {
         ArrayList<GuarItem> items = new ArrayList<>();
-
-
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
