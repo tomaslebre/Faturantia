@@ -60,7 +60,7 @@ public class GuaranteeActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.save_guar_butt) {
             // ActionBar "Save" button.
             commitView();
-            this.item.save();
+           // this.item.save();
 
             // Setup the data to be sent back to the previous activity.
             Intent returnIntent = new Intent();

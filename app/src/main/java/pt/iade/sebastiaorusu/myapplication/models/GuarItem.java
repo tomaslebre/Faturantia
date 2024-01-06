@@ -1,5 +1,7 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
+import android.content.Context;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 import pt.iade.sebastiaorusu.myapplication.utilities.CalendarJsonAdapter;
 import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
@@ -48,76 +51,79 @@ public class GuarItem implements Serializable {
         this.notes = notes;
     }
     public static void List(ListResponse response) {
-        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
+        new Thread(() -> {
+            try {
+                WebRequest req = new WebRequest(new URL(
+                        WebRequest.LOCALHOST + "/api/guarantee/list"));
+                String resp = req.performGetRequest();
 
-        // Fetch a list of items from the web server and populate the list with them.
+                // Assume the root of the response is a JsonArray.
+                JsonArray arr = new Gson().fromJson(resp, JsonArray.class);
+                ArrayList<GuarItem> items = new ArrayList<>();
+                for (JsonElement elem : arr) {
+                    items.add(new Gson().fromJson(elem, GuarItem.class));
+                }
+
+                // Switch to main thread to update UI components.
+                new android.os.Handler(Looper.getMainLooper()).post(() -> {
+                    response.response(items);
+                });
+
+            } catch (Exception e) {
+                // Handle exceptions and make sure to switch to main thread if updating UI
+                Log.e("GuarItem", "Web request failed: " + e.toString());
+            }
+        }).start();
+    }
+
+
+
+
+   /* public void save(Context context) {
+        // Contexto necessário para o Toast. Deve ser o contexto da Activity.
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    try {
+                    if (id == 0) {
+                        // Código para inserir uma nova garantia
                         WebRequest req = new WebRequest(new URL(
-                                WebRequest.LOCALHOST + "/api/guarantee/list"));
-                        String resp = req.performGetRequest();
+                                WebRequest.LOCALHOST + "/api/guarantee/add"));
+                        String response = req.performPostRequest(GuarItem.this);
 
-                        // Get the array from the response.
-                        JsonObject json = new Gson().fromJson(resp, JsonObject.class);
-                        JsonArray arr = json.getAsJsonArray("items");
-                        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
-                        for (JsonElement elem : arr) {
-                            items.add(new Gson().fromJson(elem, GuarItem.class));
-                        }
-
-                        response.response(items);
-                    } catch (Exception e) {
-                        Toast.makeText(null, "Web request failed: " + e.toString(),
-                                Toast.LENGTH_LONG).show();
-                        Log.e("GuarItem", e.toString());
+                        // Processar a resposta do servidor
+                        GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
+                        id = respItem.getId();
+                    } else {
+                        // Código para atualizar uma garantia existente
+                        WebRequest req = new WebRequest(new URL(
+                                WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
+                        req.performPostRequest(GuarItem.this);
                     }
+
+                    // Atualizar UI após a operação de rede ser bem-sucedida
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    // Atualizar UI se a operação de rede falhar
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Web request failed: " + e.toString(), Toast.LENGTH_LONG).show();
+                            Log.e("GuarItem", e.toString());
+                        }
+                    });
                 }
             }
         });
         thread.start();
-    }
+    }*/
 
-
-    public void save() {
-        // TODO: Send the object's data to our web server and update the database there.
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    try {
-                        if (id == 0) {
-                            // This is a brand new object and must be a INSERT in the database.
-                            WebRequest req = new WebRequest(new URL(
-                                    WebRequest.LOCALHOST + "/api/guarantee/add"));
-                            String response = req.performPostRequest(GuarItem.this);
-
-                            // Get the new ID from the server's response.
-                            GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
-                            id = respItem.getId();
-                        } else {
-                            // This is an update to an existing object and must use UPDATE in the database.
-                            WebRequest req = new WebRequest(new URL(
-                                    WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
-                            req.performPostRequest(GuarItem.this);
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(null, "Web request failed: " + e.toString(),
-                                Toast.LENGTH_LONG).show();
-                        Log.e("GuarItem", e.toString());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-    }
 
 
 

@@ -23,7 +23,7 @@ import java.util.HashMap;
  * @author Nathan Campos <nathan@innoveworkshop.com>
  */
 public class WebRequest {
-    public final static String LOCALHOST = "http://localhost:8080";
+    public final static String LOCALHOST = "http://10.0.2.2:8080";
 
     protected URL url;
 

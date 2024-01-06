@@ -57,6 +57,80 @@ public class MainPageActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Must be called always and before everything.
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check which activity returned to us.
+        if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
+            // Check if the activity was successful.
+            if (resultCode == AppCompatActivity.RESULT_OK) {
+                // Get extras returned to us.
+                int position = data.getIntExtra("position", -1);
+                GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
+
+                if (position == -1) {
+                    // Add the item to the list it was created new.
+                    itemsList.add(updatedItem);
+                    itemsRowAdapter.notifyItemInserted(itemsList.size() - 1);
+                } else {
+                    // Updates an existing item on the list.
+                    itemsList.set(position, updatedItem);
+                    itemsRowAdapter.notifyItemChanged(position);
+                }
+            }
+
+        }
+    }
+    private void setupComponents() {
+        // Setup the ActionBar.
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+        GuarItem.List(new GuarItem.ListResponse() {
+            @Override
+            public void response(ArrayList<GuarItem> items) {
+                // Set our items list.
+                itemsList = items;
+
+                // Set up row adapter with our items list.
+                itemsRowAdapter = new TodoItemRowAdapter(MainPageActivity.this, itemsList);
+                itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // Place our clicked item object in the intent to send to the other activity.
+                        Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
+                        intent.putExtra("position", position);
+                        intent.putExtra("item", itemsList.get(position));
+
+                        startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+                    }
+                });
+
+                // Set up the items recycler view.
+                itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
+                itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
+                itemsListView.setAdapter(itemsRowAdapter);
+            }
+        });
+
+
+
+
+
+
+    //Set up the View bill button
+         viewBill = (Button) findViewById(R.id.butt_view_bill);
+            viewBill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainPageActivity.this, FatSaved.class);
+                    startActivity(intent);
+                }
+            });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,77 +195,9 @@ public class MainPageActivity extends AppCompatActivity {
         });*/
 
         // Get the items from the web server.
-        //itemsList = GuarItem.List();
-
         setupComponents();
 
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        // Must be called always and before everything.
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Check which activity returned to us.
-        if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
-            // Check if the activity was successful.
-            if (resultCode == AppCompatActivity.RESULT_OK) {
-                // Get extras returned to us.
-                int position = data.getIntExtra("position", -1);
-                GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
-
-                if (position == -1) {
-                    // Add the item to the list it was created new.
-                    itemsList.add(updatedItem);
-                    itemsRowAdapter.notifyItemInserted(itemsList.size() - 1);
-                } else {
-                    // Updates an existing item on the list.
-                    itemsList.set(position, updatedItem);
-                    itemsRowAdapter.notifyItemChanged(position);
-                }
-            }
-
-        }
-    }
-    private void setupComponents() {
-        GuarItem.List(new GuarItem.ListResponse() {
-            @Override
-            public void response(ArrayList<GuarItem> items) {
-                // Set our items list.
-                itemsList = items;
-
-                // Set up row adapter with our items list.
-                itemsRowAdapter = new TodoItemRowAdapter(MainPageActivity.this, itemsList);
-                itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        // Place our clicked item object in the intent to send to the other activity.
-                        Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
-                        intent.putExtra("position", position);
-                        intent.putExtra("item", itemsList.get(position));
-
-                        startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-                    }
-                });
-
-                // Set up the items recycler view.
-                itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
-                itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
-                itemsListView.setAdapter(itemsRowAdapter);
-            }
-        });
-
-
-        //Set up the View bill button
-         viewBill = (Button) findViewById(R.id.butt_view_bill);
-            viewBill.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainPageActivity.this, FatSaved.class);
-                    startActivity(intent);
-                }
-            });
     }
 
 
