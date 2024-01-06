@@ -20,7 +20,7 @@ import com.google.gson.annotations.JsonAdapter;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.logging.Handler;
+import android.os.Handler;
 
 import pt.iade.sebastiaorusu.myapplication.utilities.CalendarJsonAdapter;
 import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
@@ -77,52 +77,35 @@ public class GuarItem implements Serializable {
     }
 
 
-
-
-   /* public void save(Context context) {
-        // Contexto necessário para o Toast. Deve ser o contexto da Activity.
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (id == 0) {
-                        // Código para inserir uma nova garantia
-                        WebRequest req = new WebRequest(new URL(
-                                WebRequest.LOCALHOST + "/api/guarantee/add"));
-                        String response = req.performPostRequest(GuarItem.this);
-
-                        // Processar a resposta do servidor
-                        GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
-                        id = respItem.getId();
-                    } else {
-                        // Código para atualizar uma garantia existente
-                        WebRequest req = new WebRequest(new URL(
-                                WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
-                        req.performPostRequest(GuarItem.this);
-                    }
-
-                    // Atualizar UI após a operação de rede ser bem-sucedida
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } catch (Exception e) {
-                    // Atualizar UI se a operação de rede falhar
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Web request failed: " + e.toString(), Toast.LENGTH_LONG).show();
-                            Log.e("GuarItem", e.toString());
-                        }
-                    });
+    public void save(Context context) {
+        new Thread(() -> {
+            try {
+                WebRequest req;
+                if (id == 0) {
+                    // If id is 0, it's a new GuarItem, so we use the 'add' endpoint
+                    req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/add"));
+                } else {
+                    // Otherwise, it's an existing GuarItem, so we use the 'update' endpoint
+                    req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
                 }
+
+                String response = req.performPostRequest(this); // Send this GuarItem as JSON
+
+                // Run on UI thread to show toast
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
+                });
+            } catch (Exception e) {
+                // Run on UI thread to show error toast
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Failed to save guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("GuarItem", "Save failed", e);
+                });
             }
-        });
-        thread.start();
-    }*/
+        }).start();
+    }
+
+
 
 
 
