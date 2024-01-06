@@ -98,7 +98,7 @@ public class ImptGuarantee extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_impt_guarantee);
 
-        itemsList = GuarItem.List();
+        //itemsList = GuarItem.List();
 
         ArrayList<GuarItem> importantItems = new ArrayList<>();
         for (GuarItem item : itemsList) {
@@ -153,13 +153,13 @@ public class ImptGuarantee extends AppCompatActivity {
         });
 
         // Get the items from the web server.
-        itemsList = GuarItem.List();
+        //itemsList = GuarItem.List();
 
-        setupComponents(importantItems);
+        //setupComponents(importantItems);
 
     }
 
-    private void setupComponents(ArrayList<GuarItem> importantItems) {
+    /*private void setupComponents(ArrayList<GuarItem> importantItems) {
         // Setup the ActionBar.
 
         // Set up row adapter with our items list.
@@ -181,7 +181,7 @@ public class ImptGuarantee extends AppCompatActivity {
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsListView.setAdapter(itemsRowAdapter);
 
-    }
+    }*/
 
 
     @Override

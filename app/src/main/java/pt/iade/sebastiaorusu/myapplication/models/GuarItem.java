@@ -1,10 +1,21 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
+
+import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
 
 public class GuarItem implements Serializable {
     private int id;
@@ -30,25 +41,83 @@ public class GuarItem implements Serializable {
     }
 
 
-    public static ArrayList<GuarItem> List(){
+    /*public static ArrayList<GuarItem> List(){
         ArrayList<GuarItem> items = new ArrayList<GuarItem>();
         items.add(new GuarItem(1, "Item 1", new GregorianCalendar(2022, 4, 24), " ", true, new GregorianCalendar(2022, 3, 24), "Item Notes 1"));
         items.add(new GuarItem(2, "Item 2", new GregorianCalendar(2022, 4, 24), " ", false, new GregorianCalendar(2022, 3, 24), "Item Notes 2"));
 
         return items;
+    }*/
+
+    public static void List(ListResponse response) {
+        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
+
+        // Fetch a list of items from the web server and populate the list with them.
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    try {
+                        WebRequest req = new WebRequest(new URL(
+                                WebRequest.LOCALHOST + "/api/guarantee/list"));
+                        String resp = req.performGetRequest();
+
+                        // Get the array from the response.
+                        JsonObject json = new Gson().fromJson(resp, JsonObject.class);
+                        JsonArray arr = json.getAsJsonArray("items");
+                        ArrayList<GuarItem> items = new ArrayList<GuarItem>();
+                        for (JsonElement elem : arr) {
+                            items.add(new Gson().fromJson(elem, GuarItem.class));
+                        }
+
+                        response.response(items);
+                    } catch (Exception e) {
+                        Toast.makeText(null, "Web request failed: " + e.toString(),
+                                Toast.LENGTH_LONG).show();
+                        Log.e("GuarItem", e.toString());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 
     public void save() {
         // TODO: Send the object's data to our web server and update the database there.
 
-        if (id == 0) {
-            // This is a brand new object and must be a INSERT in the database.
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    try {
+                        if (id == 0) {
+                            // This is a brand new object and must be a INSERT in the database.
+                            WebRequest req = new WebRequest(new URL(
+                                    WebRequest.LOCALHOST + "/api/guarantee/add"));
+                            String response = req.performPostRequest(GuarItem.this);
 
-            // Simulate doing an insert and getting an ID back from the web server.
-            id = new Random().nextInt(1000) + 1;
-        } else {
-            // This is an update to an existing object and must use UPDATE in the database.
-        }
+                            // Get the new ID from the server's response.
+                            GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
+                            id = respItem.getId();
+                        } else {
+                            // This is an update to an existing object and must use UPDATE in the database.
+                            WebRequest req = new WebRequest(new URL(
+                                    WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
+                            req.performPostRequest(GuarItem.this);
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(null, "Web request failed: " + e.toString(),
+                                Toast.LENGTH_LONG).show();
+                        Log.e("GuarItem", e.toString());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 
 
@@ -104,5 +173,13 @@ public class GuarItem implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public interface ListResponse {
+        public void response(ArrayList<GuarItem> items);
+    }
+
+    public interface GetByIdResponse {
+        public void response(GuarItem item);
     }
 }

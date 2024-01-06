@@ -88,7 +88,7 @@ public class MainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
 
-        itemsList = GuarItem.List();
+        //itemsList = GuarItem.List();
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -148,18 +148,33 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
         // Get the items from the web server.
-        itemsList = GuarItem.List();
+        //itemsList = GuarItem.List();
 
         setupComponents();
+        fetchDataFromServer();
 
 
     }
-
+    private void fetchDataFromServer(){
+        GuarItem.List(new GuarItem.ListResponse() {
+            @Override
+            public void response(ArrayList<GuarItem> items) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        itemsList.clear();
+                        itemsList.addAll(items);
+                        itemsRowAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+    }
     private void setupComponents() {
         // Setup the ActionBar.
 
         // Set up row adapter with our items list.
-        itemsRowAdapter = new TodoItemRowAdapter(this, itemsList);
+        /*itemsRowAdapter = new TodoItemRowAdapter(this, itemsList);
         itemsRowAdapter.setOnClickListener(new TodoItemRowAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -175,7 +190,7 @@ public class MainPageActivity extends AppCompatActivity {
         // Set up the items recycler view.
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
-        itemsListView.setAdapter(itemsRowAdapter);
+        itemsListView.setAdapter(itemsRowAdapter);*/
 
         //Set up the View bill button
          viewBill = (Button) findViewById(R.id.butt_view_bill);
