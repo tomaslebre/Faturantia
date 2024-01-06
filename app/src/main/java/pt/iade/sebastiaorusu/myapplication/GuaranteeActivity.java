@@ -200,7 +200,7 @@ public class GuaranteeActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
             commitView();  // Collect data from UI
-            item.save();   // Save the item to the server
+            item.save(GuaranteeActivity.this);   // Save the item to the server
             // Setup the data to be sent back to the previous activity.
             Intent returnIntent = new Intent();
             returnIntent.putExtra("position", this.listPosition);

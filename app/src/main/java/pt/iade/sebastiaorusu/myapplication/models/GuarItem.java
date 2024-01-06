@@ -77,39 +77,39 @@ public class GuarItem implements Serializable {
     }
 
 
-    public void save() {
-        // Send the object's data to our web server and update the database there.
-        Thread thread = new Thread(new Runnable() {
+    public void save(Context context) {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    try {
-                        if (id == 0) {
-                            // This is a brand new object and must be a INSERT in the database.
-                            WebRequest req = new WebRequest(new URL(
-                                    WebRequest.LOCALHOST + "/api/guarantee/add"));
-                            String response = req.performPostRequest(GuarItem.this);
-
-                            // Get the new ID from the server's response.
-                            GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
-                            id = respItem.getId();
-                        } else {
-                            // This is an update to an existing object and must use UPDATE in the database.
-                            WebRequest req = new WebRequest(new URL(
-                                    WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
-                            req.performPostRequest(GuarItem.this);
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(null, "Web request failed: " + e.toString(),
-                                Toast.LENGTH_LONG).show();
-                        Log.e("TodoItem", e.toString());
+                    WebRequest req;
+                    if (id == 0) {
+                        req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/add"));
+                    } else {
+                        req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/guarantee/update/" + id));
                     }
+
+                    String response = req.performPostRequest(GuarItem.this);
+
+                    // Process server response and update the UI on the main thread
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    // Handle errors on the main thread
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Failed to save guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.e("GuarItem", "Save failed", e);
+                        }
+                    });
                 }
             }
-        });
-        thread.start();
+        }).start();
     }
 
 
