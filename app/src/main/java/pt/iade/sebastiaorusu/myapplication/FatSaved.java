@@ -94,27 +94,22 @@ public class FatSaved extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(FatSaved.this, "Home", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FatSaved.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FatSaved.this, ImptGuarantee.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FatSaved.this, SupportActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
-                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FatSaved.this, ProfileActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(FatSaved.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FatSaved.this, LoginActivity.class);
                     startActivity(intent);
                 }

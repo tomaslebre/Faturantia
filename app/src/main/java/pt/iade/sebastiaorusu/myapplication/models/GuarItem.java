@@ -50,11 +50,11 @@ public class GuarItem implements Serializable {
         this.remDateCalendar = rem_date;
         this.notes = notes;
     }
-    public static void List(ListResponse response) {
+    public static void List(int userId, ListResponse response) {
         new Thread(() -> {
             try {
                 WebRequest req = new WebRequest(new URL(
-                        WebRequest.LOCALHOST + "/api/guarantee/list"));
+                        WebRequest.LOCALHOST + "/api/guarantee/" + userId + "/list"));
                 String resp = req.performGetRequest();
 
                 // Assume the root of the response is a JsonArray.
@@ -65,7 +65,7 @@ public class GuarItem implements Serializable {
                 }
 
                 // Switch to main thread to update UI components.
-                new android.os.Handler(Looper.getMainLooper()).post(() -> {
+                new Handler(Looper.getMainLooper()).post(() -> {
                     response.response(items);
                 });
 

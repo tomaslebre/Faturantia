@@ -124,27 +124,22 @@ public class ImptGuarantee extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(ImptGuarantee.this, "Home", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ImptGuarantee.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(ImptGuarantee.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ImptGuarantee.this, ImptGuarantee.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(ImptGuarantee.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ImptGuarantee.this, SupportActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
-                    Toast.makeText(ImptGuarantee.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ImptGuarantee.this, ProfileActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(ImptGuarantee.this, "Login Page", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ImptGuarantee.this, LoginActivity.class);
                     startActivity(intent);
                 }

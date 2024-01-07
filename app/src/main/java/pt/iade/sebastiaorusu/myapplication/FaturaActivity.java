@@ -100,17 +100,16 @@ public class FaturaActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(FaturaActivity.this, "Home ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FaturaActivity.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FaturaActivity.this, ImptGuarantee.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FaturaActivity.this, SupportActivity.class);
+                    startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
                     Toast.makeText(FaturaActivity.this, " ", Toast.LENGTH_SHORT).show();
@@ -241,6 +240,7 @@ public class FaturaActivity extends AppCompatActivity {
         purchaseDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             item.setDateofpurchaseCalendar(new GregorianCalendar(year, month, dayOfMonth));
         });
+        populateView();
     }
     protected void populateView() {
         titleEdit.setText(item.getTitle());

@@ -1,6 +1,7 @@
 package pt.iade.sebastiaorusu.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,11 +90,20 @@ public class MainPageActivity extends AppCompatActivity {
             }
         });
         // Call the method to fetch items from the server.
-        fetchItemsFromServer();
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("UserID", -1);
+
+        if (userId != -1) {
+            // User ID is available, fetch items for this user
+            fetchItemsFromServer(userId);
+        } else {
+            // Handle the case where user ID is not available
+            // This might be a good place to redirect to the login screen
+        }
     }
 
-    private void fetchItemsFromServer() {
-        GuarItem.List(new GuarItem.ListResponse() {
+    private void fetchItemsFromServer(int userId) {
+        GuarItem.List(userId, new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
                 runOnUiThread(new Runnable() {
@@ -133,27 +143,22 @@ public class MainPageActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(MainPageActivity.this, "Home", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainPageActivity.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(MainPageActivity.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainPageActivity.this, ImptGuarantee.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(MainPageActivity.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainPageActivity.this, SupportActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
-                    Toast.makeText(MainPageActivity.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainPageActivity.this, ProfileActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(MainPageActivity.this, "Login Page", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainPageActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }

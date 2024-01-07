@@ -3,6 +3,7 @@ package pt.iade.sebastiaorusu.myapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
@@ -56,17 +57,6 @@ public class LoginActivity extends AppCompatActivity {
             }.start();
         }
 
-    private boolean isLoginSuccessful(String response) {
-        try {
-            // Assuming the response is in JSON format and contains a field indicating success
-            JSONObject jsonResponse = new JSONObject(response);
-            return jsonResponse.getBoolean("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     private void setupComponents() {
 
         loginButton = findViewById(R.id.login_button);
@@ -80,11 +70,17 @@ public class LoginActivity extends AppCompatActivity {
                     WebRequest req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/users/login"));
                     String response = req.performPostRequest(user);
 
-                    Log.d("LoginActivity", "Server Response: " + response);
+                    Integer userId = isLoginSuccessful(response);
 
                     runOnUiThread(() -> {
-                        if (!response.contains("Invalid credentials")) {
-                            // Login successful
+                        if (userId != null) {
+                            // Save the user ID in SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("UserID", userId);
+                            editor.apply();
+
+                            // Navigate to MainPageActivity
                             Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
                             startActivity(intent);
                             finish();
@@ -107,5 +103,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private Integer isLoginSuccessful(String response) {
+        try {
+            JSONObject jsonResponse = new JSONObject(response);
+            if (jsonResponse.has("id")) {
+                return jsonResponse.getInt("id"); // Assuming 'id' is the key for user ID in your JSON response
+            }
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

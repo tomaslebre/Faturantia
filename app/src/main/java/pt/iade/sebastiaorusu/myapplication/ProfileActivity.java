@@ -55,27 +55,22 @@ public class ProfileActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
                 else if(item.getItemId() == R.id.home) {
-                    Toast.makeText(ProfileActivity.this, "Home", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProfileActivity.this, MainPageActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_important_guarantee) {
-                    Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProfileActivity.this, ImptGuarantee.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_support) {
-                    Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProfileActivity.this, SupportActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_profile) {
-                    Toast.makeText(ProfileActivity.this, " ", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(ProfileActivity.this, "Login Page", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
