@@ -2,6 +2,7 @@ package pt.iade.sebastiaorusu.myapplication;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -27,7 +28,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
@@ -40,6 +44,7 @@ public class FaturaActivity extends AppCompatActivity {
     protected EditText titleEdit;
     protected EditText storeEdit;
     protected EditText storelocalEdit;
+    protected int listPosition;
 
     protected FatItem item;
 
@@ -128,10 +133,63 @@ public class FaturaActivity extends AppCompatActivity {
 
         // Get the item passed from the previous activity.
 
+        Intent intent = getIntent();
+
+        // Verificar se há extras na Intent
+        if (intent.hasExtra("item")) {
+            // Obter o objeto FatItem passado pela Intent
+            item = (FatItem) intent.getSerializableExtra("item");
+        } else {
+            // Se não houver um objeto FatItem, inicialize um novo
+            item = new FatItem();
+        }
+
+        listPosition = intent.getIntExtra("position", -1);
 
         setupCalendar();
         setupComponents();
+
+
+        //nextbutton to guarantee
+        nextButton = findViewById(R.id.next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commitView();
+                saveFaturaAndContinue();
+
+            }
+        });
     }
+
+    private void saveFaturaAndContinue() {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("UserID", -1);
+
+        if (userId != -1) {
+            item.save(this, userId, new FatItem.SaveResponse() {
+                @Override
+                public void response(boolean success) {
+                    if (success) {
+                        int faturaId = item.getId();
+                        // Se a fatura foi salva com sucesso, inicie a GuaranteeActivity
+                        Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class);
+                        intent.putExtra("faturaId", faturaId);
+                        intent.putExtra("position", -1); // ou a posição apropriada, se necessário
+                        intent.putExtra("item", new GuarItem()); // um novo GuarItem ou o GuarItem associado, se necessário
+                        startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+                    } else {
+                        // Tratamento de erro se a fatura não for salva
+                        runOnUiThread(() -> Toast.makeText(FaturaActivity.this, "Erro ao salvar fatura", Toast.LENGTH_SHORT).show());
+                    }
+                }
+            });
+        } else {
+            // Tratamento de erro se o userId não estiver disponível
+        }
+
+    }
+
 
     public void buttonCreateFile(View view) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
@@ -145,30 +203,29 @@ public class FaturaActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data) {
-        // Must be called always and before everything.
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap photo = (Bitmap) data.getExtras().get("data");
-        imageView.setImageBitmap(photo);
-        //imageView.setBackgroundResource();
         // Check which activity returned to us.
         if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
             // Check if the activity was successful.
-            if (resultCode == AppCompatActivity.RESULT_OK) {
+            if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
                 // Get extras returned to us.
                 int position = data.getIntExtra("position", -1);
                 GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
 
+                // Return the data back to the previous activity
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("position", position);
                 returnIntent.putExtra("item", updatedItem);
                 setResult(AppCompatActivity.RESULT_OK, returnIntent);
 
+                // End this activity and return to the previous one
                 finish();
             }
-
         }
+
+        // Add additional handling for other request codes if needed
     }
 
 
@@ -206,20 +263,6 @@ public class FaturaActivity extends AppCompatActivity {
             purchaseDateCalendar.setVisibility(View.GONE);
         });
 
-        nextButton = findViewById(R.id.next_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class);
-                intent.putExtra("position", -1);
-                intent.putExtra("item", new GuarItem());
-
-                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-
-            }
-
-
-        });
 
         cancelButtonFat = findViewById(R.id.exit_button);
         cancelButtonFat.setOnClickListener(v -> {
@@ -243,21 +286,26 @@ public class FaturaActivity extends AppCompatActivity {
         populateView();
     }
     protected void populateView() {
-        titleEdit.setText(item.getTitle());
-        storeEdit.setText(item.getStore());
-        storelocalEdit.setText(item.getStoreLocation());
-        purchaseDateEdit.setText(item.getDatePurchase());
-        purchaseDateCalendar.setDate(item.getDateofpurchaseCalendar().getTimeInMillis());
-
+        if (item != null) {
+            titleEdit.setText(item.getTitle());
+            storeEdit.setText(item.getStore());
+            storelocalEdit.setText(item.getStoreLocation());
+            purchaseDateEdit.setText(item.getDatePurchase());
+            purchaseDateCalendar.setDate(item.getDateofpurchaseCalendar().getTimeInMillis());
+        } else {
+            // Inicialize item aqui ou trate o caso de item ser nulo
+            item = new FatItem();
+        }
     }
     protected void commitView() {
-        item.setTitle(titleEdit.getText().toString());
-        item.setStore(storeEdit.getText().toString());
-        item.setStoreLocation(storelocalEdit.getText().toString());
         item.setDatePurchase(purchaseDateEdit.getText().toString());
         Calendar purchaseDateCalendar = Calendar.getInstance();
         purchaseDateCalendar.setTimeInMillis(this.purchaseDateCalendar.getDate());
         item.setDateofpurchaseCalendar(purchaseDateCalendar);
+        item.setTitle(titleEdit.getText().toString());
+        item.setStore(storeEdit.getText().toString());
+        item.setStoreLocation(storelocalEdit.getText().toString());
+        // Continue com o restante do seu código...
     }
 
     @Override

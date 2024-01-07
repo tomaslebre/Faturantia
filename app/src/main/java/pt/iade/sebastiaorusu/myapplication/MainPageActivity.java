@@ -181,7 +181,7 @@ public class MainPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainPageActivity.this, FaturaActivity.class);
                 intent.putExtra("position", -1);
-                intent.putExtra("item", new GuarItem());
+                intent.putExtra("item", new FatItem());
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }

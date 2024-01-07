@@ -77,40 +77,26 @@ public class GuarItem implements Serializable {
     }
 
 
-    public void save(Context context) {
+    public void save(Context context, int faturaId) {
         new Thread(() -> {
             try {
-                WebRequest req;
-                String endpoint;
+                // Determine the endpoint based on whether it's a new or existing item
+                String endpoint = (id == 0) ? "/api/guarantee/add/" + faturaId : "/api/guarantee/update/" + id;
 
-                if (id == 0) {
-                    // This is a new GuarItem, so use the 'add' endpoint
-                    endpoint = "/api/guarantee/add";
-                } else {
-                    // This is an existing GuarItem, so use the 'update' endpoint
-                    endpoint = "/api/guarantee/update/" + id;
-                }
-
-                // Prepare and send the request
-                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                // Setup the request
+                WebRequest req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
                 String jsonBody = new Gson().toJson(this);
                 String response = req.performPostRequest(null, jsonBody, "application/json");
 
-                // Process the response
-                if (id == 0) {
-                    GuarItem respItem = new Gson().fromJson(response, GuarItem.class);
-                    id = respItem.getId(); // Update the id if it's a new item
-                }
-
-                // Update UI on success
+                // Process the response on the main thread
                 new Handler(Looper.getMainLooper()).post(() -> {
                     Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
+                    // Additional actions after successful save can be placed here
                 });
             } catch (Exception e) {
-                // Update UI on error
                 new Handler(Looper.getMainLooper()).post(() -> {
                     Toast.makeText(context, "Failed to save guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.e("GuarItem", "Save failed", e);
+                    // Handle the failure case here
                 });
             }
         }).start();

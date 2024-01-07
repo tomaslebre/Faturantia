@@ -145,7 +145,7 @@
                         android:textSize="21sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.111"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/add_layout" />
 
@@ -154,7 +154,6 @@
                         style="@style/edittext_background"
                         android:layout_width="350dp"
                         android:layout_height="51dp"
-                        android:layout_marginTop="5dp"
                         android:hint="@string/bill_name"
                         android:padding="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -167,13 +166,13 @@
                         android:id="@+id/loja_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/loja_view"
                         android:textColor="@color/black"
                         android:textSize="21sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/bill_name" />
 
@@ -182,12 +181,12 @@
                         style="@style/edittext_background"
                         android:layout_width="350dp"
                         android:layout_height="51dp"
-                        android:layout_marginTop="5dp"
                         android:ems="10"
                         android:hint="@string/hint_store_name"
                         android:inputType="text"
                         android:padding="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/loja_view" />
 
@@ -195,13 +194,13 @@
                         android:id="@+id/locLoja_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/locLoja_view"
                         android:textColor="@color/black"
                         android:textSize="22dp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.113"
+                        app:layout_constraintEnd_toEndOf="@id/loc_view"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/edit_nome_loja" />
 
@@ -210,7 +209,6 @@
                         style="@style/edittext_background"
                         android:layout_width="350dp"
                         android:layout_height="51dp"
-                        android:layout_marginTop="5dp"
                         android:ems="10"
                         android:hint="@string/locLoja_view"
                         android:inputType="text"
@@ -223,35 +221,34 @@
                         android:id="@+id/buy_date_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:text="@string/buy_date_view"
                         android:textColor="@color/black"
                         android:textSize="22dp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.127"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/loc_view" />
 
                     <CalendarView
                         android:id="@+id/purchase_date_calendar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="350dp"
+                        android:layout_height="280dp"
                         android:background="@color/greenmain"
                         android:backgroundTint="@color/greenmain"
                         android:elevation="10dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/purchase_date_edit"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/purchase_date_edit"
                         app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit"
-                        tools:visibility="gone" />
+                        tools:visibility="visible" />
 
                     <EditText
                         android:id="@+id/purchase_date_edit"
                         style="@style/edittext_background"
                         android:layout_width="350dp"
                         android:layout_height="51dp"
-                        android:layout_marginTop="5dp"
                         android:clickable="true"
                         android:ems="10"
                         android:focusable="true"

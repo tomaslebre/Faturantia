@@ -8,7 +8,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,13 +26,16 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
 import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
+import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
 
 public class GuaranteeActivity extends AppCompatActivity {
     protected EditText titleEdit;
@@ -128,8 +134,21 @@ public class GuaranteeActivity extends AppCompatActivity {
 
         // Get the item passed from the previous activity.
         Intent intent = getIntent();
+        int faturaId = intent.getIntExtra("faturaId", -1);
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
+
+        saveButton = findViewById(R.id.save_guar_butt);
+        saveButton.setOnClickListener(v -> {
+            commitView(); // Gather data from UI
+
+            // Assuming faturaId is obtained from the intent or other parts of your app
+
+            item.save(GuaranteeActivity.this, faturaId);
+
+            // Finish activity or handle next steps
+            finish();
+        });
 
         setupComponents();
         setupCalendar();
@@ -193,19 +212,6 @@ public class GuaranteeActivity extends AppCompatActivity {
 
 
 
-        // Save button garantias
-        saveButton = findViewById(R.id.save_guar_butt);
-        saveButton.setOnClickListener(v -> {
-            commitView();  // Collect data from UI
-            item.save(GuaranteeActivity.this);   // Save the item to the server
-            // Setup the data to be sent back to the previous activity.
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("position", this.listPosition);
-            returnIntent.putExtra("item", this.item);
-            setResult(AppCompatActivity.RESULT_OK, returnIntent);
-
-            finish();
-        });
 
         // Cancel button garantias
         cancelButton = findViewById(R.id.exit_button);

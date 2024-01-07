@@ -28,23 +28,22 @@
             android:background="@color/grey"
             tools:context=".GuaranteeActivity">
 
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="388dp"
                 android:layout_height="58dp"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/tittoolbar"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/fatura_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.478"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.019"
+                app:layout_constraintVertical_bias="0.216"
                 app:title="@string/faturantia"
                 app:titleTextAppearance="@style/tittoolbar"
                 app:titleTextColor="#FFFFFF" />
-
-
 
             <TextView
                 android:id="@+id/prod_name_view"
@@ -65,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
-                android:layout_marginTop="132dp"
+                android:layout_marginTop="96dp"
                 android:text="@string/guarantee_tit"
                 android:textSize="40sp"
                 android:textStyle="bold"

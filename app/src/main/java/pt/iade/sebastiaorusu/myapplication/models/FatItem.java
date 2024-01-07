@@ -1,5 +1,6 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
+import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Button;
@@ -14,6 +15,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import android.os.Handler;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import pt.iade.sebastiaorusu.myapplication.utilities.CalendarJsonAdapter;
 import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
@@ -69,8 +73,47 @@ public class FatItem implements Serializable {
     }
 
 
+    public void save(Context context, int userId, SaveResponse response) {
+        new Thread(() -> {
+            try {
+                WebRequest req;
+                String endpoint;
 
+                if (id == 0) {
+                    endpoint = "/api/fatura/user/" + userId + "/add";
+                } else {
+                    endpoint = "/api/fatura/update/" + id;
+                }
 
+                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                String jsonBody = new Gson().toJson(this);
+                String responseString = req.performPostRequest(null, jsonBody, "application/json");
+
+                // Processar a resposta no thread principal
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    try {
+                        // Tente parsear a resposta para verificar erros
+                        new JSONObject(responseString);
+                        response.response(true); // Se nenhum erro, considera sucesso
+                    } catch (Exception e) {
+                        Log.e("FatItem", "Error parsing response", e);
+                        response.response(false); // Se erro no parse, considera falha
+                    }
+                });
+            } catch (Exception e) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Failed to save fatura: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("FatItem", "Save failed", e);
+                    response.response(false);
+                });
+            }
+        }).start();
+    }
+
+    // Interface para o callback de resposta do método save
+    public interface SaveResponse {
+        void response(boolean success);
+    }
     public int getId() {
         return id;
     }
