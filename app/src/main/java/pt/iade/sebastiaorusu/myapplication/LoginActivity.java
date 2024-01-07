@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (loginTxt.getText().toString().equals("admin") && passwordTxt.getText().toString().equals("admin")) {
+                if (loginTxt.getText().toString().equals("123") && passwordTxt.getText().toString().equals("123")) {
                     Intent noBackLogin = new Intent(LoginActivity.this, MainPageActivity.class);
                     noBackLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(noBackLogin);
