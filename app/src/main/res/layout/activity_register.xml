@@ -26,13 +26,13 @@
         android:text="@string/full_name"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
+        app:layout_constraintEnd_toEndOf="@+id/register_name"
         app:layout_constraintHorizontal_bias="0.003"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
+        app:layout_constraintStart_toStartOf="@+id/register_name"
         app:layout_constraintTop_toBottomOf="@+id/tit_view" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/register_name"
         style="@style/edittext_background"
         android:layout_width="365dp"
         android:layout_height="48dp"
@@ -53,13 +53,13 @@
         android:text="@string/email_view"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/register_email"
         app:layout_constraintHorizontal_bias="0.003"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintStart_toStartOf="@+id/register_email"
+        app:layout_constraintTop_toBottomOf="@+id/register_name" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/register_email"
         style="@style/edittext_background"
         android:layout_width="365dp"
         android:layout_height="48dp"
@@ -79,13 +79,13 @@
         android:text="@string/password_view"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/register_pass"
         app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+        app:layout_constraintStart_toStartOf="@+id/register_pass"
+        app:layout_constraintTop_toBottomOf="@+id/register_email" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/register_pass"
         style="@style/edittext_background"
         android:layout_width="365dp"
         android:layout_height="48dp"
@@ -99,44 +99,44 @@
         app:layout_constraintTop_toBottomOf="@+id/pass_view" />
 
     <TextView
-        android:id="@+id/confirm_pass_view"
+        android:id="@+id/location_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/confirm_pass_view"
+        android:text="@string/location"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextConfirmPassword"
+        app:layout_constraintEnd_toEndOf="@+id/register_location"
         app:layout_constraintHorizontal_bias="0.006"
-        app:layout_constraintStart_toStartOf="@+id/editTextConfirmPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintStart_toStartOf="@+id/register_location"
+        app:layout_constraintTop_toBottomOf="@+id/register_pass" />
 
     <EditText
-        android:id="@+id/editTextConfirmPassword"
+        android:id="@+id/register_location"
         style="@style/edittext_background"
         android:layout_width="365dp"
         android:layout_height="48dp"
         android:layout_marginTop="4dp"
         android:ems="10"
-        android:hint="@string/confirm_pass_view"
+        android:hint="@string/location"
         android:inputType="textPassword"
         android:paddingLeft="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm_pass_view" />
+        app:layout_constraintTop_toBottomOf="@+id/location_view" />
 
     <Button
         android:id="@+id/register_butt"
         android:layout_width="354dp"
         android:layout_height="70dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="30dp"
         android:hint="@string/register_view"
         android:textColorHint="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextConfirmPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextConfirmPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/register_location"
+        app:layout_constraintStart_toStartOf="@+id/register_location"
+        app:layout_constraintTop_toBottomOf="@+id/register_location" />
 
     <Button
         android:id="@+id/cancel_butt_reg"

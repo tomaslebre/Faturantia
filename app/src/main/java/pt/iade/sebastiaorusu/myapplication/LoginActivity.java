@@ -11,6 +11,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.net.URL;
+import java.util.HashMap;
+
+import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
+
 // ACTIVITY DO LOGIN //
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,23 +38,33 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (loginTxt.getText().toString().equals("123") && passwordTxt.getText().toString().equals("123")) {
-                    Intent noBackLogin = new Intent(LoginActivity.this, MainPageActivity.class);
-                    noBackLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(noBackLogin);
-                } else {
-                    counter--;
-                    Log.d("LoginActivity", "Login failed");
-                    if (counter == 2) {
-                        loginTxt.setError("E-mail or password wrong, only 2 attempts left");
-                    } else if (counter == 1) {
-                        loginTxt.setError("E-mail or password wrong, only 1 attempts left");
-                    } else if (counter == 0) {
-                        loginTxt.setError("E-mail or password wrong, no attempts left, try again later");
-                        loginButton.setEnabled(false);
-                        iniciarContagemRegressiva();
+                String email = loginTxt.getText().toString();
+                String password = passwordTxt.getText().toString();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            WebRequest req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/users/login"));
+                            HashMap<String, String> params = new HashMap<>();
+                            params.put("email", email);
+                            params.put("password", password);
+                            String response = req.performPostRequest(params);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Handle the response from the server
+                                    // If login is successful, navigate to MainPageActivity
+                                    // If login fails, show error message
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            // Handle exception
+                        }
                     }
-                }
+                }).start();
             }
         });
     }
