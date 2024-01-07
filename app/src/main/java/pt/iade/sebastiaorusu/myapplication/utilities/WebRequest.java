@@ -115,7 +115,33 @@ public class WebRequest {
      * @return Raw response from the web server.
      */
     public String performPostRequest(HashMap<String, String> params, Serializable obj) throws IOException, URISyntaxException {
-        return performPostRequest(params, new Gson().toJson(obj), "application/json");
+        String jsonBody = new Gson().toJson(obj);
+
+        Log.i("WebRequest", "Sending POST to " + url);
+        Log.i("WebRequest-Body", jsonBody);
+        URI uri = buildUri(params);
+        HttpURLConnection urlConnection = (HttpURLConnection) uri.toURL().openConnection();
+        urlConnection.setRequestMethod("POST");
+        urlConnection.setRequestProperty("Content-Type", "application/json");
+        urlConnection.setUseCaches(false);
+        urlConnection.setDoOutput(true);
+
+        // Send request body.
+        try (OutputStream os = urlConnection.getOutputStream()) {
+            byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+
+        // Get request response.
+        try (BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+             ByteArrayOutputStream buf = new ByteArrayOutputStream()) {
+            int result = in.read();
+            while (result != -1) {
+                buf.write((byte) result);
+                result = in.read();
+            }
+            return buf.toString("UTF-8");
+        }
     }
 
     /**
@@ -126,7 +152,31 @@ public class WebRequest {
      * @return Raw response from the web server.
      */
     public String performPostRequest(Serializable obj) throws IOException, URISyntaxException {
-        return performPostRequest(null, obj);
+        // Convert the object to a JSON string
+        String jsonBody = new Gson().toJson(obj);
+
+        // Set up the connection
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("POST");
+        urlConnection.setRequestProperty("Content-Type", "application/json");
+        urlConnection.setDoOutput(true);
+
+        // Write the JSON body to the output stream
+        try (OutputStream os = urlConnection.getOutputStream()) {
+            byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+
+        // Read the response from the server
+        try (BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+             ByteArrayOutputStream buf = new ByteArrayOutputStream()) {
+            int result = in.read();
+            while (result != -1) {
+                buf.write((byte) result);
+                result = in.read();
+            }
+            return buf.toString("UTF-8");
+        }
     }
 
     /**
