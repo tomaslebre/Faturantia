@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,8 @@ public class FatSaved extends AppCompatActivity {
     protected RecyclerView itemsListView;
     protected FatItemRowAdapter itemsRowAdapter;
     protected ArrayList<FatItem> itemsList;
-
+    protected int listPosition;
+    protected FatItem item;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
@@ -74,8 +76,6 @@ public class FatSaved extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fat_view);
 
-        itemsList = FatItem.List();
-
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -116,35 +116,48 @@ public class FatSaved extends AppCompatActivity {
                 return false;
             }
         });
-        itemsList = FatItem.List();
-
+        Intent intent = getIntent();
+        listPosition = intent.getIntExtra("position", -1);
+        item = (FatItem) intent.getSerializableExtra("item");
         setupComponents();
 
 
    }
     private void setupComponents() {
-        // Setup the ActionBar.
 
-        // Set up row adapter with our items list.
-        itemsRowAdapter = new FatItemRowAdapter(this, itemsList);
-        itemsRowAdapter.setOnClickListener(new FatItemRowAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                // Place our clicked item object in the intent to send to the other activity.
-                Intent intent = new Intent(FatSaved.this, FaturaActivity.class);
-                intent.putExtra("position", position);
-                intent.putExtra("item", itemsList.get(position));
-
-                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-            }
-        });
 
         // Set up the items recycler view.
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView_Fat_saved);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
-        itemsListView.setAdapter(itemsRowAdapter);
+        itemsList = new ArrayList<>();
+        itemsRowAdapter = new FatItemRowAdapter(this, itemsList);
 
-        //Set up the View bill button
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("UserID", -1);
+
+        if (userId != -1) {
+            // User ID is available, fetch items for this user
+            fetchItemsFromServer(userId);
+        } else {
+            //
+        }
+    }
+
+    private void fetchItemsFromServer(int userId) {
+        FatItem.List(userId, new FatItem.ListResponse() {
+            @Override
+            public void response(ArrayList<FatItem> items) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        itemsList.clear();
+                        itemsList.addAll(items);
+                        itemsListView.setAdapter(itemsRowAdapter); // Set the adapter here
+                        itemsRowAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
     }
     @Override
     public void onBackPressed() {

@@ -116,6 +116,32 @@ public class GuarItem implements Serializable {
         }).start();
     }
 
+    public static void ImptList(int userId, ListResponse response) {
+        new Thread(() -> {
+            try {
+                WebRequest req = new WebRequest(new URL(
+                        WebRequest.LOCALHOST + "/api/guarantee/" + userId + "/list/imp"));
+                String resp = req.performGetRequest();
+
+                // Assume the root of the response is a JsonArray.
+                JsonArray arr = new Gson().fromJson(resp, JsonArray.class);
+                ArrayList<GuarItem> items = new ArrayList<>();
+                for (JsonElement elem : arr) {
+                    items.add(new Gson().fromJson(elem, GuarItem.class));
+                }
+
+                // Switch to main thread to update UI components.
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    response.response(items);
+                });
+
+            } catch (Exception e) {
+                // Handle exceptions and make sure to switch to main thread if updating UI
+                Log.e("GuarItem", "Web request failed: " + e.toString());
+            }
+        }).start();
+    }
+
 
     public int getId() {
         return id;

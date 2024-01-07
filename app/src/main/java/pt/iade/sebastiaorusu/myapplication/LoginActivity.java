@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
-                    runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Utilizador ou Password inválidos, tente novamente", Toast.LENGTH_SHORT).show());
                 }
             }).start();
         });

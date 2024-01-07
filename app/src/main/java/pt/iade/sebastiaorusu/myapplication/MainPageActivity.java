@@ -22,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.GuarItemRowAdapter;
+import pt.iade.sebastiaorusu.myapplication.models.FatItem;
 import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class MainPageActivity extends AppCompatActivity {
@@ -80,15 +81,6 @@ public class MainPageActivity extends AppCompatActivity {
         itemsList = new ArrayList<>(); // Initialize your list
         itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
 
-
-        viewBill = (Button) findViewById(R.id.butt_view_bill);
-        viewBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainPageActivity.this, FatSaved.class);
-                startActivity(intent);
-            }
-        });
         // Call the method to fetch items from the server.
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("UserID", -1);
@@ -164,7 +156,23 @@ public class MainPageActivity extends AppCompatActivity {
                 }
                 return false;
             }
+
         });
+
+        viewBill = (Button) findViewById(R.id.butt_view_bill);
+        viewBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPageActivity.this, FatSaved.class);
+                intent.putExtra("position", -1);
+                intent.putExtra("item", new FatItem());
+
+                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+
+            }
+
+        });
+
 
         addGuarantee = findViewById(R.id.add_butt_guarantee);
         addGuarantee.setOnClickListener(new View.OnClickListener() {

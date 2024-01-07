@@ -85,11 +85,13 @@ public class RegisterActivity extends AppCompatActivity {
                                         // If registration is successful, navigate to LoginActivity
                                         if(response.equals("false")) {
                                             Toast.makeText(RegisterActivity.this, "Failed to register. Please try again.", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            // If registration fails, show error message
+                                        } else if(password.length() < 8) {
+                                            Toast.makeText(RegisterActivity.this, "Password must be at least 8 characters long", Toast.LENGTH_SHORT).show();
+                                        } else if(name.isEmpty()) {
+                                            Toast.makeText(RegisterActivity.this, "Name can't be Empty, can't be less than 3 and bigger than 36", Toast.LENGTH_SHORT).show();
+                                        }else{
                                             Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                                             startActivity(loginIntent);
-
                                         }
                                     });
                                 } catch (Exception e) {

@@ -1,4 +1,4 @@
-package pt.iade.sebastiaorusu.myapplication.adapters;
+/* package pt.iade.sebastiaorusu.myapplication.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -96,4 +96,4 @@ public class TodoImptAdapter extends RecyclerView.Adapter<TodoImptAdapter.ViewHo
 
 }
 
-
+*/

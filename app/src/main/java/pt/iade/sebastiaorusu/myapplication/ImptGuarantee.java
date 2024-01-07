@@ -1,10 +1,9 @@
 package pt.iade.sebastiaorusu.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,13 +18,13 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import pt.iade.sebastiaorusu.myapplication.adapters.TodoImptAdapter;
+import pt.iade.sebastiaorusu.myapplication.adapters.GuarItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 public class ImptGuarantee extends AppCompatActivity {
     private static final int EDITOR_ACTIVITY_RETURN_ID = 1;
     protected RecyclerView itemsListView;
-    protected TodoImptAdapter itemsRowAdapter;
+    protected GuarItemRowAdapter itemsRowAdapter;
     protected ArrayList<GuarItem> itemsList;
 
     private DrawerLayout drawerLayout;
@@ -47,50 +46,29 @@ public class ImptGuarantee extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Must be called always and before everything.
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Verifica se o resultado veio da atividade correta e se foi bem-sucedido
-        if (requestCode == EDITOR_ACTIVITY_RETURN_ID && resultCode == RESULT_OK) {
-            // Obtém os dados extras retornados (o item atualizado ou novo)
-            int position = data.getIntExtra("position", -1);
-            GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
+        // Check which activity returned to us.
+        if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
+            // Check if the activity was successful.
+            if (resultCode == AppCompatActivity.RESULT_OK) {
+                // Get extras returned to us.
+                int position = data.getIntExtra("position", -1);
+                GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
 
-            if (position == -1) {
-                // Se position é -1, um novo item foi adicionado
-                if (updatedItem.isImportantCheck()) {
-                    // Se o novo item é importante, adiciona na lista e notifica o adapter
+                if (position == -1) {
+                    // Add the item to the list it was created new.
                     itemsList.add(updatedItem);
                     itemsRowAdapter.notifyItemInserted(itemsList.size() - 1);
-                }
-            } else {
-                // Se position não é -1, um item existente foi atualizado
-                itemsList.set(position, updatedItem);
-
-                // Aqui, precisamos verificar se o item atualizado ainda é importante
-                if (updatedItem.isImportantCheck()) {
-                    // Se ainda é importante, atualiza o item no adapter
-                    itemsRowAdapter.notifyItemChanged(position);
                 } else {
-                    // Se não é mais importante, remove da lista e notifica o adapter
-                    itemsList.remove(position);
-                    itemsRowAdapter.notifyItemRemoved(position);
+                    // Updates an existing item on the list.
+                    itemsList.set(position, updatedItem);
+                    itemsRowAdapter.notifyItemChanged(position);
                 }
             }
 
-            // Re-filtrar a lista para mostrar apenas os itens importantes
-            filterAndDisplayImportantItems();
         }
-    }
-
-    private void filterAndDisplayImportantItems() {
-        ArrayList<GuarItem> importantItems = new ArrayList<>();
-        for (GuarItem item : itemsList) {
-            if (item.isImportantCheck()) {
-                importantItems.add(item);
-            }
-        }
-        itemsRowAdapter.setItems(importantItems);
-        itemsRowAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -99,13 +77,6 @@ public class ImptGuarantee extends AppCompatActivity {
         setContentView(R.layout.activity_impt_guarantee);
 
         //itemsList = GuarItem.List();
-
-        ArrayList<GuarItem> importantItems = new ArrayList<>();
-        for (GuarItem item : itemsList) {
-            if (item.isImportantCheck()) {
-                importantItems.add(item);
-            }
-        }
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -149,34 +120,49 @@ public class ImptGuarantee extends AppCompatActivity {
 
         // Get the items from the web server.
         //itemsList = GuarItem.List();
-
-        //setupComponents(importantItems);
+        setupComponents();
 
     }
 
-    /*private void setupComponents(ArrayList<GuarItem> importantItems) {
+    private void setupComponents() {
         // Setup the ActionBar.
 
         // Set up row adapter with our items list.
-        itemsRowAdapter = new TodoImptAdapter(this, importantItems);
-        itemsRowAdapter.setOnClickListener(new TodoImptAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                // Place our clicked item object in the intent to send to the other activity.
-                Intent intent = new Intent(ImptGuarantee.this, GuaranteeActivity.class);
-                intent.putExtra("position", position);
-                intent.putExtra("item", itemsList.get(position));
-
-                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-            }
-        });
 
         // Set up the items recycler view.
         itemsListView = (RecyclerView) findViewById(R.id.recyclerView_imptGua);
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
-        itemsListView.setAdapter(itemsRowAdapter);
+        itemsList = new ArrayList<>();
+        itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
 
-    }*/
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("UserID", -1);
+
+        if (userId != -1) {
+            // User ID is available, fetch items for this user
+            fetchItemsFromServer(userId);
+        } else {
+            // Handle the case where user ID is not available
+            // This might be a good place to redirect to the login screen
+        }
+    }
+
+    private void fetchItemsFromServer(int userId) {
+        GuarItem.ImptList(userId, new GuarItem.ListResponse() {
+            @Override
+            public void response(ArrayList<GuarItem> items) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        itemsList.clear();
+                        itemsList.addAll(items);
+                        itemsListView.setAdapter(itemsRowAdapter); // Set the adapter here
+                        itemsRowAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+    }
 
 
     @Override
