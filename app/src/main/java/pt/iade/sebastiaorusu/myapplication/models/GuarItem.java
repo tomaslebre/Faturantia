@@ -142,8 +142,6 @@ public class GuarItem implements Serializable {
         }).start();
     }
 
-
-
     // Interface for the callback of the save method
     public interface SaveResponse {
         void response(boolean success, GuarItem savedItem);
