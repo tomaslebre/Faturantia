@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -137,7 +138,7 @@ public class GuaranteeActivity extends AppCompatActivity {
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
         int faturaId = intent.getIntExtra("faturaId", -1);
-
+        Log.d("FaturaActivity", "faturaId to pass: " + item.getId());
         // Inside the `onCreate` method, or appropriate setup method
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {

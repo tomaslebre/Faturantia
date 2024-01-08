@@ -77,42 +77,36 @@ public class FatItem implements Serializable {
         new Thread(() -> {
             try {
                 WebRequest req;
-                String endpoint;
-
-                if (id == 0) {
-                    endpoint = "/api/fatura/user/" + userId + "/add";
-                } else {
-                    endpoint = "/api/fatura/update/" + id;
-                }
+                String endpoint = (id == 0) ? "/api/fatura/user/" + userId + "/add" : "/api/fatura/update/" + id;
 
                 req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
                 String jsonBody = new Gson().toJson(this);
                 String responseString = req.performPostRequest(null, jsonBody, "application/json");
 
-                // Processar a resposta no thread principal
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
-                        // Tente parsear a resposta para verificar erros
-                        new JSONObject(responseString);
-                        response.response(true); // Se nenhum erro, considera sucesso
+                        JSONObject jsonResponse = new JSONObject(responseString);
+                        if (jsonResponse.has("fatId")) { // assuming "fatId" is the key in the response
+                            int newId = jsonResponse.getInt("fatId");
+                            this.id = newId; // Update the id of the current object
+                        }
+                        response.response(true, this);
                     } catch (Exception e) {
                         Log.e("FatItem", "Error parsing response", e);
-                        response.response(false); // Se erro no parse, considera falha
+                        response.response(false, null);
                     }
                 });
             } catch (Exception e) {
                 new Handler(Looper.getMainLooper()).post(() -> {
                     Toast.makeText(context, "Failed to save fatura: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("FatItem", "Save failed", e);
-                    response.response(false);
+                    response.response(false, null);
                 });
             }
         }).start();
     }
-
-    // Interface para o callback de resposta do método save
     public interface SaveResponse {
-        void response(boolean success);
+        void response(boolean success, FatItem updatedItem);
     }
     public int getId() {
         return id;

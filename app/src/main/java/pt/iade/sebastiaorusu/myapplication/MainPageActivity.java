@@ -80,7 +80,7 @@ public class MainPageActivity extends AppCompatActivity {
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsList = new ArrayList<>(); // Initialize your list
         itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
-
+        itemsListView.setAdapter(itemsRowAdapter);
         // Call the method to fetch items from the server.
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("UserID", -1);

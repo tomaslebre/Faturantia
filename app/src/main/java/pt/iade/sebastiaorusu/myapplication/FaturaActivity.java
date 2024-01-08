@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +28,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -169,17 +173,16 @@ public class FaturaActivity extends AppCompatActivity {
         if (userId != -1) {
             item.save(this, userId, new FatItem.SaveResponse() {
                 @Override
-                public void response(boolean success) {
+                public void response(boolean success, FatItem updatedItem) {
                     if (success) {
-                        // Se a fatura foi salva com sucesso, inicie a GuaranteeActivity
                         Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class);
-                        intent.putExtra("faturaId", item.getId());
+                        intent.putExtra("faturaId", updatedItem.getId()); // Pass the updated Fatura ID
                         intent.putExtra("position", -1); // ou a posição apropriada, se necessário
-                        intent.putExtra("item", new GuarItem()); // um novo GuarItem ou o GuarItem associado, se necessário
+                        intent.putExtra("item", new GuarItem()); // um novo GuarItem ou o GuarItem
+                        // Add other extras as needed
                         startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
                     } else {
-                        // Tratamento de erro se a fatura não for salva
-                        runOnUiThread(() -> Toast.makeText(FaturaActivity.this, "Erro ao salvar fatura", Toast.LENGTH_SHORT).show());
+                        // Handle error
                     }
                 }
             });
