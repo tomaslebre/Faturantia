@@ -21,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.GuarItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
@@ -109,15 +112,26 @@ public class MainPageActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        // Ordenar a lista de itens antes de exibir na RecyclerView
+                        Collections.sort(items, new Comparator<GuarItem>() {
+                            @Override
+                            public int compare(GuarItem g1, GuarItem g2) {
+                                // Assumindo que getExpDateCalendar retorna um Calendar
+                                Calendar cal1 = g1.getExpDateCalendar();
+                                Calendar cal2 = g2.getExpDateCalendar();
+                                return cal1.compareTo(cal2);
+                            }
+                        });
+
                         itemsList.clear();
                         itemsList.addAll(items);
-                        itemsListView.setAdapter(itemsRowAdapter); // Set the adapter here
-                        itemsRowAdapter.notifyDataSetChanged();
+                        itemsRowAdapter.notifyDataSetChanged(); // Atualiza o adaptador com a lista ordenada
                     }
                 });
             }
         });
     }
+
 
 
 
