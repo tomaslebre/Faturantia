@@ -171,10 +171,8 @@ public class FaturaActivity extends AppCompatActivity {
                 @Override
                 public void response(boolean success) {
                     if (success) {
-                        int faturaId = item.getId();
                         // Se a fatura foi salva com sucesso, inicie a GuaranteeActivity
                         Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class);
-                        intent.putExtra("faturaId", faturaId);
                         intent.putExtra("position", -1); // ou a posição apropriada, se necessário
                         intent.putExtra("item", new GuarItem()); // um novo GuarItem ou o GuarItem associado, se necessário
                         startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);

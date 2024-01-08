@@ -134,21 +134,8 @@ public class GuaranteeActivity extends AppCompatActivity {
 
         // Get the item passed from the previous activity.
         Intent intent = getIntent();
-        int faturaId = intent.getIntExtra("faturaId", -1);
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
-
-        saveButton = findViewById(R.id.save_guar_butt);
-        saveButton.setOnClickListener(v -> {
-            commitView(); // Gather data from UI
-
-            // Assuming faturaId is obtained from the intent or other parts of your app
-
-            item.save(GuaranteeActivity.this, faturaId);
-
-            // Finish activity or handle next steps
-            finish();
-        });
 
         setupComponents();
         setupCalendar();
