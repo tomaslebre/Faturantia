@@ -233,7 +233,7 @@
                     <CalendarView
                         android:id="@+id/purchase_date_calendar"
                         android:layout_width="350dp"
-                        android:layout_height="280dp"
+                        android:layout_height="300dp"
                         android:background="@color/greenmain"
                         android:backgroundTint="@color/greenmain"
                         android:elevation="10dp"
@@ -242,13 +242,14 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/purchase_date_edit"
                         app:layout_constraintTop_toBottomOf="@+id/purchase_date_edit"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
                     <EditText
                         android:id="@+id/purchase_date_edit"
                         style="@style/edittext_background"
                         android:layout_width="350dp"
                         android:layout_height="51dp"
+                        android:layout_marginTop="4dp"
                         android:clickable="true"
                         android:ems="10"
                         android:focusable="true"
