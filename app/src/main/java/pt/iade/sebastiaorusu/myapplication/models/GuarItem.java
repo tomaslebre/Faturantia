@@ -107,10 +107,10 @@ public class GuarItem implements Serializable {
         new Thread(() -> {
             try {
                 WebRequest req;
-                String endpoint = (id == 0) ? "/api/guarantee/add/" + faturaId : "/api/guarantee/update/" + id;
+                String endpoint = (id == 0) ? "/api/guarantee/add/" + faturaId : "/api/guarantee/update/by-fatura/" + faturaId;
                 req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
                 String jsonBody = new Gson().toJson(this);
-                String responseString = (id == 0) ? req.performPostRequest(null, jsonBody, "application/json") : req.performPutRequest(null, jsonBody, "application/json");
+                String responseString = req.performPostRequest(null, jsonBody, "application/json"); // Use POST for both adding and updating
 
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
@@ -131,6 +131,7 @@ public class GuarItem implements Serializable {
             }
         }).start();
     }
+
 
     // Interface for the callback of the save method
     public interface SaveResponse {
