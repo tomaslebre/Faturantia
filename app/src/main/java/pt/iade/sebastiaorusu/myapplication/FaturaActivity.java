@@ -224,45 +224,39 @@ public class FaturaActivity extends AppCompatActivity {
         purchaseDateEdit = findViewById(R.id.purchase_date_edit);
         purchaseDateCalendar = findViewById(R.id.purchase_date_calendar);
         purchaseDateCalendar.setVisibility(View.GONE);
-        purchaseDateEdit.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                // Quando o EditText recebe foco, esconde o teclado e mostra o CalendarView
-                purchaseDateCalendar.setVisibility(View.VISIBLE);
-            } else {
+
+        purchaseDateEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    purchaseDateCalendar.setVisibility(View.VISIBLE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(purchaseDateEdit.getWindowToken(), 0);
+                } else {
+                    purchaseDateCalendar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        purchaseDateCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                purchaseDateEdit.setText(date);
                 purchaseDateCalendar.setVisibility(View.GONE);
             }
         });
-        purchaseDateEdit.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.onTouchEvent(event);
-                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null && purchaseDateEdit.hasSelection()) {
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-                return true;
-            }
-        });
-
-        purchaseDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            // Quando a data é alterada no CalendarView, atualiza o EditText
-            String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-            purchaseDateEdit.setText(date);
-            // Quando escolhe a data, esconde o teclado e o CalendarView
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(purchaseDateEdit.getWindowToken(), 0);
-            purchaseDateCalendar.setVisibility(View.GONE);
-        });
-
 
         cancelButtonFat = findViewById(R.id.exit_button);
-        cancelButtonFat.setOnClickListener(v -> {
-            Intent cancelIntent = new Intent(FaturaActivity.this, MainPageActivity.class);
-            startActivity(cancelIntent);
-
+        cancelButtonFat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cancelIntent = new Intent(FaturaActivity.this, MainPageActivity.class);
+                startActivity(cancelIntent);
+            }
         });
-
     }
+
 
     private void setupComponents() {
         titleEdit= (EditText) findViewById(R.id.bill_name);
