@@ -152,13 +152,17 @@ public class GuaranteeActivity extends AppCompatActivity {
                     @Override
                     public void response(boolean success, GuarItem savedItem) {
                         if (success) {
-                            // Return the saved item to MainPageActivity
-                            Intent returnIntent = new Intent();
-                            returnIntent.putExtra("savedItem", savedItem);
-                            setResult(AppCompatActivity.RESULT_OK, returnIntent);
-                            finish();
+                            if (savedItem == null) {
+                                Log.e("GuaranteeActivity", "Saved item is null");
+                            } else {
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("savedItem", savedItem);
+                                returnIntent.putExtra("position", listPosition);
+                                setResult(AppCompatActivity.RESULT_OK, returnIntent);
+                                finish();
+                            }
                         } else {
-                            // Handle save error
+                            // Handle error
                             Toast.makeText(GuaranteeActivity.this, "Error saving guarantee", Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -179,6 +179,7 @@ public class FaturaActivity extends AppCompatActivity {
                         intent.putExtra("faturaId", updatedItem.getId()); // Pass the updated Fatura ID
                         intent.putExtra("position", -1); // ou a posição apropriada, se necessário
                         intent.putExtra("item", new GuarItem()); // um novo GuarItem ou o GuarItem
+                        //return intent;
                         // Add other extras as needed
                         startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
                     } else {
@@ -208,26 +209,14 @@ public class FaturaActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check which activity returned to us.
         if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
-            // Check if the activity was successful.
-            if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
-                // Get extras returned to us.
-                int position = data.getIntExtra("position", -1);
-                GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
-
-                // Return the data back to the previous activity
+            if (resultCode == RESULT_OK && data != null) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("position", position);
-                returnIntent.putExtra("item", updatedItem);
-                setResult(AppCompatActivity.RESULT_OK, returnIntent);
-
-                // End this activity and return to the previous one
+                returnIntent.putExtras(data.getExtras());
+                setResult(RESULT_OK, returnIntent);
                 finish();
             }
         }
-
-        // Add additional handling for other request codes if needed
     }
 
 

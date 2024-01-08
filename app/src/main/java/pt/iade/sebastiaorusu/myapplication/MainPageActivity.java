@@ -3,6 +3,7 @@ package pt.iade.sebastiaorusu.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,28 +51,23 @@ public class MainPageActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        // Must be called always and before everything.
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check which activity returned to us.
-        if (requestCode == EDITOR_ACTIVITY_RETURN_ID) {
-            // Check if the activity was successful.
-            if (resultCode == AppCompatActivity.RESULT_OK) {
-                // Get extras returned to us.
-                int position = data.getIntExtra("position", -1);
-                GuarItem updatedItem = (GuarItem) data.getSerializableExtra("item");
+        if (requestCode == EDITOR_ACTIVITY_RETURN_ID && resultCode == RESULT_OK && data != null) {
+            GuarItem updatedItem = (GuarItem) data.getSerializableExtra("savedItem");
+            int position = data.getIntExtra("position", -1);
 
+            if (updatedItem != null) {
                 if (position == -1) {
-                    // Add the item to the list it was created new.
                     itemsList.add(updatedItem);
                     itemsRowAdapter.notifyItemInserted(itemsList.size() - 1);
                 } else {
-                    // Updates an existing item on the list.
                     itemsList.set(position, updatedItem);
                     itemsRowAdapter.notifyItemChanged(position);
                 }
+            } else {
+                Log.e("MainPageActivity", "Updated item is null");
             }
-
         }
     }
 
