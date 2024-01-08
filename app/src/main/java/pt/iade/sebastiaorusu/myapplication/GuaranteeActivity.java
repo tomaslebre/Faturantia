@@ -132,49 +132,63 @@ public class GuaranteeActivity extends AppCompatActivity {
             }
         });
 
-
         // Get the item passed from the previous activity.
         Intent intent = getIntent();
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
         int faturaId = intent.getIntExtra("faturaId", -1);
-        Log.d("FaturaActivity", "faturaId to pass: " + item.getId());
         // Inside the `onCreate` method, or appropriate setup method
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
-            commitView(); // Assuming this method updates the `item` object with UI data
+            commitView(); // Update `item` object with UI data
 
             SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
             int userId = sharedPreferences.getInt("UserID", -1);
 
             if (userId != -1) {
-                item.save(this, faturaId, new GuarItem.SaveResponse() {
-                    @Override
-                    public void response(boolean success, GuarItem savedItem) {
-                        if (success) {
-                            if (savedItem == null) {
-                                Log.e("GuaranteeActivity", "Saved item is null");
-                            } else {
-                                Intent returnIntent = new Intent();
-                                returnIntent.putExtra("savedItem", savedItem);
-                                returnIntent.putExtra("position", listPosition);
-                                setResult(AppCompatActivity.RESULT_OK, returnIntent);
-                                finish();
-                            }
-                        } else {
-                            // Handle error
-                            Toast.makeText(GuaranteeActivity.this, "Error saving guarantee", Toast.LENGTH_SHORT).show();
+                if (item.getId() == 0) {
+                    // New Guarantee: Save with faturaId
+                    item.save(this, faturaId, new GuarItem.SaveResponse() {
+                        @Override
+                        public void response(boolean success, GuarItem savedItem) {
+                            handleSaveResponse(success, savedItem);
                         }
-                    }
-                });
+                    });
+                } else {
+                    // Existing Guarantee: Save with its current ID
+                    item.save(this, item.getId(), new GuarItem.SaveResponse() {
+                        @Override
+                        public void response(boolean success, GuarItem savedItem) {
+                            handleSaveResponse(success, savedItem);
+                        }
+                    });
+                }
             } else {
-                // Handle error case where userId is not available
+                Toast.makeText(GuaranteeActivity.this, "User ID not available", Toast.LENGTH_SHORT).show();
             }
         });
 
 
+
+
+
         setupComponents();
         setupCalendar();
+    }
+    private void handleSaveResponse(boolean success, GuarItem savedItem) {
+        if (success) {
+            if (savedItem == null) {
+                Log.e("GuaranteeActivity", "Saved item is null");
+            } else {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("savedItem", savedItem);
+                returnIntent.putExtra("position", listPosition);
+                setResult(AppCompatActivity.RESULT_OK, returnIntent);
+                finish();
+            }
+        } else {
+            Toast.makeText(GuaranteeActivity.this, "Error saving guarantee", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

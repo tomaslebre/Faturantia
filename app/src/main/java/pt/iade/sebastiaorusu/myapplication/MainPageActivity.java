@@ -72,22 +72,26 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     private void setupComponents() {
-        itemsListView = findViewById(R.id.recyclerView);
-        itemsListView.setLayoutManager(new LinearLayoutManager(this));
-        itemsList = new ArrayList<>(); // Initialize your list
-        itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
-        itemsListView.setAdapter(itemsRowAdapter);
+
+                // Set up row adapter with our items list.
+        itemsRowAdapter = new GuarItemRowAdapter(MainPageActivity.this, itemsList);
         itemsRowAdapter.setOnClickListener(new GuarItemRowAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                GuarItem item = itemsList.get(position);
+                // Place our clicked item object in the intent to send to the other activity.
                 Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
                 intent.putExtra("position", position);
-                intent.putExtra("item", item);
+                intent.putExtra("item", itemsList.get(position));
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
         });
+
+            // Set up the items recycler view.
+        itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
+        itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
+        itemsListView.setAdapter(itemsRowAdapter);
+
 
         // Call the method to fetch items from the server.
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
