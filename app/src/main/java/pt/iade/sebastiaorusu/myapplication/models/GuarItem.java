@@ -103,23 +103,33 @@ public class GuarItem implements Serializable {
         thread.start();
     }
 
-    public void save(Context context, int faturaId, SaveResponse response) {
+    public void save(Context context, int id, SaveResponse response) {
         new Thread(() -> {
             try {
                 WebRequest req;
-                String endpoint = (id == 0) ? "/api/guarantee/add/" + faturaId : "/api/guarantee/update/by-fatura/" + faturaId;
-                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                String endpoint;
+                String responseString;
                 String jsonBody = new Gson().toJson(this);
-                String responseString = req.performPostRequest(null, jsonBody, "application/json"); // Use POST for both adding and updating
+
+                if (this.id == 0) { // Assuming this.id is the Guarantee ID
+                    // Add a new guarantee
+                    endpoint = "/api/guarantee/add/" + id; // Here id is faturaId
+                    req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                    responseString = req.performPostRequest(null, jsonBody, "application/json");
+                } else {
+                    // Update an existing guarantee
+                    endpoint = "/api/guarantee/update/" + this.id; // Here this.id is the Guarantee ID
+                    req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                    responseString = req.performPutRequest(null, jsonBody, "application/json");
+                }
 
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
-                        // Parse response to check for errors
                         new JSONObject(responseString);
-                        response.response(true, this); // Success, return the GuarItem
+                        response.response(true, this); // Success
                     } catch (Exception e) {
                         Log.e("GuarItem", "Error parsing response", e);
-                        response.response(false, null); // Error, return null
+                        response.response(false, null); // Error
                     }
                 });
             } catch (Exception e) {
@@ -131,6 +141,7 @@ public class GuarItem implements Serializable {
             }
         }).start();
     }
+
 
 
     // Interface for the callback of the save method
