@@ -112,20 +112,9 @@ public class MainPageActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Ordenar a lista de itens antes de exibir na RecyclerView
-                        Collections.sort(items, new Comparator<GuarItem>() {
-                            @Override
-                            public int compare(GuarItem g1, GuarItem g2) {
-                                // Assumindo que getExpDateCalendar retorna um Calendar
-                                Calendar cal1 = g1.getExpDateCalendar();
-                                Calendar cal2 = g2.getExpDateCalendar();
-                                return cal1.compareTo(cal2);
-                            }
-                        });
-
                         itemsList.clear();
                         itemsList.addAll(items);
-                        itemsRowAdapter.notifyDataSetChanged(); // Atualiza o adaptador com a lista ordenada
+                        itemsRowAdapter.notifyDataSetChanged(); // A lista já está ordenada pelo servidor
                     }
                 });
             }
