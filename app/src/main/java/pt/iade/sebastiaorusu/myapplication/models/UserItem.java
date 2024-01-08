@@ -1,7 +1,17 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
+import com.google.gson.Gson;
+
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Random;
+import java.util.function.Consumer;
+
+import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
 
 public class UserItem implements Serializable {
     private int id;
@@ -22,6 +32,21 @@ public class UserItem implements Serializable {
         this.name = name;
         this.location = location;
     }
+
+    public static void getById(int userId, Consumer<UserItem> callback) {
+        new Thread(() -> {
+            try {
+                WebRequest request = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/users/" + userId));
+                String response = request.performGetRequest();
+                UserItem user = new Gson().fromJson(response, UserItem.class);
+                new Handler(Looper.getMainLooper()).post(() -> callback.accept(user));
+            } catch (Exception e) {
+                Log.e("GetUserById", "Error fetching user", e);
+                new Handler(Looper.getMainLooper()).post(() -> callback.accept(null));
+            }
+        }).start();
+    }
+
 
     public void save() {
         // TODO: Send the object's data to our web server and update the database there.

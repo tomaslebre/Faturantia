@@ -8,16 +8,20 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import pt.iade.sebastiaorusu.myapplication.models.UserItem;
 
 public class InfPersonalActivity extends AppCompatActivity {
     protected Button imageButtonProfile;
@@ -94,7 +98,26 @@ public class InfPersonalActivity extends AppCompatActivity {
                 return false;
             }
         });
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("UserID", -1);
+        if (userId != -1) {
+            UserItem.getById(userId, this::populateUserDetails);
+        } else {
+            Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show();
+            // Redirecionar para a tela de login ou outra apropriada
+        }
+
         setupComponents();
+    }
+    private void populateUserDetails(UserItem user) {
+        if (user != null) {
+            EditText nameEdit = findViewById(R.id.name_edit);
+            EditText locationEdit = findViewById(R.id.local_edit);
+            nameEdit.setText(user.getName());
+            locationEdit.setText(user.getLocation());
+        } else {
+            Toast.makeText(this, "Failed to load user details", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
