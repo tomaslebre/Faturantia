@@ -22,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import android.os.Handler;
 
+import org.json.JSONObject;
+
 import pt.iade.sebastiaorusu.myapplication.utilities.CalendarJsonAdapter;
 import pt.iade.sebastiaorusu.myapplication.utilities.WebRequest;
 
@@ -77,30 +79,39 @@ public class GuarItem implements Serializable {
     }
 
 
-    public void save(Context context, int faturaId) {
+    public void save(Context context, int faturaId, SaveResponse response) {
         new Thread(() -> {
             try {
-                // Determine the endpoint based on whether it's a new or existing item
-                String endpoint = (id == 0) ? "/api/guarantee/add/" + faturaId : "/api/guarantee/update/" + id;
-
-                // Setup the request
-                WebRequest req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                WebRequest req = new WebRequest(new URL(
+                        WebRequest.LOCALHOST + "/api/guarantee/add/" + faturaId));
                 String jsonBody = new Gson().toJson(this);
-                String response = req.performPostRequest(null, jsonBody, "application/json");
+                String responseString = req.performPostRequest(null, jsonBody, "application/json");
 
-                // Process the response on the main thread
                 new Handler(Looper.getMainLooper()).post(() -> {
-                    Toast.makeText(context, "Guarantee saved successfully", Toast.LENGTH_SHORT).show();
-                    // Additional actions after successful save can be placed here
+                    try {
+                        // Parse response to check for errors
+                        new JSONObject(responseString);
+                        response.response(true, this); // Success, return the GuarItem
+                    } catch (Exception e) {
+                        Log.e("GuarItem", "Error parsing response", e);
+                        response.response(false, null); // Error, return null
+                    }
                 });
             } catch (Exception e) {
                 new Handler(Looper.getMainLooper()).post(() -> {
                     Toast.makeText(context, "Failed to save guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    // Handle the failure case here
+                    Log.e("GuarItem", "Save failed", e);
+                    response.response(false, null);
                 });
             }
         }).start();
     }
+
+    // Interface for the callback of the save method
+    public interface SaveResponse {
+        void response(boolean success, GuarItem savedItem);
+    }
+
 
     public static void ImptList(int userId, ListResponse response) {
         new Thread(() -> {

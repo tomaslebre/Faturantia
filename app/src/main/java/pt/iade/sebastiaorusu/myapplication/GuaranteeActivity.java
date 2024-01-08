@@ -136,6 +136,37 @@ public class GuaranteeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
+        int faturaId = intent.getIntExtra("faturaId", -1);
+
+        // Inside the `onCreate` method, or appropriate setup method
+        saveButton = findViewById(R.id.save_guar_butt);
+        saveButton.setOnClickListener(v -> {
+            commitView(); // Assuming this method updates the `item` object with UI data
+
+            SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("UserID", -1);
+
+            if (userId != -1) {
+                item.save(this, faturaId, new GuarItem.SaveResponse() {
+                    @Override
+                    public void response(boolean success, GuarItem savedItem) {
+                        if (success) {
+                            // Return the saved item to MainPageActivity
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("savedItem", savedItem);
+                            setResult(AppCompatActivity.RESULT_OK, returnIntent);
+                            finish();
+                        } else {
+                            // Handle save error
+                            Toast.makeText(GuaranteeActivity.this, "Error saving guarantee", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            } else {
+                // Handle error case where userId is not available
+            }
+        });
+
 
         setupComponents();
         setupCalendar();
