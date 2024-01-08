@@ -82,6 +82,31 @@ public class PrivacySecActivity extends AppCompatActivity {
         if (userId != -1) {
             UserItem.getById(userId, this::populateUserData);
         }
+
+
+// Method to populate user data
+        setupComponents();
+    }
+    private void populateUserData(UserItem user) {
+        if (user != null) {
+            EditText emailEdit = findViewById(R.id.security_email_edit);
+            EditText passwordEdit = findViewById(R.id.security_pass_edit);
+            emailEdit.setText(user.getEmail());
+            passwordEdit.setText(user.getPassword());
+            // Do not display the actual password for security reasons
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+    private void setupComponents() {
         SaveSecurity = findViewById(R.id.save_security);
         SaveSecurity.setOnClickListener(v -> {
             EditText emailEdit = findViewById(R.id.security_email_edit);
@@ -118,30 +143,6 @@ public class PrivacySecActivity extends AppCompatActivity {
                 Toast.makeText(PrivacySecActivity.this, "No changes made", Toast.LENGTH_SHORT).show();
             }
         });
-
-// Method to populate user data
-        setupComponents();
-    }
-    private void populateUserData(UserItem user) {
-        if (user != null) {
-            EditText emailEdit = findViewById(R.id.security_email_edit);
-            EditText passwordEdit = findViewById(R.id.security_pass_edit);
-            emailEdit.setText(user.getEmail());
-            passwordEdit.setText(user.getPassword());
-            // Do not display the actual password for security reasons
-        }
-    }
-    @Override
-    public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
-            super.onBackPressed();
-        }
-    }
-
-    private void setupComponents() {
 
         BackSecurity = findViewById(R.id.back_security);
         BackSecurity.setOnClickListener(v -> {
