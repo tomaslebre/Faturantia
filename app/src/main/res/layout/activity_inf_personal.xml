@@ -103,7 +103,6 @@
             android:layout_marginTop="4dp"
             android:ems="10"
             android:hint="@string/location"
-            android:inputType="textPassword"
             android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -145,9 +145,30 @@ public class InfPersonalActivity extends AppCompatActivity {
     private void setupComponents() {
         SavePersonalInfoButton = findViewById(R.id.save_profile);
         SavePersonalInfoButton.setOnClickListener(v -> {
-            Toast.makeText(InfPersonalActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(InfPersonalActivity.this, ProfileActivity.class);
-            startActivity(intent);
+            EditText nameEdit = findViewById(R.id.name_edit);
+            EditText locationEdit = findViewById(R.id.local_edit);
+
+            String newName = nameEdit.getText().toString();
+            String newLocation = locationEdit.getText().toString();
+
+            SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("UserID", -1);
+            if (userId != -1) {
+                UserItem.getById(userId, user -> {
+                    if (user != null && (!user.getName().equals(newName) || !user.getLocation().equals(newLocation))) {
+                        user.setName(newName);
+                        user.setLocation(newLocation);
+                        user.updateUser(this, () -> {
+                            Toast.makeText(InfPersonalActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
+                            // Redirecionar para outra atividade se necessário
+                        }, () -> {
+                            Toast.makeText(InfPersonalActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
+            } else {
+                Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show();
+            }
         });
 
         BackPersonalInfoButton = findViewById(R.id.back_profile);

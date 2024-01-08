@@ -1,9 +1,12 @@
 package pt.iade.sebastiaorusu.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +17,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import com.google.android.material.navigation.NavigationView;
 
+import pt.iade.sebastiaorusu.myapplication.models.UserItem;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -77,7 +81,23 @@ public class ProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("UserID", -1);
+        if (userId != -1) {
+            UserItem.getById(userId, this::populateUserDetails);
+        } else {
+            Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show();
+            // Redirecionar para a tela de login ou outra apropriada
+        }
         setupComponents();
+    }
+    private void populateUserDetails(UserItem user) {
+        if (user != null) {
+            TextView nameEdit = findViewById(R.id.user_name);
+            nameEdit.setText(user.getName());
+        } else {
+            Toast.makeText(this, "Failed to load user details", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

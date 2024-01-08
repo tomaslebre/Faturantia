@@ -1,13 +1,18 @@
 package pt.iade.sebastiaorusu.myapplication.models;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -41,25 +46,61 @@ public class UserItem implements Serializable {
                 UserItem user = new Gson().fromJson(response, UserItem.class);
                 new Handler(Looper.getMainLooper()).post(() -> callback.accept(user));
             } catch (Exception e) {
-                Log.e("GetUserById", "Error fetching user", e);
+                Log.e("UserItem", "Error fetching user data", e);
                 new Handler(Looper.getMainLooper()).post(() -> callback.accept(null));
             }
         }).start();
     }
 
+    // Inside UserItem class
+    public void updatePassword(String newPassword, Runnable onSuccess, Runnable onError) {
+        new Thread(() -> {
+            try {
+                WebRequest request = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/users/update-password/" + this.id));
 
-    public void save() {
-        // TODO: Send the object's data to our web server and update the database there.
+                // Assuming the server expects the new password in plain text in the request body
+                String response = request.performPutRequest(null, newPassword, "text/plain");
 
-        if (id == 0) {
-            // This is a brand new object and must be a INSERT in the database.
-
-            // Simulate doing an insert and getting an ID back from the web server.
-            id = new Random().nextInt(1000) + 1;
-        } else {
-            // This is an update to an existing object and must use UPDATE in the database.
-        }
+                if (response.equals("Password updated successfully")) {
+                    new Handler(Looper.getMainLooper()).post(onSuccess);
+                } else {
+                    new Handler(Looper.getMainLooper()).post(onError);
+                }
+            } catch (Exception e) {
+                Log.e("UserItem", "Error updating password", e);
+                new Handler(Looper.getMainLooper()).post(onError);
+            }
+        }).start();
     }
+
+
+
+    public void updateUser(Context context, Runnable onSuccess, Runnable onError) {
+        new Thread(() -> {
+            try {
+                WebRequest req = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/users/update/" + this.id));
+                String jsonBody = new Gson().toJson(this);
+                String responseString = req.performPutRequest(null, jsonBody, "application/json");
+
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    try {
+                        new JSONObject(responseString);
+                        onSuccess.run(); // On success
+                    } catch (Exception e) {
+                        Log.e("UserItem", "Error parsing response", e);
+                        onError.run(); // On error
+                    }
+                });
+            } catch (Exception e) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Failed to update user profile: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("UserItem", "Update failed", e);
+                    onError.run();
+                });
+            }
+        }).start();
+    }
+
 
     public int getId() {
         return id;

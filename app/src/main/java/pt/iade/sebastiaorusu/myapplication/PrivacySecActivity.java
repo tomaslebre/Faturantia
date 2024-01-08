@@ -7,12 +7,16 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import pt.iade.sebastiaorusu.myapplication.models.UserItem;
 
 public class PrivacySecActivity extends AppCompatActivity {
     protected Button SaveSecurity;
@@ -73,9 +77,60 @@ public class PrivacySecActivity extends AppCompatActivity {
                 return false;
             }
         });
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("UserID", -1);
+        if (userId != -1) {
+            UserItem.getById(userId, this::populateUserData);
+        }
+        SaveSecurity = findViewById(R.id.save_security);
+        SaveSecurity.setOnClickListener(v -> {
+            EditText emailEdit = findViewById(R.id.security_email_edit);
+            EditText newPassEdit = findViewById(R.id.security_change_pass_edit);
+            EditText confirmPassEdit = findViewById(R.id.security_pass_confirm_edit);
+
+            String email = emailEdit.getText().toString();
+            String newPassword = newPassEdit.getText().toString();
+            String confirmPassword = confirmPassEdit.getText().toString();
+
+            if (!newPassword.equals(confirmPassword)) {
+                Toast.makeText(PrivacySecActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            UserItem currentUser = new UserItem(); // Get current user object
+            boolean isChanged = false;
+
+            if (!email.isEmpty() && !email.equals(currentUser.getEmail())) {
+                currentUser.setEmail(email);
+                isChanged = true;
+            }
+
+            if (!newPassword.isEmpty()) {
+                currentUser.setPassword(newPassword);
+                isChanged = true;
+            }
+
+            if (isChanged) {
+                currentUser.updateUser(this,
+                        () -> Toast.makeText(PrivacySecActivity.this, "User updated", Toast.LENGTH_SHORT).show(),
+                        () -> Toast.makeText(PrivacySecActivity.this, "Error updating user", Toast.LENGTH_SHORT).show());
+            } else {
+                Toast.makeText(PrivacySecActivity.this, "No changes made", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+// Method to populate user data
         setupComponents();
     }
-
+    private void populateUserData(UserItem user) {
+        if (user != null) {
+            EditText emailEdit = findViewById(R.id.security_email_edit);
+            EditText passwordEdit = findViewById(R.id.security_pass_edit);
+            emailEdit.setText(user.getEmail());
+            passwordEdit.setText(user.getPassword());
+            // Do not display the actual password for security reasons
+        }
+    }
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -87,12 +142,6 @@ public class PrivacySecActivity extends AppCompatActivity {
     }
 
     private void setupComponents() {
-        SaveSecurity = findViewById(R.id.save_security);
-        SaveSecurity.setOnClickListener(v -> {
-            Toast.makeText(PrivacySecActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(PrivacySecActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        });
 
         BackSecurity = findViewById(R.id.back_security);
         BackSecurity.setOnClickListener(v -> {
