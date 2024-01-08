@@ -258,10 +258,6 @@ public class FaturaActivity extends AppCompatActivity {
         storelocalEdit= (EditText) findViewById(R.id.loc_view);
         purchaseDateEdit= (EditText) findViewById(R.id.purchase_date_edit);
         purchaseDateCalendar= (CalendarView) findViewById(R.id.purchase_date_calendar);
-
-        purchaseDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            item.setDateofpurchaseCalendar(new GregorianCalendar(year, month, dayOfMonth));
-        });
         populateView();
     }
     protected void populateView() {
