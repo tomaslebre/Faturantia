@@ -109,6 +109,7 @@ public class PrivacySecActivity extends AppCompatActivity {
     private void setupComponents() {
         SaveSecurity = findViewById(R.id.save_security);
         SaveSecurity.setOnClickListener(v -> {
+            // Recupera os dados atuais do formulário
             EditText emailEdit = findViewById(R.id.security_email_edit);
             EditText newPassEdit = findViewById(R.id.security_change_pass_edit);
             EditText confirmPassEdit = findViewById(R.id.security_pass_confirm_edit);
@@ -117,30 +118,42 @@ public class PrivacySecActivity extends AppCompatActivity {
             String newPassword = newPassEdit.getText().toString();
             String confirmPassword = confirmPassEdit.getText().toString();
 
-            if (!newPassword.equals(confirmPassword)) {
+            // Verifica se a confirmação da senha está correta
+            if (!newPassword.isEmpty() && !newPassword.equals(confirmPassword)) {
                 Toast.makeText(PrivacySecActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            UserItem currentUser = new UserItem(); // Get current user object
-            boolean isChanged = false;
+            SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("UserID", -1);
 
-            if (!email.isEmpty() && !email.equals(currentUser.getEmail())) {
-                currentUser.setEmail(email);
-                isChanged = true;
-            }
+            if (userId != -1) {
+                UserItem.getById(userId, user -> {
+                    if (user != null) {
+                        boolean isChanged = false;
+                        if (!email.isEmpty() && !email.equals(user.getEmail())) {
+                            user.setEmail(email);
+                            isChanged = true;
+                        }
 
-            if (!newPassword.isEmpty()) {
-                currentUser.setPassword(newPassword);
-                isChanged = true;
-            }
+                        if (!newPassword.isEmpty()) {
+                            user.setPassword(newPassword);
+                            isChanged = true;
+                        }
 
-            if (isChanged) {
-                currentUser.updateUser(this,
-                        () -> Toast.makeText(PrivacySecActivity.this, "User updated", Toast.LENGTH_SHORT).show(),
-                        () -> Toast.makeText(PrivacySecActivity.this, "Error updating user", Toast.LENGTH_SHORT).show());
+                        if (isChanged) {
+                            user.updateUser(PrivacySecActivity.this, () -> {
+                                Toast.makeText(PrivacySecActivity.this, "User updated", Toast.LENGTH_SHORT).show();
+                            }, () -> {
+                                Toast.makeText(PrivacySecActivity.this, "Error updating user", Toast.LENGTH_SHORT).show();
+                            });
+                        } else {
+                            Toast.makeText(PrivacySecActivity.this, "No changes made", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             } else {
-                Toast.makeText(PrivacySecActivity.this, "No changes made", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show();
             }
         });
 

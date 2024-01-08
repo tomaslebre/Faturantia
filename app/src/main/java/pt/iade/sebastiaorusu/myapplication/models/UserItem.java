@@ -52,29 +52,6 @@ public class UserItem implements Serializable {
         }).start();
     }
 
-    // Inside UserItem class
-    public void updatePassword(String newPassword, Runnable onSuccess, Runnable onError) {
-        new Thread(() -> {
-            try {
-                WebRequest request = new WebRequest(new URL(WebRequest.LOCALHOST + "/api/users/update-password/" + this.id));
-
-                // Assuming the server expects the new password in plain text in the request body
-                String response = request.performPutRequest(null, newPassword, "text/plain");
-
-                if (response.equals("Password updated successfully")) {
-                    new Handler(Looper.getMainLooper()).post(onSuccess);
-                } else {
-                    new Handler(Looper.getMainLooper()).post(onError);
-                }
-            } catch (Exception e) {
-                Log.e("UserItem", "Error updating password", e);
-                new Handler(Looper.getMainLooper()).post(onError);
-            }
-        }).start();
-    }
-
-
-
     public void updateUser(Context context, Runnable onSuccess, Runnable onError) {
         new Thread(() -> {
             try {
