@@ -21,7 +21,9 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.FatItemRowAdapter;
+import pt.iade.sebastiaorusu.myapplication.adapters.GuarItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
+import pt.iade.sebastiaorusu.myapplication.models.GuarItem;
 
 
 public class FatSaved extends AppCompatActivity {
@@ -131,6 +133,17 @@ public class FatSaved extends AppCompatActivity {
         itemsListView.setLayoutManager(new LinearLayoutManager(this));
         itemsList = new ArrayList<>();
         itemsRowAdapter = new FatItemRowAdapter(this, itemsList);
+        itemsRowAdapter.setOnClickListener(new FatItemRowAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                FatItem item = itemsList.get(position);
+                Intent intent = new Intent(FatSaved.this, FaturaActivity.class);
+                intent.putExtra("position", position);
+                intent.putExtra("item", item);
+
+                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+            }
+        });
 
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("UserID", -1);

@@ -240,4 +240,28 @@ public class WebRequest {
 
         return uri;
     }
+    public String performPutRequest(HashMap<String, String> params, String body, String contentType) throws IOException, URISyntaxException {
+        byte[] putData = body.getBytes(StandardCharsets.UTF_8);
+
+        Log.i("WebRequest", "Sending PUT to " + url);
+        URI uri = buildUri(params);
+        HttpURLConnection urlConnection = (HttpURLConnection) uri.toURL().openConnection();
+        urlConnection.setRequestMethod("PUT");
+        urlConnection.setRequestProperty("Content-Type", contentType);
+        urlConnection.setRequestProperty("Content-Length", Integer.toString(putData.length));
+        urlConnection.setUseCaches(false);
+        urlConnection.setDoOutput(true);
+
+        OutputStream os = urlConnection.getOutputStream();
+        os.write(putData, 0, putData.length);
+        os.flush();
+        os.close();
+
+        InputStream is = new BufferedInputStream(urlConnection.getInputStream());
+        String result = readStreamToString(is);
+        is.close();
+
+        return result;
+    }
+
 }

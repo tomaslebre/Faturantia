@@ -77,6 +77,18 @@ public class MainPageActivity extends AppCompatActivity {
         itemsList = new ArrayList<>(); // Initialize your list
         itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
         itemsListView.setAdapter(itemsRowAdapter);
+        itemsRowAdapter.setOnClickListener(new GuarItemRowAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                GuarItem item = itemsList.get(position);
+                Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
+                intent.putExtra("position", position);
+                intent.putExtra("item", item);
+
+                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
+            }
+        });
+
         // Call the method to fetch items from the server.
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("UserID", -1);

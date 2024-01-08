@@ -78,14 +78,39 @@ public class GuarItem implements Serializable {
         }).start();
     }
 
+    public static void GetById(int id, GetByIdResponse response) {
+        // Fetch the item from the web server using its id and populate the object.
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    try {
+                        WebRequest req = new WebRequest(new URL(
+                                WebRequest.LOCALHOST + "/api/guarantee/" + id));
+                        String resp = req.performGetRequest();
+
+                        response.response(new Gson().fromJson(resp, GuarItem.class));
+                    } catch (Exception e) {
+                        Toast.makeText(null, "Web request failed: " + e.toString(),
+                                Toast.LENGTH_LONG).show();
+                        Log.e("TodoItem", e.toString());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
 
     public void save(Context context, int faturaId, SaveResponse response) {
         new Thread(() -> {
             try {
-                WebRequest req = new WebRequest(new URL(
-                        WebRequest.LOCALHOST + "/api/guarantee/add/" + faturaId));
+                WebRequest req;
+                String endpoint = (id == 0) ? "/api/guarantee/add/" + faturaId : "/api/guarantee/update/" + id;
+                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
                 String jsonBody = new Gson().toJson(this);
-                String responseString = req.performPostRequest(null, jsonBody, "application/json");
+                String responseString = (id == 0) ? req.performPostRequest(null, jsonBody, "application/json") : req.performPutRequest(null, jsonBody, "application/json");
 
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
