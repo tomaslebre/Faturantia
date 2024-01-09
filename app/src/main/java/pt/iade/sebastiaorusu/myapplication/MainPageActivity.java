@@ -77,7 +77,6 @@ public class MainPageActivity extends AppCompatActivity {
         itemsList = new ArrayList<>(); // Initialize your list
         itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
         itemsListView.setAdapter(itemsRowAdapter);
-        HashMap<Integer, Integer> guarToFaturaMap = new HashMap<>();
 
 // When you create or fetch GuarItems, populate this map with the corresponding faturaId
 // For example: guarToFaturaMap.put(guarItemId, faturaId);
@@ -91,9 +90,6 @@ public class MainPageActivity extends AppCompatActivity {
                 intent.putExtra("item", item);
 
                 // Get faturaId from the map and pass it
-                int faturaId = guarToFaturaMap.getOrDefault(item.getId(), -1);
-                intent.putExtra("faturaId", faturaId);
-
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
         });
