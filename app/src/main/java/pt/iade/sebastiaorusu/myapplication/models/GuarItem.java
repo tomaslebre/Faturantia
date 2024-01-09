@@ -6,15 +6,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
@@ -103,7 +98,7 @@ public class GuarItem implements Serializable {
         thread.start();
     }
 
-    public void save(Context context, int id, SaveResponse response) {
+    public void add(Context context, int faturaId, SaveResponse response) {
         new Thread(() -> {
             try {
                 WebRequest req;
@@ -111,17 +106,10 @@ public class GuarItem implements Serializable {
                 String responseString;
                 String jsonBody = new Gson().toJson(this);
 
-                if (this.id == 0) { // Assuming this.id is the Guarantee ID
-                    // Add a new guarantee
-                    endpoint = "/api/guarantee/add/" + id; // Here id is faturaId
-                    req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
-                    responseString = req.performPostRequest(null, jsonBody, "application/json");
-                } else {
-                    // Update an existing guarantee
-                    endpoint = "/api/guarantee/update/" + this.id; // Here this.id is the Guarantee ID
-                    req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
-                    responseString = req.performPutRequest(null, jsonBody, "application/json");
-                }
+                // Add a new guarantee
+                endpoint = "/api/guarantee/add/" + faturaId;
+                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                responseString = req.performPostRequest(null, jsonBody, "application/json");
 
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
@@ -134,8 +122,40 @@ public class GuarItem implements Serializable {
                 });
             } catch (Exception e) {
                 new Handler(Looper.getMainLooper()).post(() -> {
-                    Toast.makeText(context, "Failed to save guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.e("GuarItem", "Save failed", e);
+                    Toast.makeText(context, "Failed to add guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("GuarItem", "Add failed", e);
+                    response.response(false, null);
+                });
+            }
+        }).start();
+    }
+
+    public void update(Context context, SaveResponse response) {
+        new Thread(() -> {
+            try {
+                WebRequest req;
+                String endpoint;
+                String responseString;
+                String jsonBody = new Gson().toJson(this);
+
+                // Update an existing guarantee
+                endpoint = "/api/guarantee/update/" + this.id; // Here this.id is the Guarantee ID
+                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                responseString = req.performPutRequest(null, jsonBody, "application/json");
+
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    try {
+                        new JSONObject(responseString);
+                        response.response(true, this); // Success
+                    } catch (Exception e) {
+                        Log.e("GuarItem", "Error parsing response", e);
+                        response.response(false, null); // Error
+                    }
+                });
+            } catch (Exception e) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Failed to update guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("GuarItem", "Update failed", e);
                     response.response(false, null);
                 });
             }

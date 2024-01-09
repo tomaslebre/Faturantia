@@ -76,26 +76,6 @@ public class GuaranteeActivity extends AppCompatActivity {
 
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        /*Spinner categorySpinner = findViewById(R.id.category_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.category_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);*/
-
-        // Configurar um listener para quando um item é selecionado
-        /*categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Faça algo com a categoria selecionada
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Opcional: Faça algo quando nenhum item está selecionado
-            }
-        });*/
-
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -131,7 +111,6 @@ public class GuaranteeActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         // Get the item passed from the previous activity.
         Intent intent = getIntent();
         listPosition = intent.getIntExtra("position", -1);
@@ -140,38 +119,15 @@ public class GuaranteeActivity extends AppCompatActivity {
         // Inside the `onCreate` method, or appropriate setup method
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
-            commitView(); // Update `item` object with UI data
-
-            SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
-            int userId = sharedPreferences.getInt("UserID", -1);
-
-            if (userId != -1) {
-                if (item.getId() == 0) {
-                    // New Guarantee: Save with faturaId
-                    item.save(this, faturaId, new GuarItem.SaveResponse() {
-                        @Override
-                        public void response(boolean success, GuarItem savedItem) {
-                            handleSaveResponse(success, savedItem);
-                        }
-                    });
-                } else {
-                    // Existing Guarantee: Save with its current ID
-                    item.save(this, item.getId(), new GuarItem.SaveResponse() {
-                        @Override
-                        public void response(boolean success, GuarItem savedItem) {
-                            handleSaveResponse(success, savedItem);
-                        }
-                    });
-                }
+            commitView(); // Update item object with UI data
+            if (item.getId() == 0) {
+                // If the ID is 0, it means it's a new guarantee, so add it
+                item.add(this, faturaId, this::handleSaveResponse);
             } else {
-                Toast.makeText(GuaranteeActivity.this, "User ID not available", Toast.LENGTH_SHORT).show();
+                // If the ID exists, update the existing guarantee
+                item.update(this, this::handleSaveResponse);
             }
         });
-
-
-
-
-
         setupComponents();
         setupCalendar();
     }
@@ -190,10 +146,7 @@ public class GuaranteeActivity extends AppCompatActivity {
             Toast.makeText(GuaranteeActivity.this, "Error saving guarantee", Toast.LENGTH_SHORT).show();
         }
     }
-
-
     private void setupCalendar() {
-
         //Configuração do calendar view para a data de expiração
         expDateEdit = findViewById(R.id.exp_date_txt);
         expDateCalendar = findViewById(R.id.exp_date_calendar);
@@ -215,15 +168,10 @@ public class GuaranteeActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(expDateEdit.getWindowToken(), 0);
             expDateCalendar.setVisibility(View.GONE);
         });
-
-
-        //Configuração do calendar view para a data de Lembrete
-
         // Configuração do ImageButton e do CalendarView para a data de Lembrete
         expandButton = findViewById(R.id.expand_butt);
         remDateCalendar = findViewById(R.id.rem_date_calendar);
         remDateCalendar.setVisibility(View.GONE);
-
         expandButton.setOnClickListener(v -> {
             // Se o CalendarView estiver visível, esconde-o; caso contrário, mostra-o
             if (remDateCalendar.getVisibility() == View.VISIBLE) {
@@ -232,24 +180,18 @@ public class GuaranteeActivity extends AppCompatActivity {
                 remDateCalendar.setVisibility(View.VISIBLE);
             }
         });
-
         remDateCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // Quando escolhe a data, esconde o teclado e o CalendarView
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(expandButton.getWindowToken(), 0);
             remDateCalendar.setVisibility(View.GONE);
         });
-
 // Certifique-se de esconder o CalendarView quando o ImageButton não tem foco
         expandButton.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 remDateCalendar.setVisibility(View.GONE);
             }
         });
-
-
-
-
         // Cancel button garantias
         cancelButton = findViewById(R.id.exit_button);
         cancelButton.setOnClickListener(v -> {
@@ -257,12 +199,7 @@ public class GuaranteeActivity extends AppCompatActivity {
             startActivity(cancelIntent);
 
         });
-
-
     }
-
-
-
     private void setupComponents(){
 
         titleEdit = (EditText) findViewById(R.id.prod_name_txt);
@@ -275,8 +212,6 @@ public class GuaranteeActivity extends AppCompatActivity {
         populateView();
 
     }
-
-
     protected void populateView(){
         titleEdit.setText(item.getTitle());
         expDateCalendar.setDate(item.getExpDateCalendar().getTimeInMillis());
@@ -285,8 +220,6 @@ public class GuaranteeActivity extends AppCompatActivity {
         remDateCalendar.setDate(item.getRemDateCalendar().getTimeInMillis());
         notes.setText(item.getNotes());
     }
-
-
     protected void commitView() {
         item.setTitle(titleEdit.getText().toString());
         Calendar expDateCalendar = Calendar.getInstance();

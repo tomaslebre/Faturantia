@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.GuarItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
