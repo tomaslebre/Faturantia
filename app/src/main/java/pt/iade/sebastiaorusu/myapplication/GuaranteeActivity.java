@@ -115,19 +115,30 @@ public class GuaranteeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
-        int faturaId = intent.getIntExtra("faturaId", -1);
         // Inside the `onCreate` method, or appropriate setup method
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
             commitView(); // Update item object with UI data
-            if (item.getId() == 0) {
-                // If the ID is 0, it means it's a new guarantee, so add it
-                item.add(this, faturaId, this::handleSaveResponse);
+            int faturaId = getIntent().getIntExtra("faturaId", -1);
+
+            if (item.getId() == 0 || item.getId() == -1) {
+                // New Guarantee
+                if (faturaId != -1) {
+                    // Add a new guarantee with faturaId
+                    item.add(GuaranteeActivity.this, faturaId, (success, savedItem) -> {
+                        handleSaveResponse(success, savedItem);
+                    });
+                } else {
+                    Toast.makeText(GuaranteeActivity.this, "Fatura ID not provided for new guarantee", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                // If the ID exists, update the existing guarantee
-                item.update(this, this::handleSaveResponse);
+                // Existing Guarantee - Update without needing faturaId
+                item.update(GuaranteeActivity.this, (success, savedItem) -> {
+                    handleSaveResponse(success, savedItem);
+                });
             }
         });
+
         setupComponents();
         setupCalendar();
     }
