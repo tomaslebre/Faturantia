@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import pt.iade.sebastiaorusu.myapplication.adapters.GuarItemRowAdapter;
 import pt.iade.sebastiaorusu.myapplication.models.FatItem;
@@ -76,6 +77,11 @@ public class MainPageActivity extends AppCompatActivity {
         itemsList = new ArrayList<>(); // Initialize your list
         itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
         itemsListView.setAdapter(itemsRowAdapter);
+        HashMap<Integer, Integer> guarToFaturaMap = new HashMap<>();
+
+// When you create or fetch GuarItems, populate this map with the corresponding faturaId
+// For example: guarToFaturaMap.put(guarItemId, faturaId);
+
         itemsRowAdapter.setOnClickListener(new GuarItemRowAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -83,6 +89,10 @@ public class MainPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
                 intent.putExtra("position", position);
                 intent.putExtra("item", item);
+
+                // Get faturaId from the map and pass it
+                int faturaId = guarToFaturaMap.getOrDefault(item.getId(), -1);
+                intent.putExtra("faturaId", faturaId);
 
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }

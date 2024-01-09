@@ -32,6 +32,7 @@ public class GuarItem implements Serializable {
     @JsonAdapter(CalendarJsonAdapter.class)
     private Calendar remDateCalendar;
     private String notes;
+    private int faturaId;
 
 
     public GuarItem() {
@@ -106,18 +107,15 @@ public class GuarItem implements Serializable {
         }).start();
     }
 
-    public void update(Context context, SaveResponse response) {
+    public void update(Context context, int faturaId, SaveResponse response) {
         new Thread(() -> {
             try {
                 WebRequest req;
-                String endpoint;
-                String responseString;
+                String endpoint = "/api/guarantee/updateByFatura/" + faturaId;
                 String jsonBody = new Gson().toJson(this);
 
-                // Update an existing guarantee
-                endpoint = "/api/guarantee/update/" + this.id; // Here this.id is the Guarantee ID
                 req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
-                responseString = req.performPutRequest(null, jsonBody, "application/json");
+                String responseString = req.performPutRequest(null, jsonBody, "application/json");
 
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
@@ -137,10 +135,18 @@ public class GuarItem implements Serializable {
             }
         }).start();
     }
-
     // Interface for the callback of the save method
     public interface SaveResponse {
         void response(boolean success, GuarItem savedItem);
+    }
+
+    public int getFaturaId() {
+        return faturaId;
+    }
+
+    // Setter for faturaId (if needed)
+    public void setFaturaId(int faturaId) {
+        this.faturaId = faturaId;
     }
 
     public static void ImptList(int userId, ListResponse response) {
@@ -168,7 +174,6 @@ public class GuarItem implements Serializable {
             }
         }).start();
     }
-
 
     public int getId() {
         return id;

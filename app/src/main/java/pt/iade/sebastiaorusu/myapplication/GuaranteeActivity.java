@@ -109,29 +109,26 @@ public class GuaranteeActivity extends AppCompatActivity {
                 return false;
             }
         });
-        // Get the item passed from the previous activity.
         Intent intent = getIntent();
+        int faturaId = intent.getIntExtra("faturaId", -1); // Default to -1 if not found
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
-        // Inside the `onCreate` method, or appropriate setup method
-        saveButton = findViewById(R.id.save_guar_butt);
+
         saveButton.setOnClickListener(v -> {
             commitView(); // Update item object with UI data
-            int faturaId = getIntent().getIntExtra("faturaId", -1);
 
-            if (item.getId() == 0 || item.getId() == -1) {
-                // New Guarantee
+            if (item.getId() <= 0) {
+                // It's a new guarantee, so call add method
                 if (faturaId != -1) {
-                    // Add a new guarantee with faturaId
                     item.add(GuaranteeActivity.this, faturaId, (success, savedItem) -> {
                         handleSaveResponse(success, savedItem);
                     });
                 } else {
-                    Toast.makeText(GuaranteeActivity.this, "Fatura ID not provided for new guarantee", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GuaranteeActivity.this, "Fatura ID not found for new guarantee.", Toast.LENGTH_LONG).show();
                 }
             } else {
-                // Existing Guarantee - Update without needing faturaId
-                item.update(GuaranteeActivity.this, (success, savedItem) -> {
+                // It's an existing guarantee, so call update method
+                item.update(GuaranteeActivity.this, faturaId, (success, savedItem) -> {
                     handleSaveResponse(success, savedItem);
                 });
             }
