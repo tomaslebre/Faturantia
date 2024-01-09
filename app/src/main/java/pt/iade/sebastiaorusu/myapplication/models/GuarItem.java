@@ -106,12 +106,12 @@ public class GuarItem implements Serializable {
         }).start();
     }
 
-    public void update(Context context, int guaranteeId, SaveResponse response) {
+    public void update(Context context, SaveResponse response) {
         new Thread(() -> {
             try {
                 WebRequest req;
-                // Use the provided guaranteeId for the update endpoint
-                String endpoint = "/api/guarantee/update/" + guaranteeId;
+                String endpoint = "/api/guarantee/update/" + this.id;
+                Log.d("GuarItemDebug", "Before Update: ID = " + this.id);// Use GuarItem's ID for the update endpoint
                 String jsonBody = new Gson().toJson(this);
 
                 req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
@@ -135,7 +135,6 @@ public class GuarItem implements Serializable {
             }
         }).start();
     }
-
 
     // Interface for the callback of the save method
     public interface SaveResponse {

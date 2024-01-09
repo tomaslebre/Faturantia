@@ -85,9 +85,10 @@ public class MainPageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 GuarItem item = itemsList.get(position);
+
                 Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
-                intent.putExtra("guaranteeId", item.getId());
                 intent.putExtra("position", position);
+                Log.d("GuarItemDebug", "Before Intent: ID = " + item.getId());
                 intent.putExtra("item", item);
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
