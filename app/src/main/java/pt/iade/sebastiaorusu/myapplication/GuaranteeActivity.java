@@ -110,7 +110,8 @@ public class GuaranteeActivity extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
-        int faturaId = intent.getIntExtra("faturaId", -1); // Default to -1 if not found
+        int guaranteeId = intent.getIntExtra("guaranteeId", -1);
+        int faturaId = intent.getIntExtra("faturaId", -1); // Default to -1 if not foundefault to -1 if not found
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
         saveButton = findViewById(R.id.save_guar_butt);
@@ -121,7 +122,7 @@ public class GuaranteeActivity extends AppCompatActivity {
                     handleSaveResponse(success, savedItem);
                 });
             }else{
-                item.update(this, (success, savedItem) -> {
+                item.update(this, guaranteeId, (success, savedItem) -> {
                     handleSaveResponse(success, savedItem);
                 });
             }

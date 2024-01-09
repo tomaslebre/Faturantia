@@ -86,10 +86,9 @@ public class MainPageActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 GuarItem item = itemsList.get(position);
                 Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
+                intent.putExtra("guaranteeId", item.getId());
                 intent.putExtra("position", position);
                 intent.putExtra("item", item);
-
-                // Get faturaId from the map and pass it
                 startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
             }
         });
