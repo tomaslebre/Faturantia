@@ -32,7 +32,6 @@ public class GuarItem implements Serializable {
     @JsonAdapter(CalendarJsonAdapter.class)
     private Calendar remDateCalendar;
     private String notes;
-    private int faturaId;
 
 
     public GuarItem() {
@@ -77,41 +76,41 @@ public class GuarItem implements Serializable {
 
     public void add(Context context, int faturaId, SaveResponse response) {
         new Thread(() -> {
-            try {
-                WebRequest req;
-                String endpoint;
-                String responseString;
-                String jsonBody = new Gson().toJson(this);
+                try {
+                    WebRequest req;
+                    String endpoint;
+                    String responseString;
+                    String jsonBody = new Gson().toJson(this);
 
-                // Add a new guarantee
-                endpoint = "/api/guarantee/add/" + faturaId;
-                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
-                responseString = req.performPostRequest(null, jsonBody, "application/json");
+                    // Add a new guarantee
+                    endpoint = "/api/guarantee/add/" + faturaId;
+                    req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                    responseString = req.performPostRequest(null, jsonBody, "application/json");
 
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    try {
-                        new JSONObject(responseString);
-                        response.response(true, this); // Success
-                    } catch (Exception e) {
-                        Log.e("GuarItem", "Error parsing response", e);
-                        response.response(false, null); // Error
-                    }
-                });
-            } catch (Exception e) {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    Toast.makeText(context, "Failed to add guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.e("GuarItem", "Add failed", e);
-                    response.response(false, null);
-                });
-            }
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        try {
+                            new JSONObject(responseString);
+                            response.response(true, this); // Success
+                        } catch (Exception e) {
+                            Log.e("GuarItem", "Error parsing response", e);
+                            response.response(false, null); // Error
+                        }
+                    });
+                } catch (Exception e) {
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        Toast.makeText(context, "Failed to add guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e("GuarItem", "Add failed", e);
+                        response.response(false, null);
+                    });
+                }
         }).start();
     }
 
-    public void update(Context context, int faturaId, SaveResponse response) {
+    public void update(Context context, SaveResponse response) {
         new Thread(() -> {
             try {
                 WebRequest req;
-                String endpoint = "/api/guarantee/updateByFatura/" + faturaId;
+                String endpoint = "/api/guarantee/update/" + this.id; // Use GuarItem's ID for the update endpoint
                 String jsonBody = new Gson().toJson(this);
 
                 req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
@@ -135,18 +134,10 @@ public class GuarItem implements Serializable {
             }
         }).start();
     }
+
     // Interface for the callback of the save method
     public interface SaveResponse {
         void response(boolean success, GuarItem savedItem);
-    }
-
-    public int getFaturaId() {
-        return faturaId;
-    }
-
-    // Setter for faturaId (if needed)
-    public void setFaturaId(int faturaId) {
-        this.faturaId = faturaId;
     }
 
     public static void ImptList(int userId, ListResponse response) {

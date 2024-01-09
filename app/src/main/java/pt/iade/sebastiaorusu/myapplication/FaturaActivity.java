@@ -164,8 +164,7 @@ public class FaturaActivity extends AppCompatActivity {
                 @Override
                 public void response(boolean success, FatItem updatedItem) {
                     if (success) {
-                        Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class);
-                        intent.putExtra("faturaId", updatedItem.getId()); // Passing the faturaId
+                        Intent intent = new Intent(FaturaActivity.this, GuaranteeActivity.class); // Passing the faturaId
                         intent.putExtra("position", -1); // Assuming a new item is added
                         intent.putExtra("item", new GuarItem()); // Pass a new GuarItem
                         startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);

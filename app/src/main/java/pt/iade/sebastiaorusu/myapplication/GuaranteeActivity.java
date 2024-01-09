@@ -113,25 +113,21 @@ public class GuaranteeActivity extends AppCompatActivity {
         int faturaId = intent.getIntExtra("faturaId", -1); // Default to -1 if not found
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
-
+        saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
             commitView(); // Update item object with UI data
-
-            if (item.getId() <= 0) {
-                // It's a new guarantee, so call add method
-                if (faturaId != -1) {
-                    item.add(GuaranteeActivity.this, faturaId, (success, savedItem) -> {
-                        handleSaveResponse(success, savedItem);
-                    });
-                } else {
-                    Toast.makeText(GuaranteeActivity.this, "Fatura ID not found for new guarantee.", Toast.LENGTH_LONG).show();
-                }
-            } else {
-                // It's an existing guarantee, so call update method
-                item.update(GuaranteeActivity.this, faturaId, (success, savedItem) -> {
+            if(faturaId != -1){
+                item.add(this, faturaId, (success, savedItem) -> {
+                    handleSaveResponse(success, savedItem);
+                });
+            }else{
+                item.update(this, (success, savedItem) -> {
                     handleSaveResponse(success, savedItem);
                 });
             }
+
+
+
         });
 
         setupComponents();
