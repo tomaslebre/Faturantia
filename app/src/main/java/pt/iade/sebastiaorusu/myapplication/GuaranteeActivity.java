@@ -111,13 +111,13 @@ public class GuaranteeActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        int faturaId = intent.getIntExtra("faturaId", -1); // Default to -1 if not found
+        int faturaId = intent.getIntExtra("faturaId", 0); // Default to -1 if not found
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
             commitView(); // Update item object with UI data
-            if(faturaId != -1){
+            if(faturaId != 0){
                 item.add(this, faturaId, this::handleSaveResponse);
             }else{
                     item.update(this, this::handleSaveResponse);
