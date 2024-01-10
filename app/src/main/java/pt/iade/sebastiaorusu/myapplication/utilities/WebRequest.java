@@ -252,16 +252,25 @@ public class WebRequest {
         urlConnection.setUseCaches(false);
         urlConnection.setDoOutput(true);
 
-        OutputStream os = urlConnection.getOutputStream();
-        os.write(putData, 0, putData.length);
-        os.flush();
-        os.close();
+        try (OutputStream os = urlConnection.getOutputStream()) {
+            os.write(putData, 0, putData.length);
+            os.flush();
+        }
 
-        InputStream is = new BufferedInputStream(urlConnection.getInputStream());
+        // Handle response.
+        int responseCode = urlConnection.getResponseCode();
+        InputStream is;
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            is = new BufferedInputStream(urlConnection.getInputStream());
+        } else {
+            is = new BufferedInputStream(urlConnection.getErrorStream());
+        }
+
         String result = readStreamToString(is);
         is.close();
 
         return result;
     }
+
 
 }

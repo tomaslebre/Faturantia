@@ -109,21 +109,21 @@ public class GuarItem implements Serializable {
     public void update(Context context, SaveResponse response) {
         new Thread(() -> {
             try {
-                WebRequest req;
                 String endpoint = "/api/guarantee/update/" + this.id;
-                Log.d("GuarItemDebug", "Before Update: ID = " + this.id);// Use GuarItem's ID for the update endpoint
+                Log.d("GuarItemDebug", "Before Update: ID = " + this.id);
                 String jsonBody = new Gson().toJson(this);
 
-                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                WebRequest req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
                 String responseString = req.performPutRequest(null, jsonBody, "application/json");
 
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
-                        new JSONObject(responseString);
-                        response.response(true, this); // Success
+                        JSONObject jsonResponse = new JSONObject(responseString);
+                        // Adicione aqui um tratamento baseado na resposta JSON.
+                        response.response(true, this); // Sucesso
                     } catch (Exception e) {
                         Log.e("GuarItem", "Error parsing response", e);
-                        response.response(false, null); // Error
+                        response.response(false, null); // Erro
                     }
                 });
             } catch (Exception e) {
@@ -135,6 +135,9 @@ public class GuarItem implements Serializable {
             }
         }).start();
     }
+
+
+
 
     // Interface for the callback of the save method
     public interface SaveResponse {
