@@ -76,33 +76,32 @@ public class GuarItem implements Serializable {
 
     public void add(Context context, int faturaId, SaveResponse response) {
         new Thread(() -> {
-                try {
-                    WebRequest req;
-                    String endpoint;
-                    String responseString;
-                    String jsonBody = new Gson().toJson(this);
+            try {
+                WebRequest req;
+                String endpoint = "/api/guarantee/add/" + faturaId;
+                String jsonBody = new Gson().toJson(this);
 
-                    // Add a new guarantee
-                    endpoint = "/api/guarantee/add/" + faturaId;
-                    req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
-                    responseString = req.performPostRequest(null, jsonBody, "application/json");
+                req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
+                String responseString = req.performPostRequest(null, jsonBody, "application/json");
 
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        try {
-                            new JSONObject(responseString);
-                            response.response(true, this); // Success
-                        } catch (Exception e) {
-                            Log.e("GuarItem", "Error parsing response", e);
-                            response.response(false, null); // Error
-                        }
-                    });
-                } catch (Exception e) {
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        Toast.makeText(context, "Failed to add guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e("GuarItem", "Add failed", e);
-                        response.response(false, null);
-                    });
-                }
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(responseString);
+                        // Aqui você deverá extrair o ID da resposta e atualizar o ID do GuarItem
+                        this.id = jsonResponse.getInt("id"); // Ajuste este código conforme o formato da sua resposta
+                        response.response(true, this); // Sucesso
+                    } catch (Exception e) {
+                        Log.e("GuarItem", "Error parsing response", e);
+                        response.response(false, null); // Erro
+                    }
+                });
+            } catch (Exception e) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(context, "Failed to add guarantee: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("GuarItem", "Add failed", e);
+                    response.response(false, null);
+                });
+            }
         }).start();
     }
 
@@ -110,7 +109,6 @@ public class GuarItem implements Serializable {
         new Thread(() -> {
             try {
                 String endpoint = "/api/guarantee/update/" + this.id;
-                Log.d("GuarItemDebug", "Before Update: ID = " + this.id);
                 String jsonBody = new Gson().toJson(this);
 
                 WebRequest req = new WebRequest(new URL(WebRequest.LOCALHOST + endpoint));
@@ -119,7 +117,7 @@ public class GuarItem implements Serializable {
                 new Handler(Looper.getMainLooper()).post(() -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(responseString);
-                        // Adicione aqui um tratamento baseado na resposta JSON.
+                        // Aqui você pode adicionar mais tratamento, se necessário
                         response.response(true, this); // Sucesso
                     } catch (Exception e) {
                         Log.e("GuarItem", "Error parsing response", e);

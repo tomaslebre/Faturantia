@@ -182,6 +182,8 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
 
+
+
         addGuarantee = findViewById(R.id.add_butt_guarantee);
         addGuarantee.setOnClickListener(new View.OnClickListener() {
 

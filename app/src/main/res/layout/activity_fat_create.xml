@@ -32,6 +32,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="388dp"
                 android:layout_height="58dp"
+                android:layout_marginTop="2dp"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/tittoolbar"
                 app:layout_constraintBottom_toTopOf="@+id/fatura_view"
