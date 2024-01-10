@@ -109,24 +109,18 @@ public class GuaranteeActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Log.d("GuarItemDebug", "GuarItem ID: " + item.getId());
 
         Intent intent = getIntent();
         int faturaId = intent.getIntExtra("faturaId", -1); // Default to -1 if not found
         listPosition = intent.getIntExtra("position", -1);
         item = (GuarItem) intent.getSerializableExtra("item");
-        Log.d("GuarItemDebug", "After Intent: ID = " + item.getId());
         saveButton = findViewById(R.id.save_guar_butt);
         saveButton.setOnClickListener(v -> {
             commitView(); // Update item object with UI data
             if(faturaId != -1){
-                item.add(this, faturaId, (success, savedItem) -> {
-                    handleSaveResponse(success, savedItem);
-                });
+                item.add(this, faturaId, this::handleSaveResponse);
             }else{
-                    item.update(this, (success, savedItem) -> {
-                    handleSaveResponse(success, savedItem);
-                });
+                    item.update(this, this::handleSaveResponse);
             }
 
 

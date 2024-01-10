@@ -175,10 +175,10 @@ public class FaturaActivity extends AppCompatActivity {
                 }
             });
         } else {
-            // Tratamento de erro se o userId não estiver disponível
+            // Error handling if userId is not available
         }
-
     }
+
 
 
     public void buttonCreateFile(View view) {

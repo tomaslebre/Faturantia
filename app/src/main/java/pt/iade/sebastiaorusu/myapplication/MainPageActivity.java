@@ -72,28 +72,6 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     private void setupComponents() {
-        itemsListView = findViewById(R.id.recyclerView);
-        itemsListView.setLayoutManager(new LinearLayoutManager(this));
-        itemsList = new ArrayList<>(); // Initialize your list
-        itemsRowAdapter = new GuarItemRowAdapter(this, itemsList);
-        itemsListView.setAdapter(itemsRowAdapter);
-
-// When you create or fetch GuarItems, populate this map with the corresponding faturaId
-// For example: guarToFaturaMap.put(guarItemId, faturaId);
-
-        itemsRowAdapter.setOnClickListener(new GuarItemRowAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                GuarItem item = itemsList.get(position);
-
-                Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
-                intent.putExtra("position", position);
-                Log.d("GuarItemDebug", "Before Intent: ID = " + item.getId());
-                intent.putExtra("item", item);
-                startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
-            }
-        });
-
         // Call the method to fetch items from the server.
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("UserID", -1);
@@ -111,14 +89,27 @@ public class MainPageActivity extends AppCompatActivity {
         GuarItem.List(userId, new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
-                runOnUiThread(new Runnable() {
+                // Set our items list.
+                itemsList = items;
+
+                // Set up row adapter with our items list.
+                itemsRowAdapter = new GuarItemRowAdapter(MainPageActivity.this, itemsList);
+                itemsRowAdapter.setOnClickListener(new GuarItemRowAdapter.ItemClickListener() {
                     @Override
-                    public void run() {
-                        itemsList.clear();
-                        itemsList.addAll(items);
-                        itemsRowAdapter.notifyDataSetChanged(); // A lista já está ordenada pelo servidor
+                    public void onItemClick(View view, int position) {
+                        // Place our clicked item object in the intent to send to the other activity.
+                        Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
+                        intent.putExtra("position", position);
+                        intent.putExtra("item", itemsList.get(position));
+
+                        startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
                     }
                 });
+
+                // Set up the items recycler view.
+                itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
+                itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
+                itemsListView.setAdapter(itemsRowAdapter);
             }
         });
     }
