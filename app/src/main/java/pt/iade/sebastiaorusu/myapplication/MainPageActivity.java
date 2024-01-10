@@ -89,30 +89,24 @@ public class MainPageActivity extends AppCompatActivity {
         GuarItem.List(userId, new GuarItem.ListResponse() {
             @Override
             public void response(ArrayList<GuarItem> items) {
-                // Set our items list.
                 itemsList = items;
-
-                // Set up row adapter with our items list.
                 itemsRowAdapter = new GuarItemRowAdapter(MainPageActivity.this, itemsList);
                 itemsRowAdapter.setOnClickListener(new GuarItemRowAdapter.ItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        // Place our clicked item object in the intent to send to the other activity.
                         Intent intent = new Intent(MainPageActivity.this, GuaranteeActivity.class);
                         intent.putExtra("position", position);
                         intent.putExtra("item", itemsList.get(position));
-
                         startActivityForResult(intent, EDITOR_ACTIVITY_RETURN_ID);
                     }
                 });
-
-                // Set up the items recycler view.
                 itemsListView = (RecyclerView) findViewById(R.id.recyclerView);
                 itemsListView.setLayoutManager(new LinearLayoutManager(MainPageActivity.this));
                 itemsListView.setAdapter(itemsRowAdapter);
             }
         });
     }
+
 
 
 
